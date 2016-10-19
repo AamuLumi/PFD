@@ -1,0 +1,12 @@
+{
+  "apps" : [{
+    "name"        : "PFD - API Server",
+    "script"      : "server.js",
+    "cwd"         : "server/",
+    "error_file"  : "log/PFD_API_ERROR.log",
+    "out_file"    : "log/PFD_API_OUT.log",
+    "env": {
+      "NODE_ENV": "production"
+    }
+  }]
+}

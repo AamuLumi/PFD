@@ -2,11 +2,13 @@
 
 let path = require('path'),
     rootPath = path.normalize(__dirname + '/..'),
+    appPath = path.normalize(__dirname + '/../../app'),
     env = process.env.NODE_ENV || 'development';
 
 let config = {
     development: {
         root: rootPath,
+        appPath : appPath,
         app: {
             name: 'pfd-api-dev'
         },
@@ -16,6 +18,7 @@ let config = {
 
     test: {
         root: rootPath,
+        appPath: appPath,
         app: {
             name: 'nuitinfo-api-test'
         },
@@ -25,6 +28,7 @@ let config = {
 
     production: {
         root: rootPath,
+        appPath: appPath,
         app: {
             name: 'nuitinfo-api'
         },

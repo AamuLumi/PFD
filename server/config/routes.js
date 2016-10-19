@@ -2,6 +2,8 @@
 
 let Errors = require('../tools/routes/errors');
 let fs = require('fs');
+let express = require('express');
+let path = require('path');
 
 module.exports = function (app, config) {
 
@@ -13,12 +15,15 @@ module.exports = function (app, config) {
         require('../entities/' + file + '/' + file + '.model');
 
         // Load routes
-        app.use('/' + file, require('../entities/' + file + '/' + file + '.route'));
+        app.use('/api/' + file, require('../entities/' + file + '/' + file + '.route'));
     }
 
     // All api/something go on 404 error if not found
-    app.route('/:url(api)/*').get(Errors[404]);
+    app.route('/api/:url(api)/*').get(Errors[404]);
 
-    // Default route
-    app.route('/*').get(Errors[404]);
+    app.use('/static/', express.static(config.appPath + '/static'));
+
+    app.get('*', function(req, res) {
+        res.sendFile(config.appPath + '/index.html');
+    });
 };

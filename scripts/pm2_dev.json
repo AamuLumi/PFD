@@ -1,0 +1,23 @@
+{
+  "apps" : [{
+    "name"        : "PFD - API Server",
+    "script"      : "server.js",
+    "cwd"         : "server/",
+    "error_file"  : "../log/PFD_API_ERROR.log",
+    "out_file"    : "../log/PFD_API_OUT.log",
+    "env": {
+      "NODE_ENV": "development"
+    },
+    "watch"       : true,
+    "ignore_watch": ["node_modules", "log", "in.png", "out.png"]
+  }, {
+    "name"        : "PFD - WEB Server",
+    "script"      : "webserver.js",
+    "cwd"         : "app/",
+    "error_file"  : "../log/PFD_WEB_ERROR.log",
+    "out_file"    : "../log/PFD_WEB_OUT.log",
+    "env": {
+      "NODE_ENV": "development"
+    }
+  }]
+}
