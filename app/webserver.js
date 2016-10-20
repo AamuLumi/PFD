@@ -2,9 +2,10 @@
 
 let webpack = require('webpack');
 let WebpackDevServer = require('webpack-dev-server');
-let config = require('./webpack.config');
+let config = require('./config/webpack.config.js');
 
 const PORT = 9901;
+
 
 new WebpackDevServer(webpack(config), {
   publicPath: config.output.publicPath,

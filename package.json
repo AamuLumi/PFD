@@ -7,7 +7,7 @@
     "start": "npm run production",
     "dev": "pm2 start scripts/pm2_dev.json",
     "production": "npm run deploy; pm2 start scripts/pm2_production.json",
-    "deploy": "NODE_ENV=production webpack -p --config app/webpack.production.config.js",
+    "deploy": "NODE_ENV=production webpack -p --config app/config/webpack.production.config.js",
     "test": "mocha server/test/index.js",
     "stop": "pm2 stop all"
   },
