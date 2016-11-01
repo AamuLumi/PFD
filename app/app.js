@@ -14,7 +14,7 @@ export default class Application extends Component {
     render() {
         return (
             <div id="v-app">
-                React ready
+                React ready aaa
             </div>
         );
     }

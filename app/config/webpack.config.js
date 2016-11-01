@@ -31,9 +31,9 @@ module.exports = {
     }]
   },
   entry: [
-    'webpack-dev-server/client?http://0.0.0.0:9901',
+    'webpack-dev-server/client?http://0.0.0.0:9080',
     'webpack/hot/only-dev-server',
-    path.join(__dirname, './Root')
+    path.join(__dirname, '../Root')
   ],
   plugins: [
     new webpack.HotModuleReplacementPlugin()
