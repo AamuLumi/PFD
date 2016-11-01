@@ -3,7 +3,7 @@
 let webpack = require('webpack');
 let path = require('path');
 
-console.log(__dirname);
+let lessConstants = require('./constants.json');
 
 module.exports = {
     devtool: 'eval',
@@ -19,7 +19,7 @@ module.exports = {
             loader: 'babel-loader'
         }, {
             test: /\.less$/,
-            loader: 'style!css!less'
+            loader: 'style!css!less?{"globalVars":'+ JSON.stringify(lessConstants)+'}'
         }]
     },
     entry: [

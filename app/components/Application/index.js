@@ -15,7 +15,7 @@ export default class Application extends Component {
 
     render() {
         return (
-            <div id="v-app">
+            <div id="c-app">
                 <Toolbar />
             </div>
         );
