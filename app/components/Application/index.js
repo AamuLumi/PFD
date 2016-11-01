@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 
-import './App.less';
+import Toolbar from '../Toolbar';
+
+import './Application.less';
 
 export default class Application extends Component {
     static contextTypes = {
@@ -14,7 +16,7 @@ export default class Application extends Component {
     render() {
         return (
             <div id="v-app">
-                React ready aaa
+                <Toolbar />
             </div>
         );
     }

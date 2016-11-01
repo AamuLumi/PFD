@@ -34,9 +34,10 @@ module.exports = {
                 warnings: false
             }
         }),
+        new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': '"production"'
         })
     ],
-    entry: path.join(__dirname, '../Root') // Your appʼs entry point
+    entry: path.join(__dirname, '../index') // Your appʼs entry point
 };

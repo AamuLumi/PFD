@@ -4,7 +4,7 @@ let server = undefined;
 
 module.exports = function() {
     beforeEach(function () {
-        server = require('../../app.js');
+        server = require('../../index.js');
     });
     afterEach(function () {
         server.close();
