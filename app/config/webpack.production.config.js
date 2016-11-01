@@ -3,6 +3,8 @@
 let webpack = require('webpack');
 let path = require('path');
 
+let lessConstants = require('./constants.json');
+
 module.exports = {
     name: 'browser',
     output: {
@@ -22,7 +24,7 @@ module.exports = {
             }
         }, {
             test: /\.less$/,
-            loader: 'style!css!less'
+            loader: 'style!css!less?{"globalVars":'+ JSON.stringify(lessConstants)+'}'
         }, {
             loader: 'json-loader',
             test: /\.json$/
