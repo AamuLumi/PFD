@@ -1,3 +1,48 @@
 #c-toolbar {
-  background-color: @primary-color;
+  color: white;
+  font-size: 1.5em;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  #toolbar-container {
+    display: flex;
+    flex-flow: row;
+    align-content: center;
+    justify-content: space-between;
+    margin: 0 auto;
+    padding: 0 10px;
+    position: relative;
+    width: 60vw;
+    height: 0;
+    border-bottom: 35px solid @primary-color;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    line-height: 30px;
+    .title {
+      font-weight: bold;
+    }
+    a {
+      color: white;
+      text-decoration: none;
+      -webkit-transition: all .25s;
+      -moz-transition: all .25s;
+      -ms-transition: all .25s;
+      -o-transition: all .25s;
+      transition: all .25s;
+      &:hover {
+        color: black;
+      }
+    }
+    .fa-user-circle {
+      font-size: 0.9em;
+      padding-top: 4px;
+    }
+  }
+  .toolbar-border {
+    position: absolute;
+    bottom: 0;
+    height: 5px;
+    background-color: @primary-color;
+    width: 100%;
+  }
 }

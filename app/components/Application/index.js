@@ -16,6 +16,9 @@ export default class Application extends Component {
     render() {
         return (
             <div id="c-app">
+                <div id="view-container">
+                    {this.props.children}
+                </div>
                 <Toolbar />
             </div>
         );
