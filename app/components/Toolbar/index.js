@@ -21,7 +21,7 @@ export default class Toolbar extends Component {
                         <span>PFD</span>
                     </div>
                     <div className="first-links" style={{display: 'inline-block'}}>
-                        <Link to="/login">
+                        <Link to="/project">
                             <span>Projets</span>
                         </Link>
                     </div>

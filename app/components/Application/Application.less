@@ -2,17 +2,26 @@
 
 body {
   width: 100%;
-  height: 100%;
   margin: 0;
   font-family: 'Lato', sans-serif;
-  #view-container{
-    height: ~"calc(100% - 50px)";
-    display:block;
-    width: 100%;
-    max-width: 800px;
-    margin: 20px auto;
-    .title {
-      font-size: 2em;
+  overflow: hidden;
+  #scroll-container {
+    overflow-y: scroll;
+    margin: 16px 16px;
+    height: ~"calc(100% - 40px)";
+    #view-container {
+      display: block;
+      width: 100%;
+      margin: 0 auto;
+      .title {
+        margin-left: 32px;
+        font-size: 2em;
+      }
     }
   }
+}
+
+a {
+  text-decoration: none;
+  color: black;
 }

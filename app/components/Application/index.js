@@ -9,15 +9,17 @@ export default class Application extends Component {
         router: React.PropTypes.object.isRequired
     };
 
-    constructor(props){
+    constructor(props) {
         super(props);
     }
 
     render() {
         return (
             <div id="c-app">
-                <div id="view-container">
-                    {this.props.children}
+                <div id="scroll-container">
+                    <div id="view-container">
+                        {this.props.children}
+                    </div>
                 </div>
                 <Toolbar />
             </div>
