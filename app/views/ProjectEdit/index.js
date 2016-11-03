@@ -23,7 +23,8 @@ class ProjectEdit extends Component {
                 description: ""
             },
             edit: false,
-            successfullEdit: undefined
+            successfullEdit: undefined,
+            error: undefined
         };
 
         if (this.props.params.id) {
@@ -54,11 +55,23 @@ class ProjectEdit extends Component {
     }
 
     acceptEdit() {
-        this.setState({
-            edit: false
-        }, () => {
-            this.props.editProject(this.state.project, this.props.params.id);
-        });
+        if (!this.state.project.name || this.state.project.name.length === 0){
+            this.setState({
+                error: 'Name needed'
+            }, () => {
+                setTimeout(() => {
+                    this.setState({
+                        error: undefined
+                    });
+                }, 2000);
+            })
+        } else {
+            this.setState({
+                edit: false
+            }, () => {
+                this.props.editProject(this.state.project, this.props.params.id);
+            });
+        }
     }
 
     switchEdit() {
@@ -78,7 +91,7 @@ class ProjectEdit extends Component {
     }
 
     getEditMessage(){
-        let {successfullEdit} = this.state;
+        let {successfullEdit, error} = this.state;
 
         if (successfullEdit === true){
             return (
@@ -90,6 +103,12 @@ class ProjectEdit extends Component {
             return (
                 <div className="message error">
                     {this.props.editedProject.errorMessage}
+                </div>
+            );
+        } else if (error){
+            return (
+                <div className="message error">
+                    {error}
                 </div>
             );
         }
@@ -110,7 +129,8 @@ class ProjectEdit extends Component {
                        className="title"
                        value={project.name}
                        onChange={(e) => this.handleChange(e, 'name')}
-                       placeholder="Name"/>
+                       placeholder="Name"
+                       required/>
                 <textarea type="text"
                           rows="5"
                           value={project.description}
