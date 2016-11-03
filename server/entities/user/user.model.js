@@ -26,6 +26,6 @@ let userSchema = new Schema({
     }
 });
 
-require('./project.controller')(userSchema);
+require('./user.controller')(userSchema);
 
 module.exports = mongoose.model('User', userSchema);

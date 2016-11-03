@@ -2,10 +2,15 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import {login} from '../../actions/Auth';
+import {setAuthorizationToken} from '../../tools/Fetch';
 
 import './Login.less';
 
 class Login extends Component {
+    static contextTypes = {
+        router: React.PropTypes.object.isRequired
+    };
+
     static propTypes = {
         login: React.PropTypes.func.isRequired,
         loginResult: React.PropTypes.object.isRequired
@@ -31,7 +36,12 @@ class Login extends Component {
                     });
                 }, 2000);
             });
+        } else if (newProps.loginResult.loaded && !newProps.loginResult.error){
+            setAuthorizationToken(newProps.loginResult.data.token);
+            this.context.router.push('/project');
         }
+
+        this.props = newProps;
     }
 
     handleChange(e, field) {

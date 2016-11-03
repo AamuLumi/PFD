@@ -13,6 +13,10 @@ import {
     loginResult
 } from './Auth';
 
+import {
+    createdUser
+} from './User';
+
 export default function configureStore(preloadedState) {
     return createStore(
         combineReducers({
@@ -21,6 +25,7 @@ export default function configureStore(preloadedState) {
             loadedProject,
             editedProject,
             loginResult,
+            createdUser,
             routing: routerReducer
         }),
         preloadedState,
