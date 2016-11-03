@@ -2,16 +2,23 @@ import fetch from 'isomorphic-fetch';
 
 import {HOST} from '../config/server';
 
+let authorizationToken = undefined;
+
 export default function fetchData(params) {
-    console.log(params);
     return (dispatch) => {
         dispatch(params.loading());
 
+        let headers = {
+            'Content-Type': 'application/json'
+        };
+
+        if (authorizationToken){
+            headers.Authorization = 'JWT ' + authorizationToken;
+        }
+
         return fetch(HOST + params.url, {
             method: params.method,
-            headers: {
-                'Content-Type': 'application/json'
-            },
+            headers,
             body: JSON.stringify(params.body)
         })
             .then((response) => {
@@ -48,4 +55,8 @@ export function getLoadedFunction(action){
 
         return dispatchedAction;
     };
+}
+
+export function setAuthorizationToken(token){
+    authorizationToken = token;
 }

@@ -1,0 +1,196 @@
+{
+	"id": "85b6da6c-f0c0-87ac-3d1b-a43833d88aae",
+	"name": "PFD_Tests_US3",
+	"description": "",
+	"order": [
+		"7253986f-2405-df60-dfb6-6063b4cfeb4c",
+		"05f1ea7e-d13d-1a28-0f66-e77cab459a47",
+		"1a7e355a-a740-0915-09b2-f62f5cd57542",
+		"728241ba-e946-e1d9-faf0-6353db9707d7",
+		"fb699555-a3ca-580c-a6ba-08fd0a90f536",
+		"ed8496db-cc95-5300-0b1e-81ec862c9891"
+	],
+	"folders": [],
+	"timestamp": 1478210678398,
+	"owner": "",
+	"public": false,
+	"requests": [
+		{
+			"id": "05f1ea7e-d13d-1a28-0f66-e77cab459a47",
+			"headers": "Content-Type: application/x-www-form-urlencoded\n",
+			"url": "localhost:8080/api/login/",
+			"pathVariables": {},
+			"preRequestScript": null,
+			"method": "POST",
+			"collectionId": "85b6da6c-f0c0-87ac-3d1b-a43833d88aae",
+			"data": [
+				{
+					"key": "email",
+					"value": "abracadabra@poudlard.hp",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "password",
+					"value": "Alohomora",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"name": "US3 : Créer la route pour l'authentification (Login d'un utilisateur)",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1478211532212,
+			"version": 2,
+			"responses": [],
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		},
+		{
+			"id": "1a7e355a-a740-0915-09b2-f62f5cd57542",
+			"headers": "Content-Type: application/x-www-form-urlencoded\nAuthorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI1ODFiYjQxYWIzMjg1MTMwYWIyYzQ5NjIifQ.cFSbO1UzZlvUjfZGyMKyHun2su07vwUIz8t6Na2Y4Uo\n",
+			"url": "localhost:8080/api/user/",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "PUT",
+			"data": [
+				{
+					"key": "firstname",
+					"value": "Alakazam",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "",
+					"value": "",
+					"type": "text",
+					"enabled": false
+				}
+			],
+			"dataMode": "urlencoded",
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1478213205409,
+			"name": "US3 : Créer la route pour l'authentification (Modifier l'utilisateur connecté)",
+			"description": "",
+			"collectionId": "85b6da6c-f0c0-87ac-3d1b-a43833d88aae",
+			"responses": []
+		},
+		{
+			"id": "7253986f-2405-df60-dfb6-6063b4cfeb4c",
+			"headers": "Content-Type: application/x-www-form-urlencoded\n",
+			"url": "localhost:8080/api/user/",
+			"pathVariables": {},
+			"preRequestScript": null,
+			"method": "POST",
+			"collectionId": "85b6da6c-f0c0-87ac-3d1b-a43833d88aae",
+			"data": [
+				{
+					"key": "firstname",
+					"value": "Abra",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "lastname",
+					"value": "Cadabra",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "email",
+					"value": "abracadabra@poudlard.hp",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "password",
+					"value": "Alohomora",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "role",
+					"value": "developper",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"name": "US3 : Créer la route pour l'authentification (création d'un utilisateur)",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1478210678398,
+			"version": 2,
+			"responses": [],
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		},
+		{
+			"id": "728241ba-e946-e1d9-faf0-6353db9707d7",
+			"headers": "Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI1ODFiYjQxYWIzMjg1MTMwYWIyYzQ5NjIifQ.cFSbO1UzZlvUjfZGyMKyHun2su07vwUIz8t6Na2Y4Uo\n",
+			"url": "localhost:8080/api/user/me",
+			"pathVariables": {},
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "85b6da6c-f0c0-87ac-3d1b-a43833d88aae",
+			"data": null,
+			"dataMode": "params",
+			"name": "US3 : Créer la route pour l'authentification (Informations de l'utilisateur connecté)",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1478213102919,
+			"version": 2,
+			"responses": [],
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		},
+		{
+			"id": "ed8496db-cc95-5300-0b1e-81ec862c9891",
+			"headers": "_id: 581bb41ab3285130ab2c4962\n",
+			"url": "localhost:8080/api/user/:id",
+			"pathVariables": {
+				"id": ""
+			},
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "85b6da6c-f0c0-87ac-3d1b-a43833d88aae",
+			"data": null,
+			"dataMode": "params",
+			"name": "US3 : Créer la route pour l'authentification (Informations de l'utilisateur avec id)",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1478213475215,
+			"version": 2,
+			"responses": [],
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		},
+		{
+			"id": "fb699555-a3ca-580c-a6ba-08fd0a90f536",
+			"headers": "",
+			"url": "localhost:8080/api/user",
+			"pathVariables": {},
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "85b6da6c-f0c0-87ac-3d1b-a43833d88aae",
+			"data": null,
+			"dataMode": "params",
+			"name": "US3 : Créer la route pour l'authentification (Liste des utilisateurs)",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1478213288479,
+			"version": 2,
+			"responses": [],
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		}
+	]
+}
