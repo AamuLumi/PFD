@@ -95,19 +95,19 @@ class ProjectEdit extends Component {
 
         if (successfullEdit === true){
             return (
-                <div className="message success">
+                <div className="floating-message success">
                     Project edited !
                     </div>
             );
         } else if (successfullEdit === false){
             return (
-                <div className="message error">
+                <div className="floating-message error">
                     {this.props.editedProject.errorMessage}
                 </div>
             );
         } else if (error){
             return (
-                <div className="message error">
+                <div className="floating-message error">
                     {error}
                 </div>
             );

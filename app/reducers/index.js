@@ -9,6 +9,10 @@ import {
     editedProject
 } from './Project';
 
+import {
+    loginResult
+} from './Auth';
+
 export default function configureStore(preloadedState) {
     return createStore(
         combineReducers({
@@ -16,6 +20,7 @@ export default function configureStore(preloadedState) {
             projectList,
             loadedProject,
             editedProject,
+            loginResult,
             routing: routerReducer
         }),
         preloadedState,
