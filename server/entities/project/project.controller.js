@@ -38,6 +38,18 @@ module.exports = function (projectSchema) {
         });
     };
 
+    projectSchema.statics.getById = function(params, callback) {
+        mongoose.model('Project')
+            .findById(params.id)
+            .exec(callback);
+    };
+
+    projectSchema.statics.getAll = function(params, callback) {
+        mongoose.model('Project')
+            .find()
+            .exec(callback);
+    };
+
     // Verifications methods
     function checkParametersForCreate(req, res, callback) {
         let parametersOk = false;
@@ -90,6 +102,30 @@ module.exports = function (projectSchema) {
                 return Response.editError(res, err);
 
             return Response.success(res, 'Edit successfull', {});
+        });
+    };
+
+    projectSchema.statics.exGet = function(req, res) {
+        mongoose.model('Project').getById(req.params, (err, project) => {
+            if (err)
+                return Response.selectError(err);
+
+            if (!project)
+                return Response.resourceNotFound(res, 'project');
+
+            Response.success(res, 'Project found !', project);
+        });
+    };
+
+    projectSchema.statics.exGetAll = function (req, res) {
+        mongoose.model('Project').getAll({}, (err, projects) => {
+            if (err)
+                return Response.selectError(err);
+
+            if (!projects || projects.length === 0)
+                return Response.resourceNotFound(res, 'projects');
+
+            Response.success(res, 'Projects found !', projects);
         });
     };
 };
