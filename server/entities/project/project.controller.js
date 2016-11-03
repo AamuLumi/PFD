@@ -69,7 +69,7 @@ module.exports = function (projectSchema) {
                 return;
             }
 
-            if (err && err.code == Response.MongoCodes.alreadyExist)
+            if (err && err.code === Response.MongoCodes.alreadyExist)
                 return Response.alreadyExist(res, 'none');
             else if (err)
                 return Response.insertError(res, err);
