@@ -24,6 +24,9 @@ export default class Toolbar extends Component {
                         <Link to="/project">
                             <span>Projets</span>
                         </Link>
+                        <Link to="/project/create">
+                            <span style={{paddingLeft: '8px'}}>+</span>
+                        </Link>
                     </div>
                     <div className="second-links" style={{display: 'inline-block'}}>
                         <Link to="/login">

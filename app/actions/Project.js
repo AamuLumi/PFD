@@ -1,32 +1,44 @@
-import Fetch from '../tools/Fetch';
+import Fetch, {getLoadingFunction, getLoadedFunction} from '../tools/Fetch';
 
 export const CREATE_PROJECT = 'CREATE_PROJECT';
+export const GET_PROJECTS = 'GET_PROJECTS';
+export const GET_PROJECT = 'GET_PROJECT';
+export const EDIT_PROJECT = 'EDIT_PROJECT';
 
 export function createProject(project) {
     return Fetch({
-        loading: () => {
-            return {
-                type: CREATE_PROJECT,
-                loaded: false
-            };
-        },
-        loaded: (data) => {
-            let res = {
-                type: CREATE_PROJECT,
-                loaded: true,
-                date: Date.now(),
-                data: data
-            };
-
-            if (data.success < 1){
-                res.error = true;
-                res.data = res.data.message;
-            }
-
-            return res;
-        },
+        loading: getLoadingFunction(CREATE_PROJECT),
+        loaded: getLoadedFunction(CREATE_PROJECT),
         url: 'api/project/',
         method: 'POST',
+        body: project
+    });
+}
+
+export function getProjects() {
+    return Fetch({
+        loading: getLoadingFunction(GET_PROJECTS),
+        loaded: getLoadedFunction(GET_PROJECTS),
+        url: 'api/project/',
+        method: 'GET'
+    });
+}
+
+export function getProject(id) {
+    return Fetch({
+        loading: getLoadingFunction(GET_PROJECT),
+        loaded: getLoadedFunction(GET_PROJECT),
+        url: 'api/project/' + id,
+        method: 'GET'
+    });
+}
+
+export function editProject(project, id){
+    return Fetch({
+        loading: getLoadingFunction(EDIT_PROJECT),
+        loaded: getLoadedFunction(EDIT_PROJECT),
+        url: 'api/project/' + id,
+        method: 'GET',
         body: project
     });
 }

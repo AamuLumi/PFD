@@ -1,12 +1,19 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+
+import {getProject, editProject} from '../../actions/Project';
 
 import './ProjectEdit.less';
 
 import Projects from '../../data/projects.js';
 
-export default class Application extends Component {
+class ProjectEdit extends Component {
     static propTypes = {
-        params: React.PropTypes.object.isRequired
+        params: React.PropTypes.object.isRequired,
+        loadedProject: React.PropTypes.object.isRequired,
+        getProject: React.PropTypes.func.isRequired,
+        editedProject: React.PropTypes.object.isRequired,
+        editProject: React.PropTypes.func.isRequired
     };
 
     constructor(props) {
@@ -32,6 +39,8 @@ export default class Application extends Component {
     acceptEdit() {
         this.setState({
             edit: false
+        }, () => {
+            this.props.editProject(this.state.project, this.props.params.id);
         });
     }
 
@@ -93,6 +102,25 @@ export default class Application extends Component {
                 {!edit && this.getClassicView()}
             </div>
         )
-
     }
 }
+
+function mapStateToProps(state){
+    return {
+        loadedProject: state.loadedProject,
+        editedProject: state.editedProject
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        getProject: (id) => {
+            dispatch(getProject(id));
+        },
+        editProject: (project, id) => {
+            dispatch(editProject(project, id));
+        }
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectEdit);
