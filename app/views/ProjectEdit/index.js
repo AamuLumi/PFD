@@ -1,44 +1,117 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+
+import {getProject, editProject} from '../../actions/Project';
 
 import './ProjectEdit.less';
 
-import Projects from '../../data/projects.js';
-
-export default class Application extends Component {
+class ProjectEdit extends Component {
     static propTypes = {
-        params: React.PropTypes.object.isRequired
+        params: React.PropTypes.object.isRequired,
+        loadedProject: React.PropTypes.object.isRequired,
+        getProject: React.PropTypes.func.isRequired,
+        editedProject: React.PropTypes.object.isRequired,
+        editProject: React.PropTypes.func.isRequired
     };
 
     constructor(props) {
         super(props);
 
-        let projectToLoad = undefined;
+        this.state = {
+            project: {
+                name: "",
+                description: ""
+            },
+            edit: false,
+            successfullEdit: undefined,
+            error: undefined
+        };
 
-        if (this.props.params.id < Projects.length && this.props.params.id >= 0) {
-            projectToLoad = Projects[this.props.params.id];
-        } else {
-            projectToLoad = {
-                name: undefined,
-                description: undefined
-            };
+        if (this.props.params.id) {
+            this.props.getProject(this.props.params.id);
+        }
+    }
+
+    componentWillReceiveProps(newProps) {
+        if (newProps.loadedProject.loaded && !newProps.loadedProject.error) {
+            this.setState({
+                project: newProps.loadedProject.data
+            });
         }
 
-        this.state = {
-            project: projectToLoad,
-            edit: false
-        };
+        if (newProps.editedProject.date !== this.props.editedProject.date){
+            this.setState({
+                successfullEdit: !this.props.editedProject.error
+            }, () => {
+                setTimeout(() => {
+                    this.setState({
+                        successfullEdit: undefined
+                    });
+                }, 2000);
+            })
+        }
+
+        this.props = newProps;
     }
 
     acceptEdit() {
-        this.setState({
-            edit: false
-        });
+        if (!this.state.project.name || this.state.project.name.length === 0){
+            this.setState({
+                error: 'Name needed'
+            }, () => {
+                setTimeout(() => {
+                    this.setState({
+                        error: undefined
+                    });
+                }, 2000);
+            })
+        } else {
+            this.setState({
+                edit: false
+            }, () => {
+                this.props.editProject(this.state.project, this.props.params.id);
+            });
+        }
     }
 
     switchEdit() {
         this.setState({
             edit: !this.state.edit
         });
+    }
+
+    handleChange(e, field){
+        let nextState = {
+            project: this.state.project
+        };
+
+        nextState.project[field] = e.target.value;
+
+        this.setState(nextState);
+    }
+
+    getEditMessage(){
+        let {successfullEdit, error} = this.state;
+
+        if (successfullEdit === true){
+            return (
+                <div className="message success">
+                    Project edited !
+                    </div>
+            );
+        } else if (successfullEdit === false){
+            return (
+                <div className="message error">
+                    {this.props.editedProject.errorMessage}
+                </div>
+            );
+        } else if (error){
+            return (
+                <div className="message error">
+                    {error}
+                </div>
+            );
+        }
     }
 
     getEditableView() {
@@ -55,12 +128,15 @@ export default class Application extends Component {
                 <input type="text"
                        className="title"
                        value={project.name}
-                       placeholder="Name"/>
+                       onChange={(e) => this.handleChange(e, 'name')}
+                       placeholder="Name"
+                       required/>
                 <textarea type="text"
                           rows="5"
-                       className="description"
-                       placeholder="Description">
-                    {project.description}
+                          value={project.description}
+                          onChange={(e) => this.handleChange(e, 'description')}
+                          className="description"
+                          placeholder="Description">
                 </textarea>
             </div>
         );
@@ -91,8 +167,28 @@ export default class Application extends Component {
             <div id="v-projectedit">
                 {edit && this.getEditableView()}
                 {!edit && this.getClassicView()}
+                {this.getEditMessage()}
             </div>
         )
-
     }
 }
+
+function mapStateToProps(state) {
+    return {
+        loadedProject: state.loadedProject,
+        editedProject: state.editedProject
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        getProject: (id) => {
+            dispatch(getProject(id));
+        },
+        editProject: (project, id) => {
+            dispatch(editProject(project, id));
+        }
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectEdit);

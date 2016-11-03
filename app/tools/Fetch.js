@@ -22,3 +22,30 @@ export default function fetchData(params) {
             });
     };
 }
+
+export function getLoadingFunction(action){
+    return () => {
+        return {
+            type: action,
+            loaded: false
+        };
+    };
+}
+
+export function getLoadedFunction(action){
+    return (res) => {
+        let dispatchedAction = {
+            type: action,
+            loaded: true,
+            date: Date.now(),
+            data: res.data
+        };
+
+        if (res.success < 1){
+            dispatchedAction.error = true;
+            dispatchedAction.errorMessage = res.message;
+        }
+
+        return dispatchedAction;
+    };
+}

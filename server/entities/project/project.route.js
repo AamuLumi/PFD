@@ -8,7 +8,7 @@ let router = express.Router();
 
 router.post('/', Project.exCreate);
 router.put('/', Project.exEdit);
-
-console.log('route created !');
+router.get('/:id', Project.exGet);
+router.get('/', Project.exGetAll);
 
 module.exports = router;
