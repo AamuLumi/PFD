@@ -59,6 +59,30 @@ module.exports = function (userSchema) {
         );
     };
 
+    // Verification tools
+    userSchema.statics.exists = function(req, res, callback) {
+        let Self = this;
+
+        if (!req.body || !req.body._id) {
+            return Response.missing(res, '_id', -11);
+        }
+
+        async.waterfall([
+            (next) => Self.findOne({'_id': req.body._id}, next),
+            (user, next) => {
+                if (!user)
+                    next('No user found !');
+                else
+                    next();
+            }
+        ], (err) => {
+            if (err)
+                return callback(err);
+
+            callback();
+        });
+    };
+
     function recursiveEdit(parametersObject, newParams, user) {
         for (let key in parametersObject) {
             if (!parametersObject.hasOwnProperty(key)) {
