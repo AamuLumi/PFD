@@ -55,6 +55,18 @@ module.exports = function (projectSchema) {
         });
     };
 
+    projectSchema.statics.getById = function(params, callback) {
+        mongoose.model('Project')
+            .findById(params.id)
+            .exec(callback);
+    };
+
+    projectSchema.statics.getAll = function(params, callback) {
+        mongoose.model('Project')
+            .find()
+            .exec(callback);
+    };
+
     // Verifications methods
     function checkParametersForCreate(req, res, callback) {
         let parametersOk = false;
@@ -87,7 +99,7 @@ module.exports = function (projectSchema) {
             }
 
             if (err && err.code === Response.MongoCodes.alreadyExist)
-                return Response.alreadyExist(res, 'none');
+                return Response.alreadyExist(res, 'name');
             else if (err)
                 return Response.insertError(res, err);
 
@@ -123,14 +135,14 @@ module.exports = function (projectSchema) {
                 if (parametersOK) {
                     let params = req.body;
                     params._id = req.body.userId;
-                    mangoose.model('User').exists(params, res, next);
-                }
-                else
+                    mongoose.model('User').exists(params, res, next);
+                } else {
                     next({
                         alreadySent: true
                     });
+                }
             },
-            (next) => mangoose.model('Project').addUser(req.body, next)
+            (next) => mongoose.model('Project').addUser(req.body, next)
         ], (err, project) => {
             if (err && err.alreadySent)
                 return;
@@ -139,6 +151,30 @@ module.exports = function (projectSchema) {
                 return Response.insertError(res, err);
 
             return Response.success(res, 'User added', project);
+        });
+    };
+
+    projectSchema.statics.exGet = function(req, res) {
+        mongoose.model('Project').getById(req.params, (err, project) => {
+            if (err)
+                return Response.selectError(err);
+
+            if (!project)
+                return Response.resourceNotFound(res, 'project');
+
+            Response.success(res, 'Project found !', project);
+        });
+    };
+
+    projectSchema.statics.exGetAll = function (req, res) {
+        mongoose.model('Project').getAll({}, (err, projects) => {
+            if (err)
+                return Response.selectError(err);
+
+            if (!projects || projects.length === 0)
+                return Response.resourceNotFound(res, 'projects');
+
+            Response.success(res, 'Projects found !', projects);
         });
     };
 };

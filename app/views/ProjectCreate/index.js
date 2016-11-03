@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {Link} from 'react-router';
 
 import {createProject} from '../../actions/Project';
 
@@ -45,16 +46,18 @@ class ProjectCreate extends Component {
             return (
                 <button className="confirm-button error"
                         onClick={() => this.handleSubmit()}>
-                    {createdProject.data + ' - Click to retry'}
+                    {createdProject.errorMessage + ' - Click to retry'}
 
                 </button>
             );
         } else if (createdProject.loaded) {
             return (
-                <button className="confirm-button success"
-                        onClick={() => this.handleSubmit()}>
-                    Project created ! Click to see your project !
-                </button>
+                <Link to={'project/edit/' + createdProject.data._id} >
+                    <button className="confirm-button success"
+                            onClick={() => this.handleSubmit()}>
+                        Project created ! Click to see your project !
+                    </button>
+                </Link>
             );
         }
 

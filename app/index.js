@@ -4,7 +4,7 @@ import {render} from 'react-dom';
 import {AppContainer} from 'react-hot-loader';
 import {Provider} from 'react-redux';
 import {Router, Route, IndexRoute, browserHistory} from 'react-router';
-import { syncHistoryWithStore } from 'react-router-redux';
+import {syncHistoryWithStore} from 'react-router-redux';
 
 import configureStore from './reducers/';
 
@@ -15,6 +15,7 @@ import Login from './views/Login';
 import ProjectCreate from './views/ProjectCreate';
 import ProjectEdit from './views/ProjectEdit';
 import ProjectList from './views/ProjectList';
+import UserCreate from './views/UserCreate';
 
 const store = configureStore();
 const history = syncHistoryWithStore(browserHistory, store);
@@ -25,9 +26,12 @@ const routes = <Route path="/">
         <IndexRoute component={Home}/>
         <Route path="login" component={Login}/>
         <Route path="project">
-            <IndexRoute component={ProjectList} />
+            <IndexRoute component={ProjectList}/>
             <Route path="create" component={ProjectCreate}/>
             <Route path="edit/:id" component={ProjectEdit}/>
+        </Route>
+        <Route path="user">
+            <Route path="create" component={UserCreate}/>
         </Route>
     </Route>
 </Route>;

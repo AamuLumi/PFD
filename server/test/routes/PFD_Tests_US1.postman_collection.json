@@ -1,0 +1,47 @@
+{
+	"id": "d384f080-04f5-09a0-3370-e0f115af90cd",
+	"name": "PFD_Tests_US1",
+	"description": "",
+	"order": [
+		"8e477f7e-c2cd-1efd-2b90-38287deaba49"
+	],
+	"folders": [],
+	"timestamp": 1478189927166,
+	"owner": "",
+	"public": false,
+	"requests": [
+		{
+			"id": "8e477f7e-c2cd-1efd-2b90-38287deaba49",
+			"headers": "Content-Type: application/x-www-form-urlencoded\n",
+			"url": "http://localhost:8080/api/project/",
+			"pathVariables": {},
+			"preRequestScript": null,
+			"method": "POST",
+			"collectionId": "d384f080-04f5-09a0-3370-e0f115af90cd",
+			"data": [
+				{
+					"key": "name",
+					"value": "Test",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "description",
+					"value": "Ceci est un projet de test, ou un test de projet, question de point de vue.",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"name": "US1 : Créer la route permettant de créer un projet",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1478189927154,
+			"version": 2,
+			"responses": [],
+			"tests": "tests[\"Successful POST request TMP\"] = responseCode.code === 200;",
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		}
+	]
+}

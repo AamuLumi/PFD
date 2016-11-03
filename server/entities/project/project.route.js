@@ -8,6 +8,8 @@ let router = express.Router();
 
 router.post('/', Project.exCreate);
 router.put('/', Project.exEdit);
+router.get('/:id', Project.exGet);
+router.get('/', Project.exGetAll);
 router.put('/register', Project.exRegister);
 
 module.exports = router;

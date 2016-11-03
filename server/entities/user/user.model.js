@@ -4,7 +4,11 @@ let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
 let userSchema = new Schema({
-    name: {
+    firstname: {
+        type: String,
+        required: true
+    },
+    lastname: {
         type: String,
         required: true
     },
@@ -18,11 +22,10 @@ let userSchema = new Schema({
         required: true
     },
     role: {
-        type: String,
-        required: true
+        type: String
     }
 });
 
-require('./user.controller')(projectSchema);
+require('./user.controller')(userSchema);
 
-module.exports = mongoose.model('User', projectSchema);
+module.exports = mongoose.model('User', userSchema);

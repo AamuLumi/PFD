@@ -7,7 +7,7 @@ let favicon = require('serve-favicon'),
     compression = require('compression'),
     passport = require('passport');
 
-let passportConfiguration = require('./passsport').configure(passport);
+let passportConfiguration = require('./passsport');
 
 module.exports = function (app, config) {
     app.use(bodyParser.urlencoded({
@@ -39,7 +39,7 @@ module.exports = function (app, config) {
     app.use(function (req, res, next) {
         res.header('Access-Control-Allow-Origin', '*');
         res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
-        res.header('Access-Control-Allow-Headers', 'Content-Type');
+        res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
         next();
     });
