@@ -6,8 +6,8 @@ let async = require('async');
 let PassTools = require('../../tools/passTools');
 
 const editableFields = {
-    firstName: true,
-    lastName: true,
+    firstname: true,
+    lastname: true,
     email: true,
     role: true
 };
@@ -16,9 +16,9 @@ module.exports = function (userSchema) {
 
     /* Tool methods */
 
-    userSchema.statics.computeLogin = function (firstName, lastName, callback) {
-        let login = firstName.substr(0, 1).toLowerCase() + '.' +
-            lastName.substr(0, 9).toLocaleLowerCase();
+    userSchema.statics.computeLogin = function (firstname, lastname, callback) {
+        let login = firstname.substr(0, 1).toLowerCase() + '.' +
+            lastname.substr(0, 9).toLocaleLowerCase();
         let lastLogin = login;
         let initialLogin = login;
         let currentNumber = 1;
@@ -113,14 +113,14 @@ module.exports = function (userSchema) {
     userSchema.statics.getById = function (params, callback) {
         mongoose.model('User')
             .findById(params.id)
-            .select('firstName lastName role')
+            .select('firstname lastname role')
             .exec(callback);
     };
 
     userSchema.statics.getAll = function (params, callback) {
         mongoose.model('User')
             .find()
-            .select('firstName lastName role')
+            .select('firstname lastname role')
             .exec(callback);
     };
 
@@ -129,10 +129,10 @@ module.exports = function (userSchema) {
     function checkParametersExistsForCreate(req, res, callback) {
         let parametersAreGood = false;
 
-        if (!req.body || !req.body.firstName) {
-            return Response.missing(res, 'firstName', -11);
-        } else if (!req.body.lastName) {
-            return Response.missing(res, 'lastName', -12);
+        if (!req.body || !req.body.firstname) {
+            return Response.missing(res, 'firstname', -11);
+        } else if (!req.body.lastname) {
+            return Response.missing(res, 'lastname', -12);
         } else if (!req.body.email) {
             return Response.missing(res, 'email', -13);
         } else if (!req.body.password) {
@@ -141,8 +141,8 @@ module.exports = function (userSchema) {
             parametersAreGood = true;
         }
         if (parametersAreGood && !req.body.login) {
-            mongoose.model('User').computeLogin(req.body.firstName,
-                req.body.lastName, (err, login) => {
+            mongoose.model('User').computeLogin(req.body.firstname,
+                req.body.lastname, (err, login) => {
                     req.body.login = login;
                     callback(err);
                 });
