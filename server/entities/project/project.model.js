@@ -19,6 +19,10 @@ let projectSchema = new Schema({
     userStories: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User_Story'
+    }],
+    users: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     }]
 });
 
