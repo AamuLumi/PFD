@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="localhost:8080" />
+<title>test_2</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">test_2</td></tr>
+</thead><tbody>
+<!--Ne pas jouer à la vitesse max (p de Rapide)-->
+<tr>
+	<td>click</td>
+	<td>css=a &gt; span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='v-projectedit']/div/div/i</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td></td>
+	<td>1000</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=input.title</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=input.title</td>
+	<td></td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>css=input.title</td>
+	<td>Modifier des tests</td>
+</tr>
+<tr>
+	<td>storeText</td>
+	<td>css=input.title</td>
+	<td>t_name_bef</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=textarea.description</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=textarea.description</td>
+	<td></td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>css=textarea.description</td>
+	<td>J'ai pour projet de modifier des tests</td>
+</tr>
+<tr>
+	<td>storeText</td>
+	<td>css=textarea.description</td>
+	<td>t_desc_bef</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='v-projectedit']/div/div/i[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=a &gt; span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='v-projectedit']/div/div/i</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td></td>
+	<td>1000</td>
+</tr>
+<tr>
+	<td>storeText</td>
+	<td>css=input.title</td>
+	<td>t_name_aft</td>
+</tr>
+<tr>
+	<td>storeText</td>
+	<td>css=textarea.description</td>
+	<td>t_desc_aft</td>
+</tr>
+<tr>
+	<td>verifyEval</td>
+	<td>storedVars['t_name_bef']==storedVars['t_name_aft']</td>
+	<td>true</td>
+</tr>
+<tr>
+	<td>verifyEval</td>
+	<td>storedVars['t_desc_bef']==storedVars['t_desc_aft']</td>
+	<td>true</td>
+</tr>
+</tbody></table>
+</body>
+</html>

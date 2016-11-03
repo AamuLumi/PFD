@@ -1,0 +1,48 @@
+{
+	"id": "7298a5dc-d788-5eb9-907f-1ad4f34ffd80",
+	"name": "PFD_Tests_US2",
+	"requests": [
+		{
+			"id": "9c1a565d-9ff3-9133-4f03-d8e698cc7c7a",
+			"headers": "Content-Type: application/x-www-form-urlencoded\n",
+			"url": "http://localhost:8080/api/project/",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "PUT",
+			"data": [
+				{
+					"key": "name",
+					"value": "Test",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "description",
+					"value": "Ceci est une description modifiée.",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "_id",
+					"value": "581b69a95c2f350be937af55",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": "tests[\"Successful PUT request TMP\"] = responseCode.code === 200;",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1478192452540,
+			"name": "US2 : Créer la route permettant de modifier un projet",
+			"description": "",
+			"collectionId": "7298a5dc-d788-5eb9-907f-1ad4f34ffd80",
+			"responses": []
+		}
+	],
+	"order": [
+		"9c1a565d-9ff3-9133-4f03-d8e698cc7c7a"
+	],
+	"timestamp": 1478192415916
+}
