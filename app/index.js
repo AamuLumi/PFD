@@ -13,16 +13,21 @@ import Application from './components/Application/';
 import Home from './views/Home';
 import Login from './views/Login';
 import ProjectCreate from './views/ProjectCreate';
+import ProjectEdit from './views/ProjectEdit';
+import ProjectList from './views/ProjectList';
 
 const store = configureStore();
 const history = syncHistoryWithStore(browserHistory, store);
+
 
 const routes = <Route path="/">
     <Route component={Application}>
         <IndexRoute component={Home}/>
         <Route path="login" component={Login}/>
         <Route path="project">
+            <IndexRoute component={ProjectList} />
             <Route path="create" component={ProjectCreate}/>
+            <Route path="edit/:id" component={ProjectEdit}/>
         </Route>
     </Route>
 </Route>;

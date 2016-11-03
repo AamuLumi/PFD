@@ -16,7 +16,7 @@ let projectSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Kanban'
     },
-    user_stories: [{
+    userStories: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User_Story'
     }]
