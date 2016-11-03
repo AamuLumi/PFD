@@ -37,8 +37,11 @@ export function editProject(project, id){
     return Fetch({
         loading: getLoadingFunction(EDIT_PROJECT),
         loaded: getLoadedFunction(EDIT_PROJECT),
-        url: 'api/project/' + id,
-        method: 'GET',
-        body: project
+        url: 'api/project/',
+        method: 'PUT',
+        body: {
+            ...project,
+            _id: id
+        }
     });
 }

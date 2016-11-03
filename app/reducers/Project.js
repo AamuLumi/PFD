@@ -12,7 +12,8 @@ export function createdProject(state = {loaded: true}, action) {
                 loaded: action.loaded,
                 date: action.date,
                 data: action.data,
-                error: action.error
+                error: action.error,
+                errorMessage: action.errorMessage
             });
         default:
             return state;
@@ -26,7 +27,8 @@ export function projectList(state = {loaded: true}, action) {
                 loaded: action.loaded,
                 date: action.date,
                 data: action.data,
-                error: action.error
+                error: action.error,
+                errorMessage: action.errorMessage
             });
         default:
             return state;
@@ -40,7 +42,8 @@ export function loadedProject(state = {loaded: true}, action) {
                 loaded: action.loaded,
                 date: action.date,
                 data: action.data,
-                error: action.error
+                error: action.error,
+                errorMessage: action.errorMessage
             });
         default:
             return state;
@@ -54,7 +57,8 @@ export function editedProject(state = {loaded: true}, action) {
                 loaded: action.loaded,
                 date: action.date,
                 data: action.data,
-                error: action.error
+                error: action.error,
+                errorMessage: action.errorMessage
             });
         default:
             return state;

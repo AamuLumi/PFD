@@ -33,19 +33,19 @@ export function getLoadingFunction(action){
 }
 
 export function getLoadedFunction(action){
-    return (data) => {
-        let res = {
+    return (res) => {
+        let dispatchedAction = {
             type: action,
             loaded: true,
             date: Date.now(),
-            data: data
+            data: res.data
         };
 
-        if (data.success < 1){
-            res.error = true;
-            res.data = res.data.message;
+        if (res.success < 1){
+            dispatchedAction.error = true;
+            dispatchedAction.errorMessage = res.message;
         }
 
-        return res;
+        return dispatchedAction;
     };
 }
