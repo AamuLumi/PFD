@@ -135,14 +135,14 @@ module.exports = function (projectSchema) {
                 if (parametersOK) {
                     let params = req.body;
                     params._id = req.body.userId;
-                    mangoose.model('User').exists(params, res, next);
-                }
-                else
+                    mongoose.model('User').exists(params, res, next);
+                } else {
                     next({
                         alreadySent: true
                     });
+                }
             },
-            (next) => mangoose.model('Project').addUser(req.body, next)
+            (next) => mongoose.model('Project').addUser(req.body, next)
         ], (err, project) => {
             if (err && err.alreadySent)
                 return;
