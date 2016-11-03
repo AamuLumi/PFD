@@ -7,7 +7,7 @@ let favicon = require('serve-favicon'),
     compression = require('compression'),
     passport = require('passport');
 
-let passportConfiguration = require('./passsport').configure(passport);
+let passportConfiguration = require('./passsport');
 
 module.exports = function (app, config) {
     app.use(bodyParser.urlencoded({

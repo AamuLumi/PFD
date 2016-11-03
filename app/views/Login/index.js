@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import {login} from '../../actions/Auth';
+import {getLoggedUser} from '../../actions/User';
 import {setAuthorizationToken} from '../../tools/Fetch';
 
 import './Login.less';
@@ -37,7 +38,7 @@ class Login extends Component {
                 }, 2000);
             });
         } else if (newProps.loginResult.loaded && !newProps.loginResult.error){
-            setAuthorizationToken(newProps.loginResult.data.token);
+            this.props.getLoggedUser();
             this.context.router.push('/project');
         }
 
@@ -109,6 +110,9 @@ function mapDispatchToProps(dispatch){
     return {
         login: (credentials) => {
             dispatch(login(credentials));
+        },
+        getLoggedUser: () => {
+            dispatch(getLoggedUser());
         }
     };
 }

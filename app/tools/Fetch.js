@@ -16,8 +16,6 @@ export default function fetchData(params) {
             headers.Authorization = 'JWT ' + authorizationToken;
         }
 
-        console.log(headers);
-
         return fetch(HOST + params.url, {
             method: params.method,
             headers,

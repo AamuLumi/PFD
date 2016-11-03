@@ -14,7 +14,8 @@ import {
 } from './Auth';
 
 import {
-    createdUser
+    createdUser,
+    loggedUser
 } from './User';
 
 export default function configureStore(preloadedState) {
@@ -26,6 +27,7 @@ export default function configureStore(preloadedState) {
             editedProject,
             loginResult,
             createdUser,
+            loggedUser,
             routing: routerReducer
         }),
         preloadedState,
