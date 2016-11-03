@@ -18,6 +18,8 @@ module.exports = function (app, config) {
         app.use('/api/' + file, require('../entities/' + file + '/' + file + '.route'));
     }
 
+    app.use('/api/', require('../tools/routes/auth'));
+
     // All api/something go on 404 error if not found
     app.route('/api/:url(api)/*').get(Errors[404]);
 
