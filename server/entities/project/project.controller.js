@@ -133,9 +133,7 @@ module.exports = function (projectSchema) {
                     parametersOK = true;
 
                 if (parametersOK) {
-                    let params = req;
-                    params.body._id = req.body.userId;
-                    mongoose.model('User').exists(params, res, next);
+                    mongoose.model('User').exists({body: {_id: req.body.userId}}, res, next);
                 } else {
                     next({
                         alreadySent: true
