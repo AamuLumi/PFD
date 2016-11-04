@@ -31,6 +31,11 @@
 	<td>css=button.login-button</td>
 	<td></td>
 </tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='v-projectlist']/div[2]/a[2]</td>
+	<td></td>
+</tr>
 
 </tbody></table>
 </body>
