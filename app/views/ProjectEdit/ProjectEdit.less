@@ -1,4 +1,4 @@
-#v-projectedit{
+#v-projectedit {
   width: 100%;
   max-width: 800px;
   margin: 0 auto;
@@ -6,13 +6,36 @@
     width: 80%;
     font-family: 'Lato', sans-serif;
   }
-  .description {
+  .project-container {
     display: block;
     width: 100%;
-    font-family: 'Lato', sans-serif;
-    font-size: 1em;
-    margin: 32px auto 0 auto;
+    margin: 32px auto 32px auto;
     max-width: 740px;
+    .description {
+      margin-bottom: 16px;
+      font-family: 'Lato', sans-serif;
+      font-size: 1.2em;
+    }
+    .participate-button {
+      border: none;
+      background-color: @primary-color;
+      font-size: 1.3em;
+      padding: 4px;
+      border-radius: 5px;
+      color: white;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+      transition: 0.25s;
+      &:hover {
+        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+      }
+    }
+    .on-project {
+      background-color: @green;
+      &:hover {
+        cursor: default;
+      }
+    }
   }
   .container-edit-button {
     position: absolute;

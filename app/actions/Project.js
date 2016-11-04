@@ -4,6 +4,7 @@ export const CREATE_PROJECT = 'CREATE_PROJECT';
 export const GET_PROJECTS = 'GET_PROJECTS';
 export const GET_PROJECT = 'GET_PROJECT';
 export const EDIT_PROJECT = 'EDIT_PROJECT';
+export const SUBSCRIBE_PROJECT = 'SUBSCRIBE_PROJECT';
 
 export function createProject(project) {
     return Fetch({
@@ -42,6 +43,19 @@ export function editProject(project, id){
         body: {
             ...project,
             _id: id
+        }
+    });
+}
+
+export function subscribe(projectId, userId){
+    return Fetch({
+        loading: getLoadingFunction(SUBSCRIBE_PROJECT),
+        loaded: getLoadedFunction(SUBSCRIBE_PROJECT),
+        url: 'api/project/register',
+        method: 'PUT',
+        body: {
+            userId: userId,
+            _id: projectId
         }
     });
 }

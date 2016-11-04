@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import {getProject, editProject} from '../../actions/Project';
+import {getProject, editProject, subscribe} from '../../actions/Project';
 
 import './ProjectEdit.less';
 
@@ -11,7 +11,8 @@ class ProjectEdit extends Component {
         loadedProject: React.PropTypes.object.isRequired,
         getProject: React.PropTypes.func.isRequired,
         editedProject: React.PropTypes.object.isRequired,
-        editProject: React.PropTypes.func.isRequired
+        editProject: React.PropTypes.func.isRequired,
+        loggedUser: React.PropTypes.object.isRequired
     };
 
     constructor(props) {
@@ -23,7 +24,7 @@ class ProjectEdit extends Component {
                 description: ""
             },
             edit: false,
-            successfullEdit: undefined,
+            successfulEdit: undefined,
             error: undefined
         };
 
@@ -39,23 +40,39 @@ class ProjectEdit extends Component {
             });
         }
 
-        if (newProps.editedProject.date !== this.props.editedProject.date){
+        if (newProps.editedProject.date !== this.props.editedProject.date) {
             this.setState({
-                successfullEdit: !this.props.editedProject.error
+                successfulEdit: !newProps.editedProject.error
             }, () => {
                 setTimeout(() => {
                     this.setState({
-                        successfullEdit: undefined
+                        successfulEdit: undefined
                     });
                 }, 2000);
             })
+        }
+
+        if (newProps.subscribeResult.date !== this.props.subscribeResult.date) {
+            this.setState({
+                error: newProps.subscribeResult.errorMessage
+            }, () => {
+                setTimeout(() => {
+                    this.setState({
+                        error: undefined
+                    });
+                }, 2000);
+            });
+
+            if (this.props.params.id) {
+                this.props.getProject(this.props.params.id);
+            }
         }
 
         this.props = newProps;
     }
 
     acceptEdit() {
-        if (!this.state.project.name || this.state.project.name.length === 0){
+        if (!this.state.project.name || this.state.project.name.length === 0) {
             this.setState({
                 error: 'Name needed'
             }, () => {
@@ -80,7 +97,7 @@ class ProjectEdit extends Component {
         });
     }
 
-    handleChange(e, field){
+    handleChange(e, field) {
         let nextState = {
             project: this.state.project
         };
@@ -90,22 +107,22 @@ class ProjectEdit extends Component {
         this.setState(nextState);
     }
 
-    getEditMessage(){
-        let {successfullEdit, error} = this.state;
+    getEditMessage() {
+        let {successfulEdit, error} = this.state;
 
-        if (successfullEdit === true){
+        if (successfulEdit === true) {
             return (
                 <div className="floating-message success">
                     Project edited !
-                    </div>
+                </div>
             );
-        } else if (successfullEdit === false){
+        } else if (successfulEdit === false) {
             return (
                 <div className="floating-message error">
                     {this.props.editedProject.errorMessage}
                 </div>
             );
-        } else if (error){
+        } else if (error) {
             return (
                 <div className="floating-message error">
                     {error}
@@ -142,6 +159,37 @@ class ProjectEdit extends Component {
         );
     }
 
+    getParticipateButton() {
+        let {loggedUser} = this.props;
+        let {project} = this.state;
+
+        if (!project || !loggedUser.data) {
+            return;
+        }
+
+        if (project.users) {
+            for (let user of project.users) {
+                if (user === loggedUser.data._id) {
+                    return (
+                        <div className="participate-button on-project">
+                            On the project
+                        </div>
+                    );
+                }
+            }
+        }
+
+        return (
+            <button className="participate-button"
+                    onClick={() => this.props.subscribe(
+                    this.props.loadedProject.data._id,
+                    this.props.loggedUser.data._id
+            )}>
+                Participate
+            </button>
+        );
+    }
+
     getClassicView() {
         let {project} = this.state;
 
@@ -153,8 +201,11 @@ class ProjectEdit extends Component {
                 <div className="title">
                     {project.name}
                 </div>
-                <div className="description">
-                    {project.description}
+                <div className="project-container">
+                    <div className="description">
+                        {project.description}
+                    </div>
+                    {this.getParticipateButton()}
                 </div>
             </div>
         );
@@ -176,7 +227,9 @@ class ProjectEdit extends Component {
 function mapStateToProps(state) {
     return {
         loadedProject: state.loadedProject,
-        editedProject: state.editedProject
+        editedProject: state.editedProject,
+        loggedUser: state.loggedUser,
+        subscribeResult: state.subscribeResult
     }
 }
 
@@ -187,6 +240,9 @@ function mapDispatchToProps(dispatch) {
         },
         editProject: (project, id) => {
             dispatch(editProject(project, id));
+        },
+        subscribe: (projectId, userId) => {
+            dispatch(subscribe(projectId, userId));
         }
     };
 }
