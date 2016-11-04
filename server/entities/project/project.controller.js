@@ -133,8 +133,8 @@ module.exports = function (projectSchema) {
                     parametersOK = true;
 
                 if (parametersOK) {
-                    let params = req.body;
-                    params._id = req.body.userId;
+                    let params = req;
+                    params.body._id = req.body.userId;
                     mongoose.model('User').exists(params, res, next);
                 } else {
                     next({
