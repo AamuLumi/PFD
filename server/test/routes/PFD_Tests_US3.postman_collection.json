@@ -57,7 +57,7 @@
 			"method": "PUT",
 			"data": [
 				{
-					"key": "firstname",
+					"key": "firstName",
 					"value": "Alakazam",
 					"type": "text",
 					"enabled": true
@@ -89,13 +89,13 @@
 			"collectionId": "85b6da6c-f0c0-87ac-3d1b-a43833d88aae",
 			"data": [
 				{
-					"key": "firstname",
+					"key": "firstName",
 					"value": "Abra",
 					"type": "text",
 					"enabled": true
 				},
 				{
-					"key": "lastname",
+					"key": "lastName",
 					"value": "Cadabra",
 					"type": "text",
 					"enabled": true
