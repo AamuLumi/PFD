@@ -45,7 +45,7 @@ module.exports = function (projectSchema) {
                 if (!project)
                     next('No project found !');
                 else
-                    Self.update({_id: params._id}, {$push: {users: params.userId}}, next);
+                    Self.update({_id: params._id}, {$addToSet: {users: params.userId}}, next);
             }
         ], (err, project) => {
             if (err)
@@ -133,9 +133,7 @@ module.exports = function (projectSchema) {
                     parametersOK = true;
 
                 if (parametersOK) {
-                    let params = req.body;
-                    params._id = req.body.userId;
-                    mongoose.model('User').exists(params, res, next);
+                    mongoose.model('User').exists({body: {_id: req.body.userId}}, res, next);
                 } else {
                     next({
                         alreadySent: true

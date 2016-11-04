@@ -6,7 +6,8 @@ import {
     createdProject,
     projectList,
     loadedProject,
-    editedProject
+    editedProject,
+    subscribeResult
 } from './Project';
 
 import {
@@ -28,6 +29,7 @@ export default function configureStore(preloadedState) {
             loginResult,
             createdUser,
             loggedUser,
+            subscribeResult,
             routing: routerReducer
         }),
         preloadedState,

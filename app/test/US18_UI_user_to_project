@@ -3,14 +3,39 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel="selenium.base" href="localhost:8080/project/create" />
-<title>US1_UI_create</title>
+<link rel="selenium.base" href="localhost:8080" />
+<title>US3_UI_login</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">US1_UI_create</td></tr>
+<tr><td rowspan="1" colspan="3">US3_UI_login</td></tr>
 </thead><tbody>
+<tr>
+	<td>click</td>
+	<td>css=i.fa.fa-user-circle</td>
+	<td></td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>css=input[type=&quot;text&quot;]</td>
+	<td>abracadabra@poudlard.hp</td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>css=input[type=&quot;password&quot;]</td>
+	<td>Alohomora</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=button.login-button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='toolbar-container']/div[2]/a[2]/span</td>
+	<td></td>
+</tr>
 <tr>
 	<td>store</td>
 	<td>javascript{Math.floor(Math.random()*300)}</td>
@@ -39,6 +64,16 @@
 <tr>
 	<td>click</td>
 	<td>css=button.confirm-button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=button.confirm-button.success</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=button.participate-button</td>
 	<td></td>
 </tr>
 </tbody></table>

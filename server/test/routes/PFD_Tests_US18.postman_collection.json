@@ -1,0 +1,87 @@
+{
+	"id": "8a50dcc9-9fc0-d829-5587-692962c0c55d",
+	"name": "PFD_Tests_US18",
+	"description": "",
+	"order": [
+		"bfdcf866-1a42-7442-79a4-5bf76bcccc8d",
+		"7095b010-951b-023e-9beb-0ba76e84375f",
+		"9964b315-19be-670d-3c36-54506b1636bb"
+	],
+	"folders": [],
+	"timestamp": 1478219436581,
+	"owner": "",
+	"public": false,
+	"requests": [
+		{
+			"id": "7095b010-951b-023e-9beb-0ba76e84375f",
+			"headers": "",
+			"url": "localhost:8080/api/project/",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1478219647539,
+			"name": "US18 :  Créer la route pour s'inscrire à un projet (liste des projets)",
+			"description": "",
+			"collectionId": "8a50dcc9-9fc0-d829-5587-692962c0c55d",
+			"responses": []
+		},
+		{
+			"id": "9964b315-19be-670d-3c36-54506b1636bb",
+			"headers": "",
+			"url": "localhost:8080/api/project/581bd0ee1d1e5a20f6ba20e6",
+			"pathVariables": {},
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "8a50dcc9-9fc0-d829-5587-692962c0c55d",
+			"data": null,
+			"dataMode": "params",
+			"name": "US18 : Créer la route pour s'inscrire à un projet (infos d'un projet avec id)",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1478220094992,
+			"version": 2,
+			"responses": [],
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		},
+		{
+			"id": "bfdcf866-1a42-7442-79a4-5bf76bcccc8d",
+			"headers": "Content-Type: application/x-www-form-urlencoded\n",
+			"url": "localhost:8080/api/project/register",
+			"pathVariables": {},
+			"preRequestScript": null,
+			"method": "PUT",
+			"collectionId": "8a50dcc9-9fc0-d829-5587-692962c0c55d",
+			"data": [
+				{
+					"key": "_id",
+					"value": "581bd0ee1d1e5a20f6ba20e6",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "userId",
+					"value": "581bb41ab3285130ab2c4962",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"name": "US18 : Créer la route pour s'inscrire à un projet (Ajouter un utilisateur)",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1478219436570,
+			"version": 2,
+			"responses": [],
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		}
+	]
+}
