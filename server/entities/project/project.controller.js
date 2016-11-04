@@ -45,7 +45,7 @@ module.exports = function (projectSchema) {
                 if (!project)
                     next('No project found !');
                 else
-                    Self.update({_id: params._id}, {$push: {users: params.userId}}, next);
+                    Self.update({_id: params._id}, {$addToSet: {users: params.userId}}, next);
             }
         ], (err, project) => {
             if (err)
