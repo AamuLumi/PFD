@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import {getProject, editProject, subscribe} from '../../actions/Project';
+import {showFloatingMessage, MESSAGE_CLASSES} from '../../actions/LocalActions';
 
 import './ProjectEdit.less';
 
@@ -12,7 +13,8 @@ class ProjectEdit extends Component {
         getProject: React.PropTypes.func.isRequired,
         editedProject: React.PropTypes.object.isRequired,
         editProject: React.PropTypes.func.isRequired,
-        loggedUser: React.PropTypes.object.isRequired
+        loggedUser: React.PropTypes.object.isRequired,
+        showFloatingMessage: React.PropTypes.func.isRequired
     };
 
     constructor(props) {
@@ -23,9 +25,7 @@ class ProjectEdit extends Component {
                 name: "",
                 description: ""
             },
-            edit: false,
-            successfulEdit: undefined,
-            error: undefined
+            edit: false
         };
 
         if (this.props.params.id) {
@@ -34,33 +34,27 @@ class ProjectEdit extends Component {
     }
 
     componentWillReceiveProps(newProps) {
+        // If project is loaded, add it to state
         if (newProps.loadedProject.loaded && !newProps.loadedProject.error) {
             this.setState({
                 project: newProps.loadedProject.data
             });
         }
 
+        // If there's new edition of project, show the result of the edition
         if (newProps.editedProject.date !== this.props.editedProject.date) {
-            this.setState({
-                successfulEdit: !newProps.editedProject.error
-            }, () => {
-                setTimeout(() => {
-                    this.setState({
-                        successfulEdit: undefined
-                    });
-                }, 2000);
-            })
+            this.props.showFloatingMessage({
+                message: newProps.editedProject.errorMessage,
+                messageClass: newProps.editedProject.error ?
+                MESSAGE_CLASSES.ERROR : MESSAGE_CLASSES.SUCCESS,
+            });
         }
 
         if (newProps.subscribeResult.date !== this.props.subscribeResult.date) {
-            this.setState({
-                error: newProps.subscribeResult.errorMessage
-            }, () => {
-                setTimeout(() => {
-                    this.setState({
-                        error: undefined
-                    });
-                }, 2000);
+            this.props.showFloatingMessage({
+                message: newProps.subscribeResult.errorMessage,
+                messageClass: newProps.subscribeResult.error ?
+                    MESSAGE_CLASSES.ERROR : MESSAGE_CLASSES.SUCCESS,
             });
 
             if (this.props.params.id) {
@@ -73,15 +67,10 @@ class ProjectEdit extends Component {
 
     acceptEdit() {
         if (!this.state.project.name || this.state.project.name.length === 0) {
-            this.setState({
-                error: 'Name needed'
-            }, () => {
-                setTimeout(() => {
-                    this.setState({
-                        error: undefined
-                    });
-                }, 2000);
-            })
+            this.props.showFloatingMessage({
+                message: 'Name needed',
+                messageClass: MESSAGE_CLASSES.ERROR
+            });
         } else {
             this.setState({
                 edit: false
@@ -105,30 +94,6 @@ class ProjectEdit extends Component {
         nextState.project[field] = e.target.value;
 
         this.setState(nextState);
-    }
-
-    getEditMessage() {
-        let {successfulEdit, error} = this.state;
-
-        if (successfulEdit === true) {
-            return (
-                <div className="floating-message success">
-                    Project edited !
-                </div>
-            );
-        } else if (successfulEdit === false) {
-            return (
-                <div className="floating-message error">
-                    {this.props.editedProject.errorMessage}
-                </div>
-            );
-        } else if (error) {
-            return (
-                <div className="floating-message error">
-                    {error}
-                </div>
-            );
-        }
     }
 
     getEditableView() {
@@ -218,7 +183,6 @@ class ProjectEdit extends Component {
             <div id="v-projectedit">
                 {edit && this.getEditableView()}
                 {!edit && this.getClassicView()}
-                {this.getEditMessage()}
             </div>
         )
     }
@@ -243,6 +207,9 @@ function mapDispatchToProps(dispatch) {
         },
         subscribe: (projectId, userId) => {
             dispatch(subscribe(projectId, userId));
+        },
+        showFloatingMessage: (params) => {
+            dispatch(showFloatingMessage(params));
         }
     };
 }

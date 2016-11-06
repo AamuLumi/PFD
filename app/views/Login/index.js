@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 
 import {login} from '../../actions/Auth';
 import {getLoggedUser} from '../../actions/User';
-import {setAuthorizationToken} from '../../tools/Fetch';
+import {showFloatingMessage, MESSAGE_CLASSES} from '../../actions/LocalActions';
 
 import './Login.less';
 
@@ -14,7 +14,9 @@ class Login extends Component {
 
     static propTypes = {
         login: React.PropTypes.func.isRequired,
-        loginResult: React.PropTypes.object.isRequired
+        loginResult: React.PropTypes.object.isRequired,
+        getLoggedUser: React.PropTypes.func.isRequired,
+        showFloatingMessage: React.PropTypes.func.isRequired
     };
 
     constructor(props) {
@@ -28,14 +30,9 @@ class Login extends Component {
     
     componentWillReceiveProps(newProps){
         if (newProps.loginResult.loaded && newProps.loginResult.error){
-            this.setState({
-                error: newProps.loginResult.errorMessage
-            }, () => {
-                setTimeout(() => {
-                    this.setState({
-                        error: undefined
-                    });
-                }, 2000);
+            this.props.showFloatingMessage({
+                message: newProps.loginResult.errorMessage,
+                messageClass: MESSAGE_CLASSES.ERROR
             });
         } else if (newProps.loginResult.loaded && !newProps.loginResult.error){
             this.props.getLoggedUser();
@@ -51,18 +48,6 @@ class Login extends Component {
         nextState[field] = e.target.value;
 
         this.setState(nextState);
-    }
-
-    getLoginResult(){
-        let {error} = this.state;
-
-        if (error){
-            return (
-                <div className="floating-message error">
-                    {error}
-                </div>
-            );
-        }
     }
 
     login() {
@@ -94,7 +79,6 @@ class Login extends Component {
                             onClick={() => this.login()}>Connect</button>
                     </div>
                 </div>
-                {this.getLoginResult()}
             </div>
         );
     }
@@ -113,6 +97,9 @@ function mapDispatchToProps(dispatch){
         },
         getLoggedUser: () => {
             dispatch(getLoggedUser());
+        },
+        showFloatingMessage: (params) => {
+            dispatch(showFloatingMessage(params));
         }
     };
 }
