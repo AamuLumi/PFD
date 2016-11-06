@@ -3,7 +3,6 @@ import {
 } from '../actions/LocalActions';
 
 export function floatingMessage(state = {}, action){
-    console.log(action);
     switch(action.type){
         case SHOW_FLOATING_MESSAGE:
             return Object.assign({}, state, {

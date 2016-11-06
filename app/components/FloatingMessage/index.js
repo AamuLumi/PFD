@@ -17,12 +17,10 @@ class FloatingMessage extends Component {
 
     componentWillReceiveProps(newProps){
         if (newProps.floatingMessage.date !== this.props.floatingMessage.date){
-            console.log('Fl', newProps.floatingMessage);
             this.setState({
                 message : newProps.floatingMessage.message,
                 messageClass : newProps.floatingMessage.messageClass
             }, () => {
-                console.log('here');
                 setTimeout(() => {
                     this.setState({
                         message: undefined,
