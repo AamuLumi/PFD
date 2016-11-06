@@ -19,6 +19,10 @@ import {
     loggedUser
 } from './User';
 
+import {
+    floatingMessage
+} from './LocalActions';
+
 export default function configureStore(preloadedState) {
     return createStore(
         combineReducers({
@@ -30,6 +34,7 @@ export default function configureStore(preloadedState) {
             createdUser,
             loggedUser,
             subscribeResult,
+            floatingMessage,
             routing: routerReducer
         }),
         preloadedState,

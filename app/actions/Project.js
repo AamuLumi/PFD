@@ -22,7 +22,7 @@ export function getProjects() {
         loaded: getLoadedFunction(GET_PROJECTS),
         url: 'api/project/',
         method: 'GET'
-    });
+    }); 
 }
 
 export function getProject(id) {

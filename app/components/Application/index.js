@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 
 import Toolbar from '../Toolbar';
+import FloatingMessage from '../FloatingMessage';
 
 import './Application.less';
 
@@ -22,6 +23,7 @@ export default class Application extends Component {
                     </div>
                 </div>
                 <Toolbar />
+                <FloatingMessage />
             </div>
         );
     }
