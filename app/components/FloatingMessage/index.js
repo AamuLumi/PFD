@@ -5,6 +5,9 @@ import ClassNames from 'classnames';
 import './FloatingMessage.less';
 
 class FloatingMessage extends Component {
+    static propTypes = {
+        floatingMessage: React.PropTypes.object.isRequired
+    };
 
     constructor(props) {
         super(props);
