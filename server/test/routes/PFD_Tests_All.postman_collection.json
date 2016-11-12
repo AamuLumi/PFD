@@ -1,0 +1,30 @@
+{
+	"id": "747afcd7-7c27-aa09-93a3-7d771c038e26",
+	"name": "PFD_Tests_All",
+	"requests": [
+		{
+			"id": "4f5b98f7-8eb5-acd0-6dcb-4014b4291736",
+			"headers": "",
+			"url": "http://localhost:8080/api/userStory/",
+			"pathVariables": {},
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "747afcd7-7c27-aa09-93a3-7d771c038e26",
+			"data": null,
+			"dataMode": "params",
+			"name": "All : Créer une route pour lister les US d'un projet",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1478957049905,
+			"version": 2,
+			"responses": [],
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		}
+	],
+	"order": [
+		"4f5b98f7-8eb5-acd0-6dcb-4014b4291736"
+	],
+	"timestamp": 1478957049905
+}
