@@ -31,11 +31,11 @@ module.exports = function(userStorySchema){
             Response.missing(res, 'name', -11);
         } else if (!req.body.description) {
             Response.missing(res, 'description', -12);
-        } else if (!req.body.number) {
+        } else if (req.body.number === undefined) {
             Response.missing(res, 'number', -13);
-        } else if (!req.body.priority) {
+        } else if (req.body.priority === undefined) {
             Response.missing(res, 'priority', -14);
-        } else if (!req.body.effort) {
+        } else if (req.body.effort === undefined) {
             Response.missing(res, 'effort', -15);
         } else {
             parametersOK = true;
