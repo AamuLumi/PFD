@@ -158,6 +158,12 @@ class ProjectEdit extends Component {
     }
 
     getAddUserStoryButton() {
+        let {loggedUser} = this.props;
+
+        if (!loggedUser.data) {
+            return;
+        }
+
         return (
             <button className="new-user-story-button"
                     onClick={() => this.setState({
