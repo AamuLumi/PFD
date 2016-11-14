@@ -6,10 +6,9 @@
 			"id": "be954f40-c7fe-08f9-eb7d-2dea991bd794",
 			"headers": "Content-Type: application/x-www-form-urlencoded\n",
 			"url": "http://localhost:8080/api/userStory/",
-			"pathVariables": {},
 			"preRequestScript": null,
+			"pathVariables": {},
 			"method": "POST",
-			"collectionId": "a8ab9047-bc84-9205-825d-bb01d0584d2f",
 			"data": [
 				{
 					"key": "name",
@@ -46,18 +45,24 @@
 					"value": "0",
 					"type": "text",
 					"enabled": true
+				},
+				{
+					"key": "projectID",
+					"value": "582a0c38af3cd80f2f51fd0e",
+					"type": "text",
+					"enabled": true
 				}
 			],
 			"dataMode": "urlencoded",
-			"name": "US4 : Faire la route pour créer une nouvelle US",
-			"description": "",
-			"descriptionFormat": "html",
-			"time": 1478955624672,
 			"version": 2,
-			"responses": [],
 			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
 			"currentHelper": "normal",
-			"helperAttributes": {}
+			"helperAttributes": {},
+			"time": 1479150703790,
+			"name": "US4 : Faire la route pour créer une nouvelle US",
+			"description": "",
+			"collectionId": "a8ab9047-bc84-9205-825d-bb01d0584d2f",
+			"responses": []
 		}
 	],
 	"order": [
