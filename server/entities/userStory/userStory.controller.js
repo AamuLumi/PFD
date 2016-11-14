@@ -16,9 +16,33 @@ module.exports = function(userStorySchema){
         params.tasks = [];
         params.traceability = '';
 
-        let userStory = new Self(params);
+        /*
+         * Get the US number from project
+         */
+        mongoose.model('Project').getById({id: params.projectID}, (err, project) => {
+            if (err)
+                return callback({
+                    selectError: true
+                });
 
-        userStory.save(callback);
+            params.number = project.userStories.length + 1;
+
+            let userStory = new Self(params);
+
+            userStory.save((err, res) => {
+                if (err)
+                    return callback(err);
+
+                project.userStories.push(res._id);
+
+                mongoose.model('Project').edit(project, (err) => {
+                    if (err)
+                        return callback(err);
+
+                    callback(null, userStory);
+                });
+            });
+        });
     };
 
     /*
@@ -31,8 +55,8 @@ module.exports = function(userStorySchema){
             Response.missing(res, 'name', -11);
         } else if (!req.body.description) {
             Response.missing(res, 'description', -12);
-        } else if (req.body.number === undefined) {
-            Response.missing(res, 'number', -13);
+        } else if (!req.body.projectID) {
+            Response.missing(res, 'projectID', -13);
         } else if (req.body.priority === undefined) {
             Response.missing(res, 'priority', -14);
         } else if (req.body.effort === undefined) {
@@ -62,8 +86,11 @@ module.exports = function(userStorySchema){
                 return;
             }
 
+            if (err && err.selectError)
+                return Response.selectError(res, err);
+
             if (err)
-                Response.insertError(res, err);
+                return Response.insertError(res, err);
 
             Response.success(res, 'USer story created !', userStory);
         });
