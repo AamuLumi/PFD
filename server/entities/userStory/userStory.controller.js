@@ -43,7 +43,7 @@ module.exports = function(userStorySchema){
                 });
             });
         });
-    }
+    };
 
     userStorySchema.statics.getAll = function(params, callback) {
         mongoose.model('User_Story')
