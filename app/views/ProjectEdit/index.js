@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import UserStoryCreation from '../../components/UserStoryCreation';
 import {getProject, editProject, subscribe} from '../../actions/Project';
 import {showFloatingMessage, MESSAGE_CLASSES} from '../../actions/LocalActions';
+import UserStoryList from '../../components/UserStoryList';
 
 import './ProjectEdit.less';
 
@@ -41,6 +42,15 @@ class ProjectEdit extends Component {
         if (newProps.loadedProject.loaded && !newProps.loadedProject.error) {
             this.setState({
                 project: newProps.loadedProject.data
+            });
+        } else if (newProps.loadedProject.error) {
+            this.props.showFloatingMessage({
+                message: newProps.loadedProject.errorMessage,
+                messageClass: MESSAGE_CLASSES.ERROR
+            });
+        } else {
+            this.setState({
+                project: {}
             });
         }
 
@@ -190,8 +200,13 @@ class ProjectEdit extends Component {
                     <div className="description">
                         {project.description}
                     </div>
-                    {this.getParticipateButton()}
-                    {this.getAddUserStoryButton()}
+                    <div>
+                        {this.getParticipateButton()}
+                        {this.getAddUserStoryButton()}
+                    </div>
+                    <div>
+                        <UserStoryList projectID={this.props.params.id}/>
+                    </div>
                 </div>
             </div>
         );

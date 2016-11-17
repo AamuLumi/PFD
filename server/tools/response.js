@@ -50,7 +50,7 @@ function success(res, message, data) {
 function notLogged(res) {
     sendResponse(res, 401, {
         message: 'Error : Not logged',
-        data: null,
+        data: {},
         success: -1
     });
 }
@@ -58,7 +58,7 @@ function notLogged(res) {
 function notAdmin(res) {
     sendResponse(res, 403, {
         message: 'Error : You\'re not an admin',
-        data: null,
+        data: {},
         success: -2
     });
 }
@@ -66,7 +66,7 @@ function notAdmin(res) {
 function notMember(res) {
     sendResponse(res, 403, {
         message: 'Error : You\'re not a member',
-        data: null,
+        data: {},
         success: -3
     });
 }
@@ -74,7 +74,7 @@ function notMember(res) {
 function notOwner(res) {
     sendResponse(res, 403, {
         message: 'Error : You\'re not the owner',
-        data: null,
+        data: {},
         success: -4
     });
 }
@@ -82,7 +82,7 @@ function notOwner(res) {
 function notAllowed(res) {
     sendResponse(res, 403, {
         message: 'Error : You\'re not allowed to do that',
-        data: null,
+        data: {},
         success: -5
     });
 }
@@ -91,7 +91,7 @@ function notAllowed(res) {
 function missing(res, field, errorCode) {
     sendResponse(res, 400, {
         message: 'Error : Missing ' + field,
-        data: null,
+        data: {},
         success: errorCode
     });
 }
@@ -99,7 +99,7 @@ function missing(res, field, errorCode) {
 function alreadyExist(res, field) {
     sendResponse(res, 409, {
         message: 'Error : ' + field + ' already exists',
-        data: null,
+        data: {},
         success: -21
     });
 }
@@ -107,7 +107,7 @@ function alreadyExist(res, field) {
 function notFound(res, field) {
     sendResponse(res, 404, {
         message: 'Error : No ' + field + ' found',
-        data: null,
+        data: {},
         success: -22
     });
 }
@@ -115,7 +115,7 @@ function notFound(res, field) {
 function badLogin(res) {
     sendResponse(res, 401, {
         message: 'Error : Bad combinaison username/password',
-        data: null,
+        data: {},
         success: -24
     });
 }
@@ -155,7 +155,7 @@ function insertError(res, err) {
 function invalidID(res) {
     sendResponse(res, 400, {
         message: 'Error : Invalid ID',
-        data: null,
+        data: {},
         success: -31
     });
 }
@@ -171,7 +171,7 @@ function serverError(res, message, data, errorCode) {
 function invalidParameter(res, field) {
     sendResponse(res, 400, {
         message: 'Error : Invalid ' + field,
-        data: null,
+        data: {},
         success: -32
     });
 }
@@ -179,7 +179,7 @@ function invalidParameter(res, field) {
 function surveyClosed(res) {
     sendResponse(res, 400, {
         message: 'Error : Survey closed',
-        data: null,
+        data: {},
         success: -41
     });
 }
@@ -187,7 +187,7 @@ function surveyClosed(res) {
 function tooManyItems(res) {
     sendResponse(res, 400, {
         message: 'Error : Too many items',
-        data: null,
+        data: {},
         success: -42
     });
 }
@@ -203,7 +203,7 @@ function authenticationFailed(res, message, data) {
 function resourceNotFound(res, resource) {
     sendResponse(res, 204, {
         message: 'No ' + resource + ' available',
-        data: null,
+        data: {},
         success: codes.resourceNotFound
     });
 }

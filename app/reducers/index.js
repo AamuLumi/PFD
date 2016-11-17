@@ -24,7 +24,8 @@ import {
 } from './LocalActions';
 
 import {
-    createdUserStory
+    createdUserStory,
+    loadedUserStories
 } from './UserStory';
 
 export default function configureStore(preloadedState) {
@@ -40,6 +41,7 @@ export default function configureStore(preloadedState) {
             subscribeResult,
             floatingMessage,
             createdUserStory,
+            loadedUserStories,
             routing: routerReducer
         }),
         preloadedState,
