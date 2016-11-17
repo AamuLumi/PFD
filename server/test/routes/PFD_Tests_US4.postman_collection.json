@@ -1,0 +1,72 @@
+{
+	"id": "a8ab9047-bc84-9205-825d-bb01d0584d2f",
+	"name": "PFD_Tests_US4",
+	"requests": [
+		{
+			"id": "be954f40-c7fe-08f9-eb7d-2dea991bd794",
+			"headers": "Content-Type: application/x-www-form-urlencoded\n",
+			"url": "http://localhost:8080/api/userStory/",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "name",
+					"value": "Faire de la magie",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "description",
+					"value": "Je veux que l'utilisateur qui utilise mon projet ait l'impression de faire de la magie",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "number",
+					"value": "1",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "priority",
+					"value": "1",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "effort",
+					"value": "5",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "state",
+					"value": "0",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "projectID",
+					"value": "582a0c38af3cd80f2f51fd0e",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1479150703790,
+			"name": "US4 : Faire la route pour créer une nouvelle US",
+			"description": "",
+			"collectionId": "a8ab9047-bc84-9205-825d-bb01d0584d2f",
+			"responses": []
+		}
+	],
+	"order": [
+		"be954f40-c7fe-08f9-eb7d-2dea991bd794"
+	],
+	"timestamp": 1478955624672
+}

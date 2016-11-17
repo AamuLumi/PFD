@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
+import UserStoryCreation from '../../components/UserStoryCreation';
 import {getProject, editProject, subscribe} from '../../actions/Project';
 import {showFloatingMessage, MESSAGE_CLASSES} from '../../actions/LocalActions';
 import UserStoryList from '../../components/UserStoryList';
@@ -24,9 +25,11 @@ class ProjectEdit extends Component {
         this.state = {
             project: {
                 name: '',
-                description: ''
+                description: '',
+                _id: ''
             },
-            edit: false
+            edit: false,
+            userStoryCreation: false
         };
 
         if (this.props.params.id) {
@@ -146,9 +149,9 @@ class ProjectEdit extends Component {
             for (let user of project.users) {
                 if (user === loggedUser.data._id) {
                     return (
-                        <div className="participate-button on-project">
+                        <button className="participate-button on-project">
                             On the project
-                        </div>
+                        </button>
                     );
                 }
             }
@@ -161,6 +164,23 @@ class ProjectEdit extends Component {
                     this.props.loggedUser.data._id
             )}>
                 Participate
+            </button>
+        );
+    }
+
+    getAddUserStoryButton() {
+        let {loggedUser} = this.props;
+
+        if (!loggedUser.data) {
+            return;
+        }
+
+        return (
+            <button className="new-user-story-button"
+                    onClick={() => this.setState({
+                        userStoryCreation: true
+                    })}>
+                Add new User Story
             </button>
         );
     }
@@ -182,6 +202,7 @@ class ProjectEdit extends Component {
                     </div>
                     <div>
                         {this.getParticipateButton()}
+                        {this.getAddUserStoryButton()}
                     </div>
                     <div>
                         <UserStoryList projectID={this.props.params.id}/>
@@ -192,12 +213,17 @@ class ProjectEdit extends Component {
     }
 
     render() {
-        let {edit} = this.state;
+        let {edit, userStoryCreation, project} = this.state;
 
         return (
             <div id="v-projectedit">
                 {edit && this.getEditableView()}
                 {!edit && this.getClassicView()}
+                {userStoryCreation && (
+                    <UserStoryCreation
+                        projectID={project._id}
+                        dismiss={() => this.setState({userStoryCreation: false})} />
+                )}
             </div>
         );
     }
