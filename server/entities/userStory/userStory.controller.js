@@ -12,7 +12,7 @@ module.exports = function(userStorySchema){
     userStorySchema.statics.getAll = function(params, callback) {
         mongoose.model('User_Story')
             .find({
-                projectID: new mongoose.Types.ObjectId(params.projectid)
+                projectID: new mongoose.Types.ObjectId(params.projectID)
             })
             .exec(callback);
     };
@@ -21,10 +21,10 @@ module.exports = function(userStorySchema){
      * Express calls
      */
     userStorySchema.statics.exGetAll= function(req, res) {
-        if (!req.headers || !req.headers.projectid)
+        if (!req.params || !req.params.projectID)
             return Response.missing(res, 'projectID', -11);
 
-        mongoose.model('User_Story').getAll(req.headers, (err, userStory) => {
+        mongoose.model('User_Story').getAll(req.params, (err, userStory) => {
             if (err)
                 return Response.selectError(res, err);
 
