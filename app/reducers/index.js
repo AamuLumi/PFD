@@ -25,7 +25,8 @@ import {
 
 import {
     createdUserStory,
-    loadedUserStories
+    loadedUserStories,
+    editedUserStory
 } from './UserStory';
 
 export default function configureStore(preloadedState) {
@@ -42,6 +43,7 @@ export default function configureStore(preloadedState) {
             floatingMessage,
             createdUserStory,
             loadedUserStories,
+            editedUserStory,
             routing: routerReducer
         }),
         preloadedState,
