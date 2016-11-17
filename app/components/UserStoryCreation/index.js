@@ -16,7 +16,8 @@ class UserStoryCreation extends Component {
         dismiss: React.PropTypes.func.isRequired,
         createUserStory: React.PropTypes.func.isRequired,
         createdUserStory: React.PropTypes.object.isRequired,
-        showFloatingMessage: React.PropTypes.func.isRequired
+        showFloatingMessage: React.PropTypes.func.isRequired,
+        projectID: React.PropTypes.string.isRequired
     };
 
     constructor(props) {
@@ -50,12 +51,9 @@ class UserStoryCreation extends Component {
     }
 
     createUserStory(data) {
-        console.log(data);
-        data.number = 1;
+        data.projectID = this.props.projectID;
         data.effort = parseInt(data.effort);
         data.priority = parseInt(data.priority);
-
-        console.log(data);
 
         this.props.createUserStory(data);
     }
@@ -78,14 +76,14 @@ class UserStoryCreation extends Component {
                                     {value: 3, name: 'Normal (3)'},
                                     {value: 5, name: 'Hard (5)'},
                                     {value: 8, name: 'Very hard(8)'}
-                                ]
+                                    ]
                                 },
                                 {
                                     name: 'priority', type: 'choices', choices: [
                                     {value: 0, name: 'Option (0)'},
                                     {value: 1, name: 'Desired (1)'},
                                     {value: 2, name: 'Required (2)'}
-                                ]
+                                    ]
                                 }
                             ]}/>
                     </div>

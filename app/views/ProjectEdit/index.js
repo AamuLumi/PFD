@@ -24,7 +24,8 @@ class ProjectEdit extends Component {
         this.state = {
             project: {
                 name: '',
-                description: ''
+                description: '',
+                _id: ''
             },
             edit: false,
             userStoryCreation: false
@@ -138,9 +139,9 @@ class ProjectEdit extends Component {
             for (let user of project.users) {
                 if (user === loggedUser.data._id) {
                     return (
-                        <div className="participate-button on-project">
+                        <button className="participate-button on-project">
                             On the project
-                        </div>
+                        </button>
                     );
                 }
             }
@@ -197,14 +198,16 @@ class ProjectEdit extends Component {
     }
 
     render() {
-        let {edit, userStoryCreation} = this.state;
+        let {edit, userStoryCreation, project} = this.state;
 
         return (
             <div id="v-projectedit">
                 {edit && this.getEditableView()}
                 {!edit && this.getClassicView()}
                 {userStoryCreation && (
-                    <UserStoryCreation dismiss={() => this.setState({userStoryCreation: false})} />
+                    <UserStoryCreation
+                        projectID={project._id}
+                        dismiss={() => this.setState({userStoryCreation: false})} />
                 )}
             </div>
         );
