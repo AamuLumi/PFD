@@ -8,5 +8,6 @@ let router = express.Router();
 router.post('/', userStory.exCreate);
 router.get('/:projectID', userStory.exGetAll);
 router.put('/', userStory.exEdit);
+router.put('/priority', userStory.exEditPriority);
 
 module.exports = router;

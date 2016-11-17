@@ -75,6 +75,26 @@ module.exports = function(userStorySchema){
     /*
      * Verification methods
      */
+    function checkParametersForEditPriority(req, res, callback) {
+        let parametersOK = false;
+
+        if (!req.body || !req.body.id) {
+            Response.missing(res, 'id', -11);
+        } else if (!req.body.priority) {
+            Response.missing(res, 'priority', -12);
+        } else {
+            parametersOK = true;
+        }
+
+        if (parametersOK) {
+            callback();
+        } else {
+            callback({
+                alreadySent: true
+            });
+        }
+    }
+
     function checkParametersForCreate(req, res, callback) {
         let parametersOK = false;
 
@@ -121,6 +141,25 @@ module.exports = function(userStorySchema){
                 return Response.insertError(res, err);
 
             Response.success(res, 'USer story created !', userStory);
+        });
+    };
+
+    userStorySchema.statics.exEditPriority = function(req, res) {
+        async.waterfall([
+            (next) => checkParametersForEditPriority(req, res, next),
+            (next) => mongoose.model('User_Story').edit(req.body, (err) => {
+                if (err) {
+                    Response.editError(res, err);
+                    next({
+                        alreadySent: true
+                    });
+                }
+            })
+        ], (err, userStory) => {
+            if (err && err.alreadySent)
+                return;
+
+            Response.success(res, 'Priority of the US is modified !', userStory);
         });
     };
 
