@@ -4,8 +4,8 @@
 	"requests": [
 		{
 			"id": "4f5b98f7-8eb5-acd0-6dcb-4014b4291736",
-			"headers": "projectID: 582a0c38af3cd80f2f51fd0e\n",
-			"url": "http://localhost:8080/api/userStory/",
+			"headers": "",
+			"url": "http://localhost:8080/api/userStory/582a0c38af3cd80f2f51fd0e",
 			"preRequestScript": null,
 			"pathVariables": {},
 			"method": "GET",
@@ -15,7 +15,7 @@
 			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1479318906072,
+			"time": 1479403051226,
 			"name": "All : Créer une route pour lister les US d'un projet",
 			"description": "",
 			"collectionId": "747afcd7-7c27-aa09-93a3-7d771c038e26",
