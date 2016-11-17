@@ -40,6 +40,10 @@ let userStorySchema = new Schema({
          */
         type: Number,
         required: true
+    },
+    projectID: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Project'
     }
 });
 
