@@ -22,6 +22,10 @@ export default function fetchData(params) {
             body: JSON.stringify(params.body)
         })
             .then((response) => {
+                if (response.status === 204){
+                    return {data : {}, success: -43};
+                }
+
                 return response.json();
             })
             .then((data) => {
@@ -40,13 +44,17 @@ export function getLoadingFunction(action){
 }
 
 export function getLoadedFunction(action){
-    return (res) => {
+    return (res, err) => {
         let dispatchedAction = {
             type: action,
             loaded: true,
             date: Date.now(),
             data: res.data
         };
+
+        if (err){
+            dispatchedAction.data = null;
+        }
 
         if (res.success < 1){
             dispatchedAction.error = true;
