@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 
 import {getProject, editProject, subscribe} from '../../actions/Project';
 import {showFloatingMessage, MESSAGE_CLASSES} from '../../actions/LocalActions';
+import UserStoryList from '../../components/UserStoryList';
 
 import './ProjectEdit.less';
 
@@ -22,8 +23,8 @@ class ProjectEdit extends Component {
 
         this.state = {
             project: {
-                name: "",
-                description: ""
+                name: '',
+                description: ''
             },
             edit: false
         };
@@ -39,6 +40,15 @@ class ProjectEdit extends Component {
             this.setState({
                 project: newProps.loadedProject.data
             });
+        } else if (newProps.loadedProject.error) {
+            this.props.showFloatingMessage({
+                message: newProps.loadedProject.errorMessage,
+                messageClass: MESSAGE_CLASSES.ERROR
+            });
+        } else {
+            this.setState({
+                project: {}
+            });
         }
 
         // If there's new edition of project, show the result of the edition
@@ -46,7 +56,7 @@ class ProjectEdit extends Component {
             this.props.showFloatingMessage({
                 message: newProps.editedProject.errorMessage,
                 messageClass: newProps.editedProject.error ?
-                MESSAGE_CLASSES.ERROR : MESSAGE_CLASSES.SUCCESS,
+                MESSAGE_CLASSES.ERROR : MESSAGE_CLASSES.SUCCESS
             });
         }
 
@@ -54,7 +64,7 @@ class ProjectEdit extends Component {
             this.props.showFloatingMessage({
                 message: newProps.subscribeResult.errorMessage,
                 messageClass: newProps.subscribeResult.error ?
-                    MESSAGE_CLASSES.ERROR : MESSAGE_CLASSES.SUCCESS,
+                    MESSAGE_CLASSES.ERROR : MESSAGE_CLASSES.SUCCESS
             });
 
             if (this.props.params.id) {
@@ -170,7 +180,12 @@ class ProjectEdit extends Component {
                     <div className="description">
                         {project.description}
                     </div>
-                    {this.getParticipateButton()}
+                    <div>
+                        {this.getParticipateButton()}
+                    </div>
+                    <div>
+                        <UserStoryList projectID={this.props.params.id}/>
+                    </div>
                 </div>
             </div>
         );
@@ -184,7 +199,7 @@ class ProjectEdit extends Component {
                 {edit && this.getEditableView()}
                 {!edit && this.getClassicView()}
             </div>
-        )
+        );
     }
 }
 
@@ -194,7 +209,7 @@ function mapStateToProps(state) {
         editedProject: state.editedProject,
         loggedUser: state.loggedUser,
         subscribeResult: state.subscribeResult
-    }
+    };
 }
 
 function mapDispatchToProps(dispatch) {
