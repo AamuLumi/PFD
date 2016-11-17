@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import {getUserStories} from '../../actions/UserStory';
+import {getUserStories, editUserStory} from '../../actions/UserStory';
 import {showFloatingMessage, MESSAGE_CLASSES} from '../../actions/LocalActions';
 
 import './UserStoryList.less';
@@ -15,14 +15,21 @@ class UserStoryList extends Component {
         projectID: React.PropTypes.string.isRequired,
         loadedUserStories: React.PropTypes.object.isRequired,
         getUserStories: React.PropTypes.func.isRequired,
-        showFloatingMessage: React.PropTypes.func.isRequired
+        showFloatingMessage: React.PropTypes.func.isRequired,
+        editUserStory: React.PropTypes.func.isRequired,
+        editedUserStory: React.PropTypes.object.isRequired
     };
 
     constructor(props) {
         super(props);
 
         this.state = {
-            userStories: []
+            userStories: [],
+            editCard: -1,
+            name: '',
+            description: '',
+            priority: 0,
+            effort: -1
         };
 
         if (this.props.projectID) {
@@ -43,6 +50,13 @@ class UserStoryList extends Component {
         } else {
             this.setState({
                 userStories: []
+            });
+        }
+
+        if (newProps.editedUserStory.loaded && newProps.editedUserStory.error){
+            this.props.showFloatingMessage({
+                message: newProps.editedUserStory.errorMessage,
+                messageClass: MESSAGE_CLASSES.ERROR
             });
         }
 
@@ -85,9 +99,102 @@ class UserStoryList extends Component {
         }
     }
 
-    static getViewForUserStory(e, i) {
+    handleChange(e, field) {
+        let nextState = {};
+
+        nextState[field] = e.target.value;
+
+        this.setState(nextState);
+    }
+
+    switchEdit(e, number) {
+        this.setState({
+            editCard: number,
+            name: e.name,
+            description: e.description,
+            effort: e.effort,
+            priority: e.priority
+        });
+    }
+
+    acceptEdit(number){
+        let userStory = this.state.userStories[number];
+
+        userStory.name = this.state.name;
+        userStory.description = this.state.description;
+        userStory.effort = parseInt(this.state.effort);
+        userStory.priority = parseInt(this.state.priority);
+
+        this.setState({
+            editCard: -1
+        }, () => this.props.editUserStory(userStory));
+    }
+
+    getEditViewForUserStory(e, i) {
         return (
-            <div className="user-story" key={i}>
+            <div className="user-story">
+                <div className="container-edit-button">
+                    <i className="edit-button fa fa-close fa-2"
+                       onClick={() => this.switchEdit({}, -1)}></i>
+                    <i className="edit-button fa fa-check fa-2"
+                       onClick={() => this.acceptEdit(i)}></i>
+                </div>
+                <div className="user-story-title">
+                    <input
+                        className="input-name"
+                        type="text"
+                        value={this.state.name}
+                        onChange={(e) => this.handleChange(e, 'name')}
+                        placeholder="Name"/>
+                </div>
+                <div className="user-story-description">
+                    <div className="little-text">
+                    <textarea
+                        className="input-description"
+                        rows="4"
+                        value={this.state.description}
+                        onChange={(e) => this.handleChange(e, 'description')}
+                        placeholder="Description"/>
+                    </div>
+                    <div>
+                        US Number : {e.number} -
+                        <span>Effort : </span>
+                        <select
+                            value={this.state.effort}
+                            onChange={(e) => this.handleChange(e, 'effort')}>
+                            <option value="1">Very Easy (1)</option>
+                            <option value="2">Easy (2)</option>
+                            <option value="3">Normal (3)</option>
+                            <option value="5">Hard (5)</option>
+                            <option value="8">Very Hard (8)</option>
+                        </select>
+                        <span> - Priority : </span>
+                        <select
+                            value={this.state.priority}
+                            onChange={(e) => this.handleChange(e, 'priority')}>
+                            <option value="0">Option</option>
+                            <option value="1">Desired</option>
+                            <option value="2">Required</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    getClassicViewForUserStory(e, i, editButtonVisible) {
+        let containerEditButton = undefined;
+
+        if (editButtonVisible) {
+            containerEditButton = (
+                <div className="container-edit-button" onClick={() => this.switchEdit(e, i)}>
+                    <i className="edit-button fa fa-cog fa-2"></i>
+                </div>
+            );
+        }
+        return (
+            <div className="user-story">
+                {containerEditButton}
                 <div className="user-story-title">
                     {e.name}
                 </div>
@@ -105,13 +212,33 @@ class UserStoryList extends Component {
         );
     }
 
+    getViewForUserStory(e, i) {
+        const {editCard} = this.state;
+
+        let userStory = undefined;
+
+        if (editCard === -1) {
+            userStory = this.getClassicViewForUserStory(e, i, true);
+        } else if (editCard === i) {
+            userStory = this.getEditViewForUserStory(e, i);
+        } else {
+            userStory = this.getClassicViewForUserStory(e, i, false);
+        }
+
+        return (
+            <div className="user-story-container" key={i}>
+                {userStory}
+            </div>
+        );
+    }
+
     render() {
         const {userStories} = this.state;
 
         return (
             <div id="c-user-story-list">
-                {userStories.sort((e1, e2) => e1.priority > e2.priority ? -1 : 1)
-                    .map((e, i) => UserStoryList.getViewForUserStory(e, i))}
+                {userStories.sort((e1, e2) => e1.priority > e2.priority ? -1 : 0)
+                    .map((e, i) => this.getViewForUserStory(e, i))}
             </div>
         );
     }
@@ -119,7 +246,8 @@ class UserStoryList extends Component {
 
 function mapStateToProps(state) {
     return {
-        loadedUserStories: state.loadedUserStories
+        loadedUserStories: state.loadedUserStories,
+        editedUserStory: state.editedUserStory
     };
 }
 
@@ -128,7 +256,9 @@ function mapDispatchToProps(dispatch) {
         getUserStories: (id) =>
             dispatch(getUserStories(id)),
         showFloatingMessage: (params) =>
-            dispatch(showFloatingMessage(params))
+            dispatch(showFloatingMessage(params)),
+        editUserStory: (params) =>
+            dispatch(editUserStory(params))
     };
 }
 
