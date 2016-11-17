@@ -53,7 +53,7 @@ class UserStoryList extends Component {
             });
         }
 
-        if (newProps.editedUserStory.loaded && newProps.editedUserStory.error){
+        if (newProps.editedUserStory.loaded && newProps.editedUserStory.error) {
             this.props.showFloatingMessage({
                 message: newProps.editedUserStory.errorMessage,
                 messageClass: MESSAGE_CLASSES.ERROR
@@ -117,17 +117,24 @@ class UserStoryList extends Component {
         });
     }
 
-    acceptEdit(number){
-        let userStory = this.state.userStories[number];
+    acceptEdit(number) {
+        if (!this.state.name || this.state.name.length === 0) {
+            this.props.showFloatingMessage({
+                message: 'Name needed',
+                messageClass: MESSAGE_CLASSES.ERROR
+            });
+        } else {
+            let userStory = this.state.userStories[number];
 
-        userStory.name = this.state.name;
-        userStory.description = this.state.description;
-        userStory.effort = parseInt(this.state.effort);
-        userStory.priority = parseInt(this.state.priority);
+            userStory.name = this.state.name;
+            userStory.description = this.state.description;
+            userStory.effort = parseInt(this.state.effort);
+            userStory.priority = parseInt(this.state.priority);
 
-        this.setState({
-            editCard: -1
-        }, () => this.props.editUserStory(userStory));
+            this.setState({
+                editCard: -1
+            }, () => this.props.editUserStory(userStory));
+        }
     }
 
     getEditViewForUserStory(e, i) {
