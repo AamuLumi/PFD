@@ -1,0 +1,43 @@
+{
+	"id": "d45d359d-c51a-96ab-d659-a930c6070ead",
+	"name": "PFD_Tests_US5",
+	"requests": [
+		{
+			"id": "3c6a845d-d533-6961-8ebb-3a1e128ab79e",
+			"headers": "Content-Type: application/x-www-form-urlencoded\n",
+			"url": "http://localhost:8080/api/userStory/",
+			"pathVariables": {},
+			"preRequestScript": null,
+			"method": "PUT",
+			"collectionId": "d45d359d-c51a-96ab-d659-a930c6070ead",
+			"data": [
+				{
+					"key": "_id",
+					"value": "582de1d46b4c101c730925d8",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "effort",
+					"value": "3",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"name": "US5 : Faire la route pour modifier une US",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1479412480934,
+			"version": 2,
+			"responses": [],
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		}
+	],
+	"order": [
+		"3c6a845d-d533-6961-8ebb-3a1e128ab79e"
+	],
+	"timestamp": 1479412480934
+}
