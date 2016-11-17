@@ -31,7 +31,7 @@ module.exports = function(userStorySchema){
      * Express calls
      */
     userStorySchema.statics.exEdit = function(req, res) {
-        mongoose.model('UserStory').edit(req.body, (err, userStory) => {
+        mongoose.model('User_Story').edit(req.body, (err, userStory) => {
             if (err)
                 Response.insertError(res, err);
 
