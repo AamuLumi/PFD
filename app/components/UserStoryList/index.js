@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import {getUserStories, editUserStory} from '../../actions/UserStory';
+import {getUserStories, editUserStory, deleteUserStory} from '../../actions/UserStory';
 import {showFloatingMessage, MESSAGE_CLASSES} from '../../actions/LocalActions';
 
 import './UserStoryList.less';
@@ -17,7 +17,9 @@ class UserStoryList extends Component {
         getUserStories: React.PropTypes.func.isRequired,
         showFloatingMessage: React.PropTypes.func.isRequired,
         editUserStory: React.PropTypes.func.isRequired,
-        editedUserStory: React.PropTypes.object.isRequired
+        editedUserStory: React.PropTypes.object.isRequired,
+        deleteUserStory: React.PropTypes.func.isRequired,
+        deletedUserStory: React.PropTypes.object.isRequired
     };
 
     constructor(props) {
@@ -56,6 +58,13 @@ class UserStoryList extends Component {
         if (newProps.editedUserStory.loaded && newProps.editedUserStory.error) {
             this.props.showFloatingMessage({
                 message: newProps.editedUserStory.errorMessage,
+                messageClass: MESSAGE_CLASSES.ERROR
+            });
+        }
+
+        if (newProps.deletedUserStory.loaded && newProps.deletedUserStory.error) {
+            this.props.showFloatingMessage({
+                message: newProps.deletedUserStory.errorMessage,
                 messageClass: MESSAGE_CLASSES.ERROR
             });
         }
@@ -137,6 +146,16 @@ class UserStoryList extends Component {
         }
     }
 
+    remove(number) {
+        let userStory = this.state.userStories[number];
+
+        let newUserStories = this.state.userStories.splice(number, 1);
+
+        this.setState({
+            userStories: newUserStories
+        }, () => this.props.deleteUserStory(userStory));
+    }
+
     getEditViewForUserStory(e, i) {
         return (
             <div className="user-story">
@@ -194,11 +213,15 @@ class UserStoryList extends Component {
 
         if (editButtonVisible) {
             containerEditButton = (
-                <div className="container-edit-button" onClick={() => this.switchEdit(e, i)}>
-                    <i className="edit-button fa fa-cog fa-2"></i>
+                <div className="container-edit-button">
+                    <i className="edit-button fa fa-close fa-2"
+                       onClick={() => this.remove(i)}></i>
+                    <i className="edit-button fa fa-cog fa-2"
+                       onClick={() => this.switchEdit(e, i)}></i>
                 </div>
             );
         }
+
         return (
             <div className="user-story">
                 {containerEditButton}
@@ -254,7 +277,8 @@ class UserStoryList extends Component {
 function mapStateToProps(state) {
     return {
         loadedUserStories: state.loadedUserStories,
-        editedUserStory: state.editedUserStory
+        editedUserStory: state.editedUserStory,
+        deletedUserStory: state.deletedUserStory
     };
 }
 
@@ -265,7 +289,9 @@ function mapDispatchToProps(dispatch) {
         showFloatingMessage: (params) =>
             dispatch(showFloatingMessage(params)),
         editUserStory: (params) =>
-            dispatch(editUserStory(params))
+            dispatch(editUserStory(params)),
+        deleteUserStory: (params) =>
+            dispatch(deleteUserStory(params))
     };
 }
 
