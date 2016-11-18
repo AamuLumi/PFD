@@ -1,0 +1,43 @@
+{
+	"id": "cd9b1937-6e99-2822-720b-419b142d06da",
+	"name": "PFD_Tests_US11",
+	"requests": [
+		{
+			"id": "43da320f-ef40-4743-c57b-8ca32eb0a38b",
+			"headers": "Content-Type: application/x-www-form-urlencoded\n",
+			"url": "http://localhost:8080/api/userStory/priority",
+			"pathVariables": {},
+			"preRequestScript": null,
+			"method": "PUT",
+			"collectionId": "cd9b1937-6e99-2822-720b-419b142d06da",
+			"data": [
+				{
+					"key": "id",
+					"value": "582715d032c20e24bf72e48b",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "priority",
+					"value": "2",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"name": "US11 : Créer la route pour modifier la priorité d'une US",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1478956816667,
+			"version": 2,
+			"responses": [],
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		}
+	],
+	"order": [
+		"43da320f-ef40-4743-c57b-8ca32eb0a38b"
+	],
+	"timestamp": 1478956816667
+}

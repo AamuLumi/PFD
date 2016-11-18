@@ -18,7 +18,9 @@ export default class Toolbar extends Component {
                 <div className="toolbar-border"></div>
                 <div id="toolbar-container">
                     <div className="title" style={{display: 'inline-block'}}>
-                        <span>PFD</span>
+                        <Link to="/">
+                            <span>PFD</span>
+                        </Link>
                     </div>
                     <div className="first-links" style={{display: 'inline-block'}}>
                         <Link to="/project">

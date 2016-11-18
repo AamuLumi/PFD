@@ -26,3 +26,46 @@ a {
   color: black;
 }
 
+.form-container {
+  z-index: 5;
+  width: 100%;
+  max-width: 800px;
+  margin: 32px auto;
+  table {
+    width: 100%;
+    label {
+      font-size: 1.3em;
+    }
+    input {
+      font-family: 'Lato', sans-serif;
+      width: 100%;
+    }
+    textarea {
+      font-family: 'Lato', sans-serif;
+      width: 100%;
+    }
+    td {
+      padding-top: 8px;
+    }
+  }
+  .confirm-button {
+    width: 100%;
+    background-color: @green;
+    font-size: 1.5em;
+    color: white;
+    border-radius: 5px;
+    border: 0 solid transparent;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.25s;
+    &:hover {
+      box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+    }
+  }
+  .error{
+    background-color: @red;
+  }
+}
+.little-text {
+  font-size: 0.8em;
+}

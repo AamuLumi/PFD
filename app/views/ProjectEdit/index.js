@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
+import UserStoryCreation from '../../components/UserStoryCreation';
 import {getProject, editProject, subscribe} from '../../actions/Project';
 import {showFloatingMessage, MESSAGE_CLASSES} from '../../actions/LocalActions';
+import UserStoryList from '../../components/UserStoryList';
 
 import './ProjectEdit.less';
 
@@ -22,10 +24,12 @@ class ProjectEdit extends Component {
 
         this.state = {
             project: {
-                name: "",
-                description: ""
+                name: '',
+                description: '',
+                _id: ''
             },
-            edit: false
+            edit: false,
+            userStoryCreation: false
         };
 
         if (this.props.params.id) {
@@ -39,6 +43,15 @@ class ProjectEdit extends Component {
             this.setState({
                 project: newProps.loadedProject.data
             });
+        } else if (newProps.loadedProject.error) {
+            this.props.showFloatingMessage({
+                message: newProps.loadedProject.errorMessage,
+                messageClass: MESSAGE_CLASSES.ERROR
+            });
+        } else {
+            this.setState({
+                project: {}
+            });
         }
 
         // If there's new edition of project, show the result of the edition
@@ -46,7 +59,7 @@ class ProjectEdit extends Component {
             this.props.showFloatingMessage({
                 message: newProps.editedProject.errorMessage,
                 messageClass: newProps.editedProject.error ?
-                MESSAGE_CLASSES.ERROR : MESSAGE_CLASSES.SUCCESS,
+                MESSAGE_CLASSES.ERROR : MESSAGE_CLASSES.SUCCESS
             });
         }
 
@@ -54,7 +67,7 @@ class ProjectEdit extends Component {
             this.props.showFloatingMessage({
                 message: newProps.subscribeResult.errorMessage,
                 messageClass: newProps.subscribeResult.error ?
-                    MESSAGE_CLASSES.ERROR : MESSAGE_CLASSES.SUCCESS,
+                    MESSAGE_CLASSES.ERROR : MESSAGE_CLASSES.SUCCESS
             });
 
             if (this.props.params.id) {
@@ -136,9 +149,9 @@ class ProjectEdit extends Component {
             for (let user of project.users) {
                 if (user === loggedUser.data._id) {
                     return (
-                        <div className="participate-button on-project">
+                        <button className="participate-button on-project">
                             On the project
-                        </div>
+                        </button>
                     );
                 }
             }
@@ -151,6 +164,23 @@ class ProjectEdit extends Component {
                     this.props.loggedUser.data._id
             )}>
                 Participate
+            </button>
+        );
+    }
+
+    getAddUserStoryButton() {
+        let {loggedUser} = this.props;
+
+        if (!loggedUser.data) {
+            return;
+        }
+
+        return (
+            <button className="new-user-story-button"
+                    onClick={() => this.setState({
+                        userStoryCreation: true
+                    })}>
+                Add new User Story
             </button>
         );
     }
@@ -170,21 +200,32 @@ class ProjectEdit extends Component {
                     <div className="description">
                         {project.description}
                     </div>
-                    {this.getParticipateButton()}
+                    <div>
+                        {this.getParticipateButton()}
+                        {this.getAddUserStoryButton()}
+                    </div>
+                    <div>
+                        <UserStoryList projectID={this.props.params.id}/>
+                    </div>
                 </div>
             </div>
         );
     }
 
     render() {
-        let {edit} = this.state;
+        let {edit, userStoryCreation, project} = this.state;
 
         return (
             <div id="v-projectedit">
                 {edit && this.getEditableView()}
                 {!edit && this.getClassicView()}
+                {userStoryCreation && (
+                    <UserStoryCreation
+                        projectID={project._id}
+                        dismiss={() => this.setState({userStoryCreation: false})} />
+                )}
             </div>
-        )
+        );
     }
 }
 
@@ -194,7 +235,7 @@ function mapStateToProps(state) {
         editedProject: state.editedProject,
         loggedUser: state.loggedUser,
         subscribeResult: state.subscribeResult
-    }
+    };
 }
 
 function mapDispatchToProps(dispatch) {

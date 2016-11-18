@@ -4,12 +4,12 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="localhost:8080" />
-<title>US3_UI_login</title>
+<title>US4_UI_createUS</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">US3_UI_login</td></tr>
+<tr><td rowspan="1" colspan="3">US4_UI_createUS</td></tr>
 </thead><tbody>
 <tr>
 	<td>click</td>
@@ -34,6 +34,46 @@
 <tr>
 	<td>click</td>
 	<td>//div[@id='v-projectlist']/div[2]/a[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=button.new-user-story-button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>store</td>
+	<td>javascript{Math.floor(Math.random()*300)}</td>
+	<td>v1</td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>name=name</td>
+	<td>Lancer le sort Wingardium Leviosa</td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>name=name</td>
+	<td>${v1}</td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>name=description</td>
+	<td>En tant qu'apprenti sorcier, je souhaite apprendre le sort Wingardium Leviosa afin de pouvoir faire léviter mon ordinateur quand il bug.</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>css=select</td>
+	<td>index=2</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//div[@id='c-user-story-creation']/div/div/div/table/tbody/tr[4]/td[2]/select</td>
+	<td>index=1</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=button.confirm-button</td>
 	<td></td>
 </tr>
 </tbody></table>
