@@ -70,7 +70,7 @@ class UserStoryCreation extends Component {
                                 {name: 'name', type: 'text'},
                                 {name: 'description', type: 'textArea'},
                                 {
-                                    name: 'effort', type: 'choices', choices: [
+                                    name: 'effort', type: 'select', options: [
                                     {value: 1, name: 'Very easy (1)'},
                                     {value: 2, name: 'Easy (2)'},
                                     {value: 3, name: 'Normal (3)'},
@@ -79,7 +79,7 @@ class UserStoryCreation extends Component {
                                     ]
                                 },
                                 {
-                                    name: 'priority', type: 'choices', choices: [
+                                    name: 'priority', type: 'select', options: [
                                     {value: 0, name: 'Option (0)'},
                                     {value: 1, name: 'Desired (1)'},
                                     {value: 2, name: 'Required (2)'}

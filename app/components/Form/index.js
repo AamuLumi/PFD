@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 
+import Input, {TYPES} from '../../atoms/Input';
 import './Form.less';
 
 function firstLetterUp(text) {
@@ -49,9 +50,9 @@ export default class UserStoryCreation extends Component {
 
     getText(element) {
         return (
-            <input type="text"
+            <Input type={TYPES.TEXT}
                    name={element.name}
-                   placeholder={firstLetterUp(element.placeholder) || firstLetterUp(element.name)}
+                   placeholder={element.placeholder}
                    onChange={(e) => this.handleChange(e, element.name)}
                    value={this.state[element.name]}/>
         );
@@ -59,23 +60,25 @@ export default class UserStoryCreation extends Component {
 
     getTextArea(element) {
         return (
-            <textarea name={element.name}
-                      rows="4"
-                      placeholder={firstLetterUp(element.placeholder) ||
-                      firstLetterUp(element.name)}
-                      onChange={(e) => this.handleChange(e, element.name)}
-                      value={this.state[element.name]}/>
+            <Input
+                type={TYPES.TEXTAREA}
+                name={element.name}
+                rows={4}
+                placeholder={element.placeholder}
+                onChange={(e) => this.handleChange(e, element.name)}
+                value={this.state[element.name]}/>
         );
     }
 
-    getChoices(element) {
+    getSelect(element) {
         return (
-            <select value={this.state[element.name]}
-                    onChange={(e) => this.handleChange(e, element.name)}>
-                {element.choices.map((e, i) =>
-                    <option value={e.value} key={i}>{e.name}</option>
-                )}
-            </select>
+            <Input
+                name={element.name}
+                type={TYPES.SELECT}
+                onChange={(e) => this.handleChange(e, element.name)}
+                value={this.state[element.name]}
+                options={element.options}
+            />
         );
     }
 
@@ -86,8 +89,8 @@ export default class UserStoryCreation extends Component {
             htmlField = this.getText(element);
         } else if (element.type === 'textArea') {
             htmlField = this.getTextArea(element);
-        } else if (element.type === 'choices') {
-            htmlField = this.getChoices(element);
+        } else if (element.type === 'select') {
+            htmlField = this.getSelect(element);
         }
 
         return (
