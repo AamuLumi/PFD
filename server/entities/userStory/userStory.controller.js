@@ -218,4 +218,18 @@ module.exports = function(userStorySchema){
         });
     };
 
+    userStorySchema.statics.exDelete = function(req, res) {
+        async.waterfall([
+            (next) => checkParametersForDelete(req, res, next),
+            (next) => mongoose.model('User_Story').delete(req.body, next)
+        ], (err, userStory) => {
+            if (err && err.alreadySent)
+                return;
+
+            if (err)
+                Response.insertError(res, err);
+
+            Response.success(res, 'User story successfully deleted !', userStory);
+        });
+    };
 };
