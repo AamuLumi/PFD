@@ -26,7 +26,8 @@ import {
 import {
     createdUserStory,
     loadedUserStories,
-    editedUserStory
+    editedUserStory,
+    deletedUserStory
 } from './UserStory';
 
 export default function configureStore(preloadedState) {
@@ -44,6 +45,7 @@ export default function configureStore(preloadedState) {
             createdUserStory,
             loadedUserStories,
             editedUserStory,
+            deletedUserStory,
             routing: routerReducer
         }),
         preloadedState,
