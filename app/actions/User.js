@@ -18,6 +18,6 @@ export function getLoggedUser() {
         loading: getLoadingFunction(GET_LOGGED_USER),
         loaded: getLoadedFunction(GET_LOGGED_USER),
         url: 'api/user/me',
-        method: 'GET',
+        method: 'GET'
     });
 }

@@ -1,18 +1,63 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router';
+import {connect} from 'react-redux';
 
+import {logout} from '../../actions/Auth';
 import './Toolbar.less';
 
-export default class Toolbar extends Component {
+class Toolbar extends Component {
     static contextTypes = {
         router: React.PropTypes.object.isRequired
     };
 
+    static propTypes = {
+        loginResult: React.PropTypes.object.isRequired,
+        logout: React.PropTypes.func.isRequired
+    };
+
     constructor(props) {
         super(props);
+
+        this.state = {
+            logged: false
+        };
+    }
+
+    componentWillReceiveProps(newProps) {
+        let {loginResult} = newProps;
+
+        if (loginResult.loaded && loginResult.data && !loginResult.error) {
+            this.setState({
+                logged: true
+            });
+        } else {
+            this.setState({
+                logged: false
+            });
+        }
+
+        this.props = newProps;
     }
 
     render() {
+        let {logged} = this.state;
+
+        let connectIcon = (
+            <Link to="/login">
+                <span>
+                    <i className="fa fa-user-circle"></i>
+                </span>
+            </Link>
+        );
+
+        if (logged) {
+            connectIcon = (
+                <Link to="/" onClick={() => this.props.logout()}>
+                    <i className="fa fa-sign-out"></i>
+                </Link>
+            );
+        }
+
         return (
             <div id="c-toolbar">
                 <div className="toolbar-border"></div>
@@ -31,11 +76,7 @@ export default class Toolbar extends Component {
                         </Link>
                     </div>
                     <div className="second-links" style={{display: 'inline-block'}}>
-                        <Link to="/login">
-                            <span>
-                                <i className="fa fa-user-circle"></i>
-                            </span>
-                        </Link>
+                        {connectIcon}
                     </div>
                 </div>
                 <div className="toolbar-border"></div>
@@ -43,3 +84,18 @@ export default class Toolbar extends Component {
         );
     }
 }
+
+function mapStateToProps(state) {
+    return {
+        loginResult: state.loginResult
+    };
+}
+
+function mapDispatchToProps(dispatch){
+    return {
+        logout: () =>
+            dispatch(logout())
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Toolbar);

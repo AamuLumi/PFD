@@ -3,6 +3,10 @@ import {
     GET_LOGGED_USER
 } from '../actions/User';
 
+import {
+    LOGOUT
+} from '../actions/Auth';
+
 export function createdUser(state = {loaded: true}, action) {
     switch (action.type) {
         case CREATE_USER:
@@ -27,6 +31,11 @@ export function loggedUser(state = {loaded: true}, action) {
                 data: action.data,
                 error: action.error,
                 errorMessage: action.errorMessage
+            });
+        case LOGOUT:
+            return Object.assign({}, state, {
+                data: undefined,
+                date: Date.now()
             });
         default:
             return state;

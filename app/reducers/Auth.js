@@ -1,5 +1,6 @@
 import {
-    LOGIN
+    LOGIN,
+    LOGOUT
 } from '../actions/Auth';
 
 export function loginResult(state = {loaded: true}, action) {
@@ -11,6 +12,11 @@ export function loginResult(state = {loaded: true}, action) {
                 data: action.data,
                 error: action.error,
                 errorMessage: action.errorMessage
+            });
+        case LOGOUT:
+            return Object.assign({}, {
+                loaded: true,
+                date: Date.now()
             });
         default:
             return state;

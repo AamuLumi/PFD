@@ -1,7 +1,7 @@
 import Fetch, {getLoadingFunction, setAuthorizationToken} from '../tools/Fetch';
-import {getLoggedUser} from './User';
 
 export const LOGIN = 'LOGIN';
+export const LOGOUT = 'LOGOUT';
 
 export function login(credentials) {
     return Fetch({
@@ -27,4 +27,14 @@ export function login(credentials) {
         method: 'POST',
         body: credentials
     });
+}
+
+export function logout(){
+    return (dispatch) => {
+        setAuthorizationToken(undefined);
+
+        dispatch({
+            type: LOGOUT
+        });
+    };
 }
