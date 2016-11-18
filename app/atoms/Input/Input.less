@@ -1,11 +1,48 @@
 .input {
   width: 100%;
+  display: inline;
   .input-text {
     width: 100%;
     font-family: 'Lato', sans-serif;
+    border: none;
+    border-bottom: solid black 2px;
+    padding-bottom: 4px;
+    -webkit-transition: all .25s;
+    -moz-transition: all .25s;
+    -ms-transition: all .25s;
+    -o-transition: all .25s;
+    transition: all .25s;
+    &:focus {
+      outline: none;
+      border-bottom: solid @primary-color 2px;
+    }
   }
   .input-textarea {
     width: 100%;
     font-family: 'Lato', sans-serif;
+    -webkit-transition: all .25s;
+    -moz-transition: all .25s;
+    -ms-transition: all .25s;
+    -o-transition: all .25s;
+    transition: all .25s;
+    border: solid black 2px;
+    &:focus {
+      outline: none;
+      border: solid @primary-color 2px;
+    }
+  }
+  .input-select {
+    background-color: white;
+    font-family: 'Lato', sans-serif;
+    -webkit-transition: all .25s;
+    -moz-transition: all .25s;
+    -ms-transition: all .25s;
+    -o-transition: all .25s;
+    transition: all .25s;
+    border: solid black 2px;
+    &:focus {
+      outline: none;
+      border: solid @primary-color 2px;
+    }
   }
 }

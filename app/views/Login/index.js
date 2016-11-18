@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {login} from '../../actions/Auth';
 import {getLoggedUser} from '../../actions/User';
 import {showFloatingMessage, MESSAGE_CLASSES} from '../../actions/LocalActions';
-
+import Input, {TYPES} from '../../atoms/Input';
 import './Login.less';
 
 class Login extends Component {
@@ -27,7 +27,7 @@ class Login extends Component {
             password: ''
         };
     }
-    
+
     componentWillReceiveProps(newProps){
         if (newProps.loginResult.loaded && newProps.loginResult.error){
             this.props.showFloatingMessage({
@@ -65,12 +65,16 @@ class Login extends Component {
                 </div>
                 <div className="login-form">
                     <div className="field">
-                        <input type="text"
+                        <Input type={TYPES.TEXT}
+                               className="input-auth"
+                               name="email"
                                placeholder="E-Mail"
                                onChange={(e) => this.handleChange(e, 'email')}/>
                     </div>
                     <div className="field">
-                        <input type="password"
+                        <Input type={TYPES.PASSWORD}
+                               className="input-auth"
+                               name="password"
                                placeholder="Password"
                                onChange={(e) => this.handleChange(e, 'password')}/>
                     </div>

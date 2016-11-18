@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router';
 
 import {createProject} from '../../actions/Project';
+import Input, {TYPES} from '../../atoms/Input';
 
 import './ProjectCreate.less';
 
@@ -16,8 +17,8 @@ class ProjectCreate extends Component {
         super(props);
 
         this.state = {
-            name: "",
-            project: ""
+            name: '',
+            project: ''
         };
     }
 
@@ -52,7 +53,7 @@ class ProjectCreate extends Component {
             );
         } else if (createdProject.loaded) {
             return (
-                <Link to={'project/edit/' + createdProject.data._id} >
+                <Link to={'project/edit/' + createdProject.data._id}>
                     <button className="confirm-button success"
                             onClick={() => this.handleSubmit()}>
                         Project created ! Click to see your project !
@@ -86,7 +87,7 @@ class ProjectCreate extends Component {
                                 <label htmlFor="name">Name</label>
                             </td>
                             <td>
-                                <input type="text"
+                                <Input type={TYPES.TEXT}
                                        name="name"
                                        placeholder="Project name"
                                        onChange={(e) => this.handleChange(e, 'name')}
@@ -98,11 +99,13 @@ class ProjectCreate extends Component {
                                 <label htmlFor="description">Description</label>
                             </td>
                             <td>
-                                <textarea name="description"
-                                          rows="4"
-                                          placeholder="Project description"
-                                          onChange={(e) => this.handleChange(e, 'description')}
-                                          value={this.state.description}/>
+                                <Input
+                                    type={TYPES.TEXTAREA}
+                                    name="description"
+                                    rows={4}
+                                    placeholder="Project description"
+                                    onChange={(e) => this.handleChange(e, 'description')}
+                                    value={this.state.description}/>
                             </td>
                         </tr>
                         <tr>

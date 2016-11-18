@@ -6,6 +6,7 @@ import {getProject, editProject, subscribe} from '../../actions/Project';
 import {getUserStories} from '../../actions/UserStory';
 import {showFloatingMessage, MESSAGE_CLASSES} from '../../actions/LocalActions';
 import UserStoryList from '../../components/UserStoryList';
+import Input, {TYPES} from '../../atoms/Input';
 
 import './ProjectEdit.less';
 
@@ -29,6 +30,7 @@ class ProjectEdit extends Component {
                 description: '',
                 _id: ''
             },
+            projectBeforeEdit: undefined,
             edit: false,
             userStoryCreation: false
         };
@@ -60,7 +62,7 @@ class ProjectEdit extends Component {
             this.props.showFloatingMessage({
                 message: newProps.editedProject.errorMessage,
                 messageClass: newProps.editedProject.error ?
-                MESSAGE_CLASSES.ERROR : MESSAGE_CLASSES.SUCCESS
+                    MESSAGE_CLASSES.ERROR : MESSAGE_CLASSES.SUCCESS
             });
         }
 
@@ -95,9 +97,17 @@ class ProjectEdit extends Component {
     }
 
     switchEdit() {
-        this.setState({
-            edit: !this.state.edit
-        });
+        if (this.state.edit){
+            this.setState({
+                edit: false,
+                project: this.state.projectBeforeEdit
+            });
+        } else {
+            this.setState({
+                edit: true,
+                projectBeforeEdit: Object.assign({}, this.state.project)
+            });
+        }
     }
 
     handleChange(e, field) {
@@ -121,19 +131,21 @@ class ProjectEdit extends Component {
                     <i className="edit-button fa fa-check fa-2"
                        onClick={() => this.acceptEdit()}></i>
                 </div>
-                <input type="text"
-                       className="title"
+                <Input type={TYPES.TEXT}
                        value={project.name}
                        onChange={(e) => this.handleChange(e, 'name')}
+                       name="name"
                        placeholder="Name"
-                       required/>
-                <textarea type="text"
-                          rows="5"
-                          value={project.description}
-                          onChange={(e) => this.handleChange(e, 'description')}
-                          className="description"
-                          placeholder="Description">
-                </textarea>
+                       className="title"/>
+                <div className="project-container">
+                    <Input type={TYPES.TEXTAREA}
+                           rows={5}
+                           value={project.description}
+                           onChange={(e) => this.handleChange(e, 'description')}
+                           name="description"
+                           className="description"
+                           placeholder="Description"/>
+                </div>
             </div>
         );
     }
@@ -161,9 +173,9 @@ class ProjectEdit extends Component {
         return (
             <button className="participate-button"
                     onClick={() => this.props.subscribe(
-                    this.props.loadedProject.data._id,
-                    this.props.loggedUser.data._id
-            )}>
+                        this.props.loadedProject.data._id,
+                        this.props.loggedUser.data._id
+                    )}>
                 Participate
             </button>
         );
@@ -226,7 +238,7 @@ class ProjectEdit extends Component {
                         dismiss={() => {
                             this.setState({userStoryCreation: false},
                                 () => this.props.getUserStories(this.props.params.id));
-                        }} />
+                        }}/>
                 )}
             </div>
         );

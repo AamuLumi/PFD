@@ -21,6 +21,7 @@
       }
       .user-story-title {
         padding: 4px;
+        margin-bottom: 4px;
         background-color: @primary-color;
         width: ~ "calc(100% - 8px)";
         font-size: 1.3em;
@@ -53,8 +54,17 @@
         }
       }
     }
-    .input-name, .input-description{
+    .input-name {
+      font-size: inherit;
+      background-color: @primary-color;
       width: 90%;
+      &:focus {
+        border-bottom: solid white 2px;
+      }
+    }
+    .input-description {
+      width: ~ "calc(100% - 8px)";
+      margin-bottom: 4px;
     }
   }
 }

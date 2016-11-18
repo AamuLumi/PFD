@@ -5,7 +5,8 @@ import './Input.less';
 export const TYPES = {
     TEXT: 1,
     TEXTAREA: 2,
-    SELECT: 3
+    SELECT: 3,
+    PASSWORD: 4
 };
 
 export default class Input extends Component {
@@ -16,6 +17,7 @@ export default class Input extends Component {
         onChange: React.PropTypes.func,
         value: React.PropTypes.any,
         style: React.PropTypes.object,
+        className: React.PropTypes.string,
         /* Text area props */
         rows: React.PropTypes.number,
         /* Select props */
@@ -36,13 +38,19 @@ export default class Input extends Component {
         return text[0].toUpperCase() + text.substring(1);
     }
 
-    getTextInput() {
-        const {placeholder, name, value, onChange, style} = this.props;
+    getTextInput(inputType) {
+        let {className, placeholder, name, value, onChange, style} = this.props;
+
+        if (className){
+            className += ' input-text';
+        } else {
+            className = 'input-text';
+        }
 
         return (
             <input
-                className="input-text"
-                type="text"
+                className={className}
+                type={inputType}
                 onChange={onChange}
                 value={value}
                 placeholder={Input.firstLetterUp(placeholder ? placeholder : name)}
@@ -53,11 +61,17 @@ export default class Input extends Component {
     }
 
     getTextArea() {
-        const {placeholder, name, value, onChange, rows, style} = this.props;
+        let {className, placeholder, name, value, onChange, rows, style} = this.props;
+
+        if (className){
+            className += ' input-textarea';
+        } else {
+            className = 'input-textarea';
+        }
 
         return (
             <textarea
-                className="input-textarea"
+                className={className}
                 onChange={onChange}
                 value={value}
                 placeholder={Input.firstLetterUp(placeholder ? placeholder : name)}
@@ -69,17 +83,23 @@ export default class Input extends Component {
     }
 
     getSelect() {
-        const {options, value, onChange, style} = this.props;
+        let {className, optionStyle, options, value, onChange, style} = this.props;
+
+        if (className){
+            className += ' input-select';
+        } else {
+            className = 'input-select';
+        }
 
         return (
             <select
-                className="input-select"
+                className={className}
                 onChange={onChange}
                 value={value}
                 style={style}
             >
                 {options.map((e, i) =>
-                    <option value={e.value} key={i}>{e.name}</option>
+                    <option value={e.value} key={i} style={optionStyle}>{e.name}</option>
                 )}
             </select>
         );
@@ -91,13 +111,16 @@ export default class Input extends Component {
 
         switch (type) {
             case TYPES.TEXT:
-                inputField = this.getTextInput();
+                inputField = this.getTextInput('text');
                 break;
             case TYPES.TEXTAREA:
                 inputField = this.getTextArea();
                 break;
             case TYPES.SELECT:
                 inputField = this.getSelect();
+                break;
+            case TYPES.PASSWORD:
+                inputField=this.getTextInput('password');
                 break;
             default:
                 inputField = this.getTextInput();

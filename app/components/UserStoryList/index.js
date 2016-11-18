@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 
 import {getUserStories, editUserStory, deleteUserStory} from '../../actions/UserStory';
 import {showFloatingMessage, MESSAGE_CLASSES} from '../../actions/LocalActions';
+import Input, {TYPES} from '../../atoms/Input';
 
 import './UserStoryList.less';
 
@@ -166,42 +167,52 @@ class UserStoryList extends Component {
                        onClick={() => this.acceptEdit(i)}></i>
                 </div>
                 <div className="user-story-title">
-                    <input
-                        className="input-name"
-                        type="text"
+                    <Input
+                        className="user-story-title input-name"
+                        type={TYPES.TEXT}
                         value={this.state.name}
                         onChange={(e) => this.handleChange(e, 'name')}
-                        placeholder="Name"/>
+                        name="name"
+                        placeholder="Name"
+                    />
                 </div>
                 <div className="user-story-description">
-                    <div className="little-text">
-                    <textarea
-                        className="input-description"
-                        rows="4"
-                        value={this.state.description}
-                        onChange={(e) => this.handleChange(e, 'description')}
-                        placeholder="Description"/>
+                    <div className="little-text" style={{width: '100%'}}>
+                        <Input
+                            type={TYPES.TEXTAREA}
+                            className="input-description"
+                            rows={4}
+                            name="description"
+                            value={this.state.description}
+                            onChange={(e) => this.handleChange(e, 'description')}
+                            placeholder="Description"/>
                     </div>
                     <div>
-                        US Number : {e.number} -
+                        <span>US Number : {e.number} - </span>
                         <span>Effort : </span>
-                        <select
+                        <Input
+                            type={TYPES.SELECT}
+                            name="effort"
                             value={this.state.effort}
-                            onChange={(e) => this.handleChange(e, 'effort')}>
-                            <option value="1">Very Easy (1)</option>
-                            <option value="2">Easy (2)</option>
-                            <option value="3">Normal (3)</option>
-                            <option value="5">Hard (5)</option>
-                            <option value="8">Very Hard (8)</option>
-                        </select>
+                            onChange={(e) => this.handleChange(e, 'effort')}
+                            options={[
+                                {name: 'Very Easy (1)', value: '1'},
+                                {name: 'Easy (2)', value: '2'},
+                                {name: 'Normal (3)', value: '3'},
+                                {name: 'Hard (5)', value: '5'},
+                                {name: 'Very Hard (8)', value: '8'}
+                            ]} />
                         <span> - Priority : </span>
-                        <select
+                        <Input
+                            type={TYPES.SELECT}
+                            name="priority"
                             value={this.state.priority}
-                            onChange={(e) => this.handleChange(e, 'priority')}>
-                            <option value="0">Option</option>
-                            <option value="1">Desired</option>
-                            <option value="2">Required</option>
-                        </select>
+                            onChange={(e) => this.handleChange(e, 'priority')}
+                            options={[
+                                {name: 'Option', value: '1'},
+                                {name: 'Desired', value: '2'},
+                                {name: 'Required', value: '3'}
+                            ]} />
                     </div>
                 </div>
             </div>
