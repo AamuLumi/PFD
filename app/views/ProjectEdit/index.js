@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 
 import UserStoryCreation from '../../components/UserStoryCreation';
 import {getProject, editProject, subscribe} from '../../actions/Project';
+import {getUserStories} from '../../actions/UserStory';
 import {showFloatingMessage, MESSAGE_CLASSES} from '../../actions/LocalActions';
 import UserStoryList from '../../components/UserStoryList';
 
@@ -222,7 +223,10 @@ class ProjectEdit extends Component {
                 {userStoryCreation && (
                     <UserStoryCreation
                         projectID={project._id}
-                        dismiss={() => this.setState({userStoryCreation: false})} />
+                        dismiss={() => {
+                            this.setState({userStoryCreation: false},
+                                () => this.props.getUserStories(this.props.params.id));
+                        }} />
                 )}
             </div>
         );
@@ -251,7 +255,9 @@ function mapDispatchToProps(dispatch) {
         },
         showFloatingMessage: (params) => {
             dispatch(showFloatingMessage(params));
-        }
+        },
+        getUserStories: (id) =>
+            dispatch(getUserStories(id))
     };
 }
 
