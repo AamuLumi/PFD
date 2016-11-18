@@ -72,6 +72,15 @@ module.exports = function(userStorySchema){
         });
     };
 
+    userStorySchema.statics.delete = function(params, callback) {
+        mongoose.model('User_Story').find({_id: params.id}).remove(function(err, removed){
+            if (err)
+                callback(err);
+
+            callback(null, removed);
+        });
+    };
+
     /*
      * Verification methods
      */
@@ -111,6 +120,28 @@ module.exports = function(userStorySchema){
         } else {
             parametersOK = true;
         }
+
+        if (parametersOK) {
+            callback();
+        } else {
+            callback({
+                alreadySent: true
+            });
+        }
+    }
+
+    function checkParametersForDelete(req, res, callback) {
+        let parametersOK = false;
+
+        if (!req.body || !req.body.id) {
+            Response.missing(res, 'id', -11);
+        } else {
+            parametersOK = true;
+        }
+
+        /*
+         * TODO: Check user perms to delete US
+         */
 
         if (parametersOK) {
             callback();
@@ -186,4 +217,5 @@ module.exports = function(userStorySchema){
             return Response.success(res, 'User story modified !', userStory);
         });
     };
+
 };

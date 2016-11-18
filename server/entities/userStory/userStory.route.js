@@ -9,5 +9,6 @@ router.post('/', userStory.exCreate);
 router.get('/:projectID', userStory.exGetAll);
 router.put('/', userStory.exEdit);
 router.put('/priority', userStory.exEditPriority);
+router.post('/delete', userStory.exDelete);
 
 module.exports = router;
