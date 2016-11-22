@@ -27,13 +27,13 @@
 	<td>Alohomora</td>
 </tr>
 <tr>
-	<td>click</td>
+	<td>clickAndWait</td>
 	<td>css=button.login-button</td>
 	<td></td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>//div[@id='v-projectlist']/div[2]/a[3]</td>
+	<td>//div[@id='v-projectlist']/div[2]/a[7]</td>
 	<td></td>
 </tr>
 <tr>
@@ -68,17 +68,12 @@
 </tr>
 <tr>
 	<td>select</td>
-	<td>//div[@id='c-user-story-creation']/div/div/div/table/tbody/tr[4]/td[2]/select</td>
+	<td>//div[@id='c-user-story-creation']/div/div/div/table/tbody/tr[4]/td[2]/div/select</td>
 	<td>index=1</td>
 </tr>
 <tr>
 	<td>click</td>
 	<td>css=button.confirm-button</td>
-	<td></td>
-</tr>
-<tr>
-	<td>refresh</td>
-	<td></td>
 	<td></td>
 </tr>
 <tr>
@@ -91,7 +86,6 @@
 	<td>//div[@id='c-user-story-list']/div/div/div/i</td>
 	<td></td>
 </tr>
-
 </tbody></table>
 </body>
 </html>

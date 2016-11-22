@@ -27,7 +27,7 @@
 	<td>Alohomora</td>
 </tr>
 <tr>
-	<td>click</td>
+	<td>clickAndWait</td>
 	<td>css=button.login-button</td>
 	<td></td>
 </tr>

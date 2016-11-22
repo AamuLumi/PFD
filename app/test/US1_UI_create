@@ -12,6 +12,11 @@
 <tr><td rowspan="1" colspan="3">US1_UI_create</td></tr>
 </thead><tbody>
 <tr>
+	<td>click</td>
+	<td>//div[@id='toolbar-container']/div[2]/a[2]/span</td>
+	<td></td>
+</tr>
+<tr>
 	<td>store</td>
 	<td>javascript{Math.floor(Math.random()*300)}</td>
 	<td>v1</td>

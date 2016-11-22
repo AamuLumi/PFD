@@ -14,12 +14,12 @@
 <!--Ne pas jouer à la vitesse max (p de Rapide)-->
 <tr>
 	<td>click</td>
-	<td>css=a &gt; span</td>
+	<td>css=div.first-links &gt; a &gt; span</td>
 	<td></td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>css=a</td>
+	<td>//div[@id='v-projectlist']/div[2]/a[2]</td>
 	<td></td>
 </tr>
 <tr>
@@ -31,6 +31,11 @@
 	<td>pause</td>
 	<td></td>
 	<td>1000</td>
+</tr>
+<tr>
+	<td>store</td>
+	<td>javascript{Math.floor(Math.random()*300)}</td>
+	<td>v1</td>
 </tr>
 <tr>
 	<td>click</td>
@@ -46,6 +51,11 @@
 	<td>sendKeys</td>
 	<td>css=input.title</td>
 	<td>Modifier des tests</td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>css=input.title</td>
+	<td>${v1}</td>
 </tr>
 <tr>
 	<td>storeText</td>
@@ -79,12 +89,12 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>css=a &gt; span</td>
+	<td>css=div.first-links &gt; a &gt; span</td>
 	<td></td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>css=a</td>
+	<td>//div[@id='v-projectlist']/div[2]/a[2]</td>
 	<td></td>
 </tr>
 <tr>
