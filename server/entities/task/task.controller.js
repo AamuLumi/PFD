@@ -13,6 +13,7 @@ module.exports = function(taskSchema){
         let Self = this;
 
         params.state = 0;
+        params.user = params.userId;
 
         let sprint = new Self(params);
 
@@ -29,7 +30,7 @@ module.exports = function(taskSchema){
             Response.missing(res, 'Name', -11);
         } else if (!req.body.description) {
             Response.missing(res, 'Description', -12);
-        } else if (!req.body.userID) {
+        } else if (!req.body.userId) {
             Response.missing(res, 'User ID', -13);
         } else {
             parametersOK = true;

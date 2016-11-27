@@ -20,12 +20,12 @@ let taskSchema = new Schema({
          *  1 -> Doing
          *  2 -> Done
          */
-        type: Number,
-        required: true
+        type: Number
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'User',
+        required: true
     }
 });
 
