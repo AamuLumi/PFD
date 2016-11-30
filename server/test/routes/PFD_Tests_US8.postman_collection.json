@@ -1,0 +1,49 @@
+{
+	"id": "2ba72de6-b99d-e15d-dfc3-352eca6e51c0",
+	"name": "PFD_Tests_US8",
+	"requests": [
+		{
+			"id": "03c6c2e7-1684-c7bf-5955-e38d3a3cb6cd",
+			"headers": "Content-Type: application/x-www-form-urlencoded\n",
+			"url": "http://localhost:8080/api/sprint/",
+			"pathVariables": {},
+			"preRequestScript": null,
+			"method": "PUT",
+			"collectionId": "2ba72de6-b99d-e15d-dfc3-352eca6e51c0",
+			"data": [
+				{
+					"key": "_id",
+					"value": "583b4723deeb5b12206936cc",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "duration",
+					"value": "3",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "name",
+					"value": "Muscler son poignet",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"name": "US8 : Créer la route afin de modifier un sprint",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1480531363551,
+			"version": 2,
+			"responses": [],
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		}
+	],
+	"order": [
+		"03c6c2e7-1684-c7bf-5955-e38d3a3cb6cd"
+	],
+	"timestamp": 1480531363551
+}
