@@ -1,0 +1,43 @@
+{
+	"id": "bd15cddb-05f4-ae2f-662a-70b268e72937",
+	"name": "PFD_Tests_US16",
+	"requests": [
+		{
+			"id": "dee76c3d-d769-a244-ae08-72332abe5faf",
+			"headers": "Content-Type: application/x-www-form-urlencoded\n",
+			"url": "http://localhost:8080/api/kanban/",
+			"pathVariables": {},
+			"preRequestScript": null,
+			"method": "PUT",
+			"collectionId": "bd15cddb-05f4-ae2f-662a-70b268e72937",
+			"data": [
+				{
+					"key": "sprintID",
+					"value": "58403365ef9c4a100d6cc246",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "projectID",
+					"value": "5840517641e0d73eeeda51a0",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"name": "US16 : Créer la route afin de paramétrer le Kanban",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1480610323259,
+			"version": 2,
+			"responses": [],
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		}
+	],
+	"order": [
+		"dee76c3d-d769-a244-ae08-72332abe5faf"
+	],
+	"timestamp": 1480610323259
+}
