@@ -23,7 +23,7 @@ module.exports = function(kanbanSchema){
     /*
      * Verification methods
      */
-    function checkParametersForCreate(req, res, callback) {
+    function checkParametersForSetSprint(req, res, callback) {
         let parametersOK = false;
 
         if (!req.body || !req.body._id) {
