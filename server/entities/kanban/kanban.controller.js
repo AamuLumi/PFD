@@ -11,7 +11,7 @@ module.exports = function(kanbanSchema){
      */
     kanbanSchema.statics.setSprint = function(params, callback) {
         mongoose.model('Project').findById(params.projectID, (err, project) => {
-            if (err || !project)
+            if (err || project !== null || project !== undefined)
                 return callback(err);
 
             project.kanban.sprint = params.sprintID;
