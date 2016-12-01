@@ -12,7 +12,10 @@ module.exports = function(traceabilitySchema){
     traceabilitySchema.statics.create = function(params, callback) {
         let Self = this;
 
-        let trace = new Self(params);
+        let trace = new Self({
+            userStory: params.userStoryID,
+            link: params.link
+        });
 
         trace.save(callback);
     };
