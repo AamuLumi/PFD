@@ -10,7 +10,7 @@ module.exports = function(taskSchema){
      * Tools methods
      */
     taskSchema.statics.delete = function(params, callback) {
-        mongoose.model('Task').find({_id: params.id}).remove(function(err, removed){
+        mongoose.model('Task').find({_id: params._id}).remove(function(err, removed){
             if (err)
                 callback(err);
 
@@ -24,7 +24,7 @@ module.exports = function(taskSchema){
     function checkParametersForDelete(req, res, callback) {
         let parametersOK = false;
 
-        if (!req.body || !req.body.id) {
+        if (!req.body || !req.body._id) {
             Response.missing(res, 'id', -11);
         } else {
             parametersOK = true;
