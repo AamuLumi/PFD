@@ -52,7 +52,7 @@ module.exports = function(traceabilitySchema){
     traceabilitySchema.statics.exCreate = function (req, res) {
         async.waterfall([
             (next) => checkParametersForCreate(req, res, next),
-            (next) => mongoose.model('Traceability').create(req.params, next)
+            (next) => mongoose.model('Traceability').create(req.body, next)
         ], (err, traceability) => {
             if (err && err.alreadySent)
                 return;
