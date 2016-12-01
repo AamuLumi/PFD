@@ -1,0 +1,43 @@
+{
+	"id": "37ae5a3e-49f0-f239-915b-1a5b70a89298",
+	"name": "PFD_Tests_US17",
+	"requests": [
+		{
+			"id": "d0c0a412-efaa-ceed-f854-3d2ae143bd6a",
+			"headers": "Content-Type: application/x-www-form-urlencoded\n",
+			"url": "http://localhost:8080/api/traceability",
+			"pathVariables": {},
+			"preRequestScript": null,
+			"method": "POST",
+			"collectionId": "37ae5a3e-49f0-f239-915b-1a5b70a89298",
+			"data": [
+				{
+					"key": "userStoryID",
+					"value": "583b47008c3be31105a2012c",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "link",
+					"value": "test",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"name": "US17 : Créer la route afin de modifier la traçabilité",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1480610782376,
+			"version": 2,
+			"responses": [],
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		}
+	],
+	"order": [
+		"d0c0a412-efaa-ceed-f854-3d2ae143bd6a"
+	],
+	"timestamp": 1480610782376
+}
