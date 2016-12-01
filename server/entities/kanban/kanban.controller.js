@@ -10,10 +10,9 @@ module.exports = function(kanbanSchema){
      * Tools methods
      */
     kanbanSchema.statics.setSprint = function(params, callback) {
-        mongoose.model('Project').findById(params.projectID, (project, err) => {
+        mongoose.model('Project').findById(params.projectID, (err, project) => {
             if (err || !project)
                 return callback(err);
-
 
             project.kanban.sprint = params.sprintID;
 
@@ -58,7 +57,7 @@ module.exports = function(kanbanSchema){
     kanbanSchema.statics.exSetSprint = function (req, res) {
         async.waterfall([
             (next) => checkParametersForSetSprint(req, res, next),
-            (next) => mongoose.model('Kanban').setSprint(req.params, next)
+            (next) => mongoose.model('Kanban').setSprint(req.body, next)
         ], (err, kanban) => {
             if (err && err.alreadySent)
                 return;
