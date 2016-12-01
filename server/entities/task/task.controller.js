@@ -10,7 +10,7 @@ module.exports = function(taskSchema){
      * Tools methods
      */
     taskSchema.statics.assignTo = function(params, callback) {
-        mongoose.model('Task').findById(params._id, (task, err) => {
+        mongoose.model('Task').findById(params._id, (err, task) => {
             if (err)
                 return callback(err);
 
