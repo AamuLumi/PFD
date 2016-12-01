@@ -7,6 +7,6 @@ let passport = require('passport');
 let router = express.Router();
 
 router.post('/', Traceability.exCreate);
-route.get('/', Traceability.exGetAll);
+router.get('/', Traceability.exGetAll);
 
 module.exports = router;
