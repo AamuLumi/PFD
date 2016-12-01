@@ -61,7 +61,7 @@ module.exports = function (sprintSchema) {
     sprintSchema.statics.exAddUS = function (req, res) {
         async.waterfall([
             (next) => checkParametersForAddUS(req, res, next),
-            (next) => mongoose.model('Sprint').addUS(req.params, next)
+            (next) => mongoose.model('Sprint').addUS(req.body, next)
         ], (err, sprint) => {
             if (err && err.alreadySent)
                 return;
