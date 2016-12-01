@@ -10,14 +10,22 @@ module.exports = function(kanbanSchema){
      * Tools methods
      */
     kanbanSchema.statics.setSprint = function(params, callback) {
-        mongoose.model('Kanban').findById(params._id, (kanban, err) => {
+        mongoose.model('Project').findById(params.projectID, (project, err) => {
             if (err)
                 return callback(err);
 
-            kanban.sprint = params.sprintID;
+            project.kanban.sprint = params.sprintID;
 
-            kanban.save(callback);
+            project.save(callback);
         });
+    };
+
+    kanbanSchema.statics.create = function (callback) {
+        let Self = this;
+
+        let kanban = new Self({});
+
+        kanban.save(callback);
     };
 
     /*
@@ -26,8 +34,8 @@ module.exports = function(kanbanSchema){
     function checkParametersForSetSprint(req, res, callback) {
         let parametersOK = false;
 
-        if (!req.body || !req.body._id) {
-            Response.missing(res, 'id', -11);
+        if (!req.body || !req.body.projectID) {
+            Response.missing(res, 'projectID', -11);
         } else if (!req.body.sprintID) {
             Response.missing(res, 'sprintID', -12);
         } else {

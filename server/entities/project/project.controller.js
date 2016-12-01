@@ -9,12 +9,19 @@ module.exports = function (projectSchema) {
     projectSchema.statics.create = function (params, callback) {
         let Self = this;
 
-        params.kanban = null;
-        params.userStories = [];
+        mongoose.model('Kanban').create((err, kanban) => {
+            if (err)
+                return callback({
+                    kanbanError: true
+                });
 
-        let project = new Self(params);
+            params.kanban = kanban._id;
+            params.userStories = [];
 
-        project.save(callback);
+            let project = new Self(params);
+
+            project.save(callback);
+        });
     };
 
     projectSchema.statics.edit = function (params, callback) {
@@ -94,9 +101,11 @@ module.exports = function (projectSchema) {
             (next) => checkParametersForCreate(req, res, next),
             (next) => mongoose.model('Project').create(req.body, next)
         ], (err, project) => {
-            if (err && err.alreadySent) {
+            if (err && err.alreadySent)
                 return;
-            }
+
+            if (err && err.kanbanError)
+                return Response.insertError(res, err);
 
             if (err && err.code === Response.MongoCodes.alreadyExist)
                 return Response.alreadyExist(res, 'name');
