@@ -27,6 +27,8 @@ module.exports = function (sprintSchema) {
             Response.missing(res, 'Name', -11);
         } else if (!req.body.duration) {
             Response.missing(res, 'Duration', -12);
+        } else if (!req.body.beginning) {
+            Response.missing(res, 'Beginning', -13);
         } else {
             parametersOK = true;
         }
