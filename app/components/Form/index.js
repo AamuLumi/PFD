@@ -34,6 +34,9 @@ export default class UserStoryCreation extends Component {
                 this.state[input.name] = 0;
             } else if (input.type === 'choices') {
                 this.state[input.name] = input.choices[0].value;
+            } else if (input.type === 'dateRange') {
+                this.state[input.name] = '';
+                this.state[input.name + 'Duration'] = '0';
             } else {
                 this.state[input.name] = '';
             }
@@ -82,6 +85,20 @@ export default class UserStoryCreation extends Component {
         );
     }
 
+    getDateRange(element) {
+        return (
+            <Input
+                name={element.name}
+                type={TYPES.DATE_RANGE}
+                onChange={(e) => this.handleChange(e, element.name)}
+                onDurationChange={(e) => this.handleChange(e, element.name + 'Duration')}
+                value={this.state[element.name]}
+                durationValue={this.state[element.name + 'Duration']}
+                options={element.options}
+            />
+        );
+    }
+
     getFieldFor(element, i) {
         let htmlField = null;
 
@@ -91,6 +108,8 @@ export default class UserStoryCreation extends Component {
             htmlField = this.getTextArea(element);
         } else if (element.type === 'select') {
             htmlField = this.getSelect(element);
+        } else if (element.type === 'dateRange') {
+            htmlField = this.getDateRange(element);
         }
 
         return (
