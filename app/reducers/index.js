@@ -31,7 +31,8 @@ import {
 } from './UserStory';
 
 import {
-    createdSprint
+    createdSprint,
+    loadedSprints
 } from './Sprint';
 
 export default function configureStore(preloadedState) {
@@ -51,6 +52,7 @@ export default function configureStore(preloadedState) {
             editedUserStory,
             deletedUserStory,
             createdSprint,
+            loadedSprints,
             routing: routerReducer
         }),
         preloadedState,

@@ -2,16 +2,22 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import SprintCreation from '../../components/SprintCreation';
+import {getSprints} from '../../actions/Sprint';
 
 import './Sprint.less';
 
 class ProjectEdit extends Component {
-    static propTypes = {};
+    static propTypes = {
+        loadedSprints: React.PropTypes.object.isRequired,
+        getSprints: React.PropTypes.func.isRequired
+    };
 
     constructor(props) {
         super(props);
 
         this.state = {};
+
+        this.props.getSprints();
     }
 
     componentWillReceiveProps(newProps) {
@@ -24,7 +30,22 @@ class ProjectEdit extends Component {
         });
     }
 
+    getSprint(e, i){
+        return (
+            <div className="sprint" key={i}>
+                <div className="sprint-title">
+                    {e.name}
+                </div>
+                <div className="sprint-informations">
+                    Beginning : {new Date(e.beginning).toLocaleString()} - {e.duration} days
+                </div>
+            </div>
+        );
+    }
+
     getClassicView() {
+        let {loadedSprints} = this.props;
+
         return (
             <div>
                 <div className="container-edit-button" onClick={() => this.showAddSprintForm()}>
@@ -34,7 +55,8 @@ class ProjectEdit extends Component {
                     Sprints
                 </div>
                 <div className="sprints-container">
-
+                    {loadedSprints.data &&
+                    loadedSprints.data.map((e, i) => this.getSprint(e, i))}
                 </div>
             </div>
         );
@@ -50,6 +72,7 @@ class ProjectEdit extends Component {
                     <SprintCreation
                         dismiss={() => {
                             this.setState({sprintCreation: false});
+                            this.props.getSprints();
                         }}/>
                 )}
             </div>
@@ -58,11 +81,15 @@ class ProjectEdit extends Component {
 }
 
 function mapStateToProps(state) {
-    return {};
+    return {
+        loadedSprints: state.loadedSprints
+    };
 }
 
 function mapDispatchToProps(dispatch) {
-    return {};
+    return {
+        getSprints : () => dispatch(getSprints())
+    };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectEdit);

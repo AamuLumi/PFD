@@ -19,6 +19,10 @@ module.exports = function (sprintSchema) {
 
     /* Controllers methods */
 
+    sprintSchema.statics.getAll = function(callback){
+        mongoose.model('Sprint').find(callback);
+    };
+
     /* Express methods verifications */
     function checkParametersForCreate(req, res, callback) {
         let parametersOK = false;
@@ -57,6 +61,16 @@ module.exports = function (sprintSchema) {
             }
 
             Response.success(res, 'Sprint added !', sprint);
+        });
+    };
+
+    sprintSchema.statics.exGetAll = function (req, res) {
+        mongoose.model('Sprint').getAll((err, sprints) => {
+            if (err) {
+                return Response.selectError(res, err);
+            }
+
+            Response.success(res, 'Sprints found', sprints);
         });
     };
 };
