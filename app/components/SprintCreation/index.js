@@ -50,9 +50,16 @@ class SprintCreation extends Component {
     }
 
     createSprint(data) {
-        data.duration = parseInt(data.beginningDuration);
+        if (!data.name){
+            this.props.showFloatingMessage(
+                'Error : missing name',
+                MESSAGE_CLASSES.ERROR
+            );
+        } else {
+            data.duration = parseInt(data.beginningDuration);
 
-        this.props.createSprint(data);
+            this.props.createSprint(data);
+        }
     }
 
     render() {
