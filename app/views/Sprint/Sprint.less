@@ -1,0 +1,28 @@
+#v-sprint {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  .title {
+    width: 80%;
+    font-family: 'Lato', sans-serif;
+  }
+  .container-edit-button {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    .edit-button {
+      padding-left: 4px;
+      font-size: 2em;
+      color: black;
+      -webkit-transition: all .25s;
+      -moz-transition: all .25s;
+      -ms-transition: all .25s;
+      -o-transition: all .25s;
+      transition: all .25s;
+      &:hover {
+        cursor: pointer;
+        color: @primary-color;
+      }
+    }
+  }
+}

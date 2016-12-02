@@ -52,8 +52,9 @@ module.exports = function (sprintSchema) {
                 return;
             }
 
-            if (err)
-                Response.insertError(res, err);
+            if (err) {
+                return Response.insertError(res, err);
+            }
 
             Response.success(res, 'Sprint added !', sprint);
         });

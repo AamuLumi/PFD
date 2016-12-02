@@ -68,6 +68,9 @@ class Toolbar extends Component {
                         </Link>
                     </div>
                     <div className="first-links" style={{display: 'inline-block'}}>
+                        <Link to="/sprint">
+                            <span>Sprints</span>
+                        </Link>
                         <Link to="/project">
                             <span>Projets</span>
                         </Link>
