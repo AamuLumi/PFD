@@ -6,14 +6,13 @@
 			"id": "73a754ad-cdee-8fbe-5193-2dbca5f7e08c",
 			"headers": "Content-Type: application/x-www-form-urlencoded\n",
 			"url": "http://localhost:8080/api/sprint/",
-			"pathVariables": {},
 			"preRequestScript": null,
+			"pathVariables": {},
 			"method": "POST",
-			"collectionId": "a4d147e5-ba0f-2a97-f211-ce987e565056",
 			"data": [
 				{
 					"key": "name",
-					"value": "Muscler son poignet",
+					"value": "Ceci est un sprint de test minuté",
 					"type": "text",
 					"enabled": true
 				},
@@ -24,22 +23,22 @@
 					"enabled": true
 				},
 				{
-					"key": "",
-					"value": "",
+					"key": "beginning",
+					"value": "2016-12-01T06:00:00.000Z",
 					"type": "text",
 					"enabled": true
 				}
 			],
 			"dataMode": "urlencoded",
-			"name": "US7 : Créer un sprint",
-			"description": "",
-			"descriptionFormat": "html",
-			"time": 1480279894054,
 			"version": 2,
-			"responses": [],
 			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
 			"currentHelper": "normal",
-			"helperAttributes": {}
+			"helperAttributes": {},
+			"time": 1480643289862,
+			"name": "US7 : Créer un sprint",
+			"description": "",
+			"collectionId": "a4d147e5-ba0f-2a97-f211-ce987e565056",
+			"responses": []
 		}
 	],
 	"order": [
