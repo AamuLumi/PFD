@@ -45,8 +45,6 @@ class UserStoryList extends Component {
             });
         }
 
-        console.log(newProps.deletedTask);
-
         if (newProps.deletedTask.loaded && newProps.deletedTask.error) {
             this.props.showFloatingMessage({
                 message: newProps.deletedTask.errorMessage,
