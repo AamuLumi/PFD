@@ -5,7 +5,7 @@ import ClassNames from 'classnames';
 import {getUsers} from '../../actions/User';
 import Input, {TYPES} from '../../atoms/Input';
 import {showFloatingMessage, MESSAGE_CLASSES} from '../../actions/LocalActions';
-import {editTask} from '../../actions/Task';
+import {editTask, deleteTask} from '../../actions/Task';
 
 import './TaskList.less';
 
@@ -16,10 +16,14 @@ class UserStoryList extends Component {
 
     static propTypes = {
         tasks: React.PropTypes.array.isRequired,
+        userStoryID: React.PropTypes.string.isRequired,
         getUsers: React.PropTypes.func.isRequired,
         loadedUsers: React.PropTypes.object.isRequired,
         editedTask: React.PropTypes.object.isRequired,
-        editTask: React.PropTypes.func.isRequired
+        editTask: React.PropTypes.func.isRequired,
+        deletedTask: React.PropTypes.object.isRequired,
+        deleteTask: React.PropTypes.func.isRequired,
+        refreshUserStories: React.PropTypes.func
     };
 
     constructor(props) {
@@ -39,6 +43,19 @@ class UserStoryList extends Component {
                 message: newProps.editedTask.errorMessage,
                 messageClass: MESSAGE_CLASSES.ERROR
             });
+        }
+
+        console.log(newProps.deletedTask);
+
+        if (newProps.deletedTask.loaded && newProps.deletedTask.error) {
+            this.props.showFloatingMessage({
+                message: newProps.deletedTask.errorMessage,
+                messageClass: MESSAGE_CLASSES.ERROR
+            });
+        } else if (newProps.deletedTask.loaded &&
+            this.props.deletedTask.date !== newProps.deletedTask.date &&
+            !newProps.deletedTask.error && this.props.refreshUserStories) {
+            this.props.refreshUserStories();
         }
 
         this.props = newProps;
@@ -100,6 +117,13 @@ class UserStoryList extends Component {
         }
     }
 
+    deleteTask(number){
+        this.props.deleteTask({
+            _id: this.props.tasks[number]._id,
+            userStoryId: this.props.userStoryID
+        });
+    }
+
     getViewForTask(e, i) {
         let classes = {'task-container': true};
         let buttons = undefined;
@@ -117,7 +141,8 @@ class UserStoryList extends Component {
         if (i === this.state.hoveredTask) {
             buttons = (
                 <span className="task-buttons">
-                    <i className="fa fa-times"></i>
+                    <i className="fa fa-times"
+                        onClick={() => this.deleteTask(i)}></i>
                     <i className="fa fa-cog"
                        onClick={() => this.switchEdit(e, i)}></i>
                 </span>
@@ -198,7 +223,8 @@ class UserStoryList extends Component {
 function mapStateToProps(state) {
     return {
         loadedUsers: state.loadedUsers,
-        editedTask: state.editedTask
+        editedTask: state.editedTask,
+        deletedTask: state.deletedTask
     };
 }
 
@@ -206,7 +232,8 @@ function mapDispatchToProps(dispatch) {
     return {
         getUsers: () => dispatch(getUsers()),
         showFloatingMessage: (params) => dispatch(showFloatingMessage(params)),
-        editTask: (task) => dispatch(editTask(task))
+        editTask: (task) => dispatch(editTask(task)),
+        deleteTask: (task) => dispatch(deleteTask(task))
     };
 }
 

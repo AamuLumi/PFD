@@ -79,14 +79,12 @@ module.exports = function (taskSchema) {
         let parametersOK = false;
 
         if (!req.body || !req.body._id) {
-            Response.missing(res, 'id', -11);
+            Response.missing(res, '_id', -11);
+        } else if (!req.body.userStoryId) {
+            Response.missing(res, 'userStoryId');
         } else {
             parametersOK = true;
         }
-
-        /*
-         * TODO: Check user perms to delete US
-         */
 
         if (parametersOK) {
             callback();
@@ -133,15 +131,21 @@ module.exports = function (taskSchema) {
     taskSchema.statics.exDelete = function (req, res) {
         async.waterfall([
             (next) => checkParametersForDelete(req, res, next),
-            (next) => mongoose.model('Task').delete(req.body, next)
-        ], (err, task) => {
+            (next) => mongoose.model('Task').delete(req.body._id, next),
+            (task, next) => mongoose.model('User_Story').update(
+                {_id: req.body.userStoryId},
+                {$pull: {tasks: req.body._id}},
+                next
+            )
+        ], (err) => {
             if (err && err.alreadySent)
                 return;
 
-            if (err)
+            if (err) {
                 return Response.insertError(res, err);
+            }
 
-            Response.success(res, 'Task deleted !', task);
+            Response.success(res, 'Task deleted !');
         });
     };
 };

@@ -260,7 +260,11 @@ class UserStoryList extends Component {
                     <div className="little-text">
                         {UserStoryList.getShortDescription(e.description)}
                     </div>
-                    <TaskList tasks={e.tasks}/>
+                    <TaskList tasks={e.tasks}
+                              userStoryID={e._id}
+                              refreshUserStories={
+                                  () => this.props.getUserStories(this.props.projectID)}
+                    />
                     <div>
                         US Number : {e.number} -
                         Effort : {UserStoryList.getEffortStringFor(e.effort)} -
@@ -304,7 +308,7 @@ class UserStoryList extends Component {
                         userStoryForTask: null,
                         taskCreation: false
                     }, () => this.props.getUserStories(this.props.projectID))}
-                    />
+                />
                 }
             </div>
         );
