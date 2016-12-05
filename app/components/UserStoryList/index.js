@@ -3,7 +3,10 @@ import {connect} from 'react-redux';
 
 import {getUserStories, editUserStory, deleteUserStory} from '../../actions/UserStory';
 import {showFloatingMessage, MESSAGE_CLASSES} from '../../actions/LocalActions';
+import {addUserStoryToSprint, getSprints} from '../../actions/Sprint';
 import Input, {TYPES} from '../../atoms/Input';
+import TaskList from '../TaskList';
+import TaskCreation from '../TaskCreation';
 
 import './UserStoryList.less';
 
@@ -32,11 +35,15 @@ class UserStoryList extends Component {
             name: '',
             description: '',
             priority: 0,
-            effort: -1
+            effort: -1,
+            userStoryForTask: -1,
+            taskCreation: false,
+            menu: undefined
         };
 
         if (this.props.projectID) {
             this.props.getUserStories(this.props.projectID);
+            this.props.getSprints();
         }
     }
 
@@ -66,6 +73,13 @@ class UserStoryList extends Component {
         if (newProps.deletedUserStory.loaded && newProps.deletedUserStory.error) {
             this.props.showFloatingMessage({
                 message: newProps.deletedUserStory.errorMessage,
+                messageClass: MESSAGE_CLASSES.ERROR
+            });
+        }
+
+        if (newProps.addedUserStoryToSprint.loaded && newProps.addedUserStoryToSprint.error) {
+            this.props.showFloatingMessage({
+                message: newProps.addedUserStoryToSprint.errorMessage,
                 messageClass: MESSAGE_CLASSES.ERROR
             });
         }
@@ -127,6 +141,13 @@ class UserStoryList extends Component {
         });
     }
 
+    showTaskCreation(userStory) {
+        this.setState({
+            userStoryForTask: userStory,
+            taskCreation: true
+        });
+    }
+
     acceptEdit(number) {
         if (!this.state.name || this.state.name.length === 0) {
             this.props.showFloatingMessage({
@@ -168,7 +189,7 @@ class UserStoryList extends Component {
                 </div>
                 <div className="user-story-title">
                     <Input
-                        className="user-story-title input-name"
+                        className="user-story-title user-story-input-name"
                         type={TYPES.TEXT}
                         value={this.state.name}
                         onChange={(e) => this.handleChange(e, 'name')}
@@ -180,7 +201,7 @@ class UserStoryList extends Component {
                     <div className="little-text" style={{width: '100%'}}>
                         <Input
                             type={TYPES.TEXTAREA}
-                            className="input-description"
+                            className="user-story-input-description"
                             rows={4}
                             name="description"
                             value={this.state.description}
@@ -201,7 +222,7 @@ class UserStoryList extends Component {
                                 {name: 'Normal (3)', value: '3'},
                                 {name: 'Hard (5)', value: '5'},
                                 {name: 'Very Hard (8)', value: '8'}
-                            ]} />
+                            ]}/>
                         <span> - Priority : </span>
                         <Input
                             type={TYPES.SELECT}
@@ -212,11 +233,59 @@ class UserStoryList extends Component {
                                 {name: 'Option', value: '1'},
                                 {name: 'Desired', value: '2'},
                                 {name: 'Required', value: '3'}
-                            ]} />
+                            ]}/>
                     </div>
                 </div>
             </div>
         );
+    }
+
+    showSprintMenu(userStory, e) {
+        if (this.state.menu) {
+            return this.setState({
+                menu: undefined
+            });
+        }
+
+        let elementRect =
+            e.target.getBoundingClientRect();
+
+        console.log(this.props.loadedSprints.data);
+
+        let menu = (
+            <div className="sprints-menu"
+                 style={{
+                     top: elementRect.bottom,
+                     left: elementRect.left
+                 }}>
+                <div className="sprints-menu-item">
+                    Add to
+                </div>
+                {this.props.loadedSprints.data.map((sprint, i) =>
+                    <div className="sprints-menu-item selectable"
+                         key={i}
+                         onClick={() => {
+                             console.log({
+                                 _id: sprint._id,
+                                 userStoryID: userStory._id
+                             });
+                             this.setState({menu: undefined},
+                                 () => this.props.addUserStoryToSprint(
+                                     {
+                                         _id: sprint._id,
+                                         userStoryID: userStory._id
+                                     }
+                                 ));
+                         }}>
+                        {sprint.name}
+                    </div>
+                )}
+            </div>
+        );
+
+        this.setState({
+            menu: menu
+        });
     }
 
     getClassicViewForUserStory(e, i, editButtonVisible) {
@@ -225,6 +294,10 @@ class UserStoryList extends Component {
         if (editButtonVisible) {
             containerEditButton = (
                 <div className="container-edit-button">
+                    <i className="edit-button fa fa-plus fa-2"
+                       onClick={() => this.showTaskCreation(e)}></i>
+                    <i className="edit-button fa fa-table fa-2"
+                       onClick={(el) => this.showSprintMenu(e, el)}></i>
                     <i className="edit-button fa fa-close fa-2"
                        onClick={() => this.remove(i)}></i>
                     <i className="edit-button fa fa-cog fa-2"
@@ -243,6 +316,11 @@ class UserStoryList extends Component {
                     <div className="little-text">
                         {UserStoryList.getShortDescription(e.description)}
                     </div>
+                    <TaskList tasks={e.tasks}
+                              userStoryID={e._id}
+                              refreshUserStories={
+                                  () => this.props.getUserStories(this.props.projectID)}
+                    />
                     <div>
                         US Number : {e.number} -
                         Effort : {UserStoryList.getEffortStringFor(e.effort)} -
@@ -274,12 +352,21 @@ class UserStoryList extends Component {
     }
 
     render() {
-        const {userStories} = this.state;
+        const {userStories, taskCreation, menu} = this.state;
 
         return (
             <div id="c-user-story-list">
                 {userStories.sort((e1, e2) => e1.priority > e2.priority ? -1 : 0)
                     .map((e, i) => this.getViewForUserStory(e, i))}
+                {taskCreation && <TaskCreation
+                    userStoryID={this.state.userStoryForTask._id}
+                    dismiss={() => this.setState({
+                        userStoryForTask: null,
+                        taskCreation: false
+                    }, () => this.props.getUserStories(this.props.projectID))}
+                />
+                }
+                {menu}
             </div>
         );
     }
@@ -289,7 +376,9 @@ function mapStateToProps(state) {
     return {
         loadedUserStories: state.loadedUserStories,
         editedUserStory: state.editedUserStory,
-        deletedUserStory: state.deletedUserStory
+        deletedUserStory: state.deletedUserStory,
+        loadedSprints: state.loadedSprints,
+        addedUserStoryToSprint: state.addedUserStoryToSprint
     };
 }
 
@@ -302,7 +391,11 @@ function mapDispatchToProps(dispatch) {
         editUserStory: (params) =>
             dispatch(editUserStory(params)),
         deleteUserStory: (params) =>
-            dispatch(deleteUserStory(params))
+            dispatch(deleteUserStory(params)),
+        addUserStoryToSprint: (params) =>
+            dispatch(addUserStoryToSprint(params)),
+        getSprints: () =>
+            dispatch(getSprints())
     };
 }
 

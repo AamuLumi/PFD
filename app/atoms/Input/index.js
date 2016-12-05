@@ -6,7 +6,8 @@ export const TYPES = {
     TEXT: 1,
     TEXTAREA: 2,
     SELECT: 3,
-    PASSWORD: 4
+    PASSWORD: 4,
+    DATE_RANGE: 5
 };
 
 export default class Input extends Component {
@@ -22,7 +23,10 @@ export default class Input extends Component {
         rows: React.PropTypes.number,
         /* Select props */
         options: React.PropTypes.array,
-        optionStyle: React.PropTypes.object
+        optionStyle: React.PropTypes.object,
+        /* DateRange props */
+        onDurationChange: React.PropTypes.func,
+        durationValue: React.PropTypes.string
     };
 
     constructor(props) {
@@ -41,7 +45,7 @@ export default class Input extends Component {
     getTextInput(inputType) {
         let {className, placeholder, name, value, onChange, style} = this.props;
 
-        if (className){
+        if (className) {
             className += ' input-text';
         } else {
             className = 'input-text';
@@ -63,7 +67,7 @@ export default class Input extends Component {
     getTextArea() {
         let {className, placeholder, name, value, onChange, rows, style} = this.props;
 
-        if (className){
+        if (className) {
             className += ' input-textarea';
         } else {
             className = 'input-textarea';
@@ -85,7 +89,7 @@ export default class Input extends Component {
     getSelect() {
         let {className, optionStyle, options, value, onChange, style} = this.props;
 
-        if (className){
+        if (className) {
             className += ' input-select';
         } else {
             className = 'input-select';
@@ -98,10 +102,46 @@ export default class Input extends Component {
                 value={value}
                 style={style}
             >
-                {options.map((e, i) =>
+                {options && options.map((e, i) =>
                     <option value={e.value} key={i} style={optionStyle}>{e.name}</option>
                 )}
             </select>
+        );
+    }
+
+    getDateRange() {
+        let {value, durationValue, onChange, onDurationChange, style, name} = this.props;
+
+        return (
+            <div>
+                <div>
+                    <span className="label-input">
+                        Beginning
+                    </span>
+                    <input
+                        className="input-text"
+                        type="date"
+                        name={name}
+                        value={value}
+                        onChange={onChange}
+                        placeholder="Beginning"
+                        style={style}
+                    />
+                </div>
+                <div>
+                    <span className="label-input">
+                        Duration (in days)
+                    </span>
+                    <input
+                        className="input-text"
+                        type="number"
+                        name="duration"
+                        value={durationValue}
+                        onChange={onDurationChange}
+                        style={style}
+                    />
+                </div>
+            </div>
         );
     }
 
@@ -120,7 +160,10 @@ export default class Input extends Component {
                 inputField = this.getSelect();
                 break;
             case TYPES.PASSWORD:
-                inputField=this.getTextInput('password');
+                inputField = this.getTextInput('password');
+                break;
+            case TYPES.DATE_RANGE:
+                inputField = this.getDateRange();
                 break;
             default:
                 inputField = this.getTextInput();

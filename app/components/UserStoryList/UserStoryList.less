@@ -54,7 +54,7 @@
         }
       }
     }
-    .input-name {
+    .user-story-input-name {
       font-size: inherit;
       background-color: @primary-color;
       width: 90%;
@@ -62,9 +62,36 @@
         border-bottom: solid white 2px;
       }
     }
-    .input-description {
+    .user-story-input-description {
       width: ~ "calc(100% - 8px)";
       margin-bottom: 4px;
+    }
+  }
+}
+
+.sprints-menu {
+  background-color: white;
+  border: solid black 2px;
+  border-radius: 4px;
+  position: absolute;
+  .sprints-menu-item {
+    padding: 4px;
+    border: solid @primary-color 2px;
+    background-color: @primary-color;
+    color: white;
+  }
+  .selectable {
+    background-color: white;
+    color: black;
+    -webkit-transition: all .25s;
+    -moz-transition: all .25s;
+    -ms-transition: all .25s;
+    -o-transition: all .25s;
+    transition: all .25s;
+    &:hover{
+      background-color: @primary-color;
+      color: white;
+      cursor: pointer;
     }
   }
 }

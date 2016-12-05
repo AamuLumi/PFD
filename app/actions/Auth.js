@@ -1,4 +1,4 @@
-import Fetch, {getLoadingFunction, setAuthorizationToken} from '../tools/Fetch';
+import Fetch, {getLoadingFunction, setAuthorizationToken, deleteToken} from '../tools/Fetch';
 
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
@@ -14,7 +14,7 @@ export function login(credentials) {
                 data: res.data
             };
 
-            if (res.success < 1){
+            if (res.success < 1) {
                 dispatchedAction.error = true;
                 dispatchedAction.errorMessage = res.message;
             } else {
@@ -29,9 +29,9 @@ export function login(credentials) {
     });
 }
 
-export function logout(){
+export function logout() {
     return (dispatch) => {
-        setAuthorizationToken(undefined);
+        deleteToken();
 
         dispatch({
             type: LOGOUT

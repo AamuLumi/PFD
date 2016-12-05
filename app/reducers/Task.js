@@ -1,16 +1,12 @@
 import {
-    CREATE_USER,
-    GET_LOGGED_USER,
-    GET_USERS
-} from '../actions/User';
+    CREATE_TASK,
+    EDIT_TASK,
+    DELETE_TASK
+} from '../actions/Task';
 
-import {
-    LOGOUT
-} from '../actions/Auth';
-
-export function createdUser(state = {loaded: true}, action) {
+export function createdTask(state = {loaded: true}, action) {
     switch (action.type) {
-        case CREATE_USER:
+        case CREATE_TASK:
             return Object.assign({}, state, {
                 loaded: action.loaded,
                 date: action.date,
@@ -23,9 +19,9 @@ export function createdUser(state = {loaded: true}, action) {
     }
 }
 
-export function loggedUser(state = {loaded: true}, action) {
+export function editedTask(state = {loaded: true}, action) {
     switch (action.type) {
-        case GET_LOGGED_USER:
+        case EDIT_TASK:
             return Object.assign({}, state, {
                 loaded: action.loaded,
                 date: action.date,
@@ -33,19 +29,14 @@ export function loggedUser(state = {loaded: true}, action) {
                 error: action.error,
                 errorMessage: action.errorMessage
             });
-        case LOGOUT:
-            return Object.assign({}, state, {
-                data: undefined,
-                date: Date.now()
-            });
         default:
             return state;
     }
 }
 
-export function loadedUsers(state = {loaded: true}, action) {
+export function deletedTask(state = {loaded: true}, action) {
     switch (action.type) {
-        case GET_USERS:
+        case DELETE_TASK:
             return Object.assign({}, state, {
                 loaded: action.loaded,
                 date: action.date,

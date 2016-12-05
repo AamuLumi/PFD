@@ -1,0 +1,49 @@
+{
+	"id": "b7fbd2ec-ad70-cc9c-73a1-e0e6f35d0eb4",
+	"name": "PFD_Tests_US9",
+	"requests": [
+		{
+			"id": "b241be59-8f55-1ced-7007-63144524e9e7",
+			"headers": "Content-Type: application/x-www-form-urlencoded\n",
+			"url": "http://localhost:8080/api/sprint/addUS",
+			"pathVariables": {},
+			"preRequestScript": null,
+			"method": "PUT",
+			"collectionId": "b7fbd2ec-ad70-cc9c-73a1-e0e6f35d0eb4",
+			"data": [
+				{
+					"key": "",
+					"value": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "_id",
+					"value": "58403365ef9c4a100d6cc246",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "userStoryID",
+					"value": "58347ddf6786640c1b47049f",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"name": "US9 : Créer la route afin d'ajouter une US à un sprint",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1480604110947,
+			"version": 2,
+			"responses": [],
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		}
+	],
+	"order": [
+		"b241be59-8f55-1ced-7007-63144524e9e7"
+	],
+	"timestamp": 1480604110947
+}

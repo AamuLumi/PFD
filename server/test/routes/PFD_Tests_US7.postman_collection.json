@@ -1,0 +1,48 @@
+{
+	"id": "a4d147e5-ba0f-2a97-f211-ce987e565056",
+	"name": "PFD_Tests_US7",
+	"requests": [
+		{
+			"id": "73a754ad-cdee-8fbe-5193-2dbca5f7e08c",
+			"headers": "Content-Type: application/x-www-form-urlencoded\n",
+			"url": "http://localhost:8080/api/sprint/",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "name",
+					"value": "Ceci est un sprint de test minuté",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "duration",
+					"value": "3",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "beginning",
+					"value": "2016-12-01T06:00:00.000Z",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1480643289862,
+			"name": "US7 : Créer un sprint",
+			"description": "",
+			"collectionId": "a4d147e5-ba0f-2a97-f211-ce987e565056",
+			"responses": []
+		}
+	],
+	"order": [
+		"73a754ad-cdee-8fbe-5193-2dbca5f7e08c"
+	],
+	"timestamp": 1480279894055
+}
