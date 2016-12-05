@@ -13,6 +13,10 @@ let sprintSchema = new Schema({
         type: Number,
         required: true
     },
+    beginning: {
+        type: Date,
+        required: true
+    },
     tasks: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Task'
