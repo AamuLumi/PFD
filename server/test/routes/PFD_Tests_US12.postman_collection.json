@@ -12,34 +12,45 @@
 			"data": [
 				{
 					"key": "name",
-					"value": "Bouger la baguette",
+					"value": "Tester toujours l'US tâches ",
 					"type": "text",
-					"enabled": true
+					"enabled": true,
+					"warning": ""
 				},
 				{
 					"key": "description",
-					"value": "Le mouvement du poignet permet de bouger la baguette",
+					"value": "test",
 					"type": "text",
-					"enabled": true
+					"enabled": true,
+					"warning": ""
 				},
 				{
 					"key": "state",
-					"value": "1",
+					"value": "0",
 					"type": "text",
-					"enabled": true
+					"enabled": true,
+					"warning": ""
 				},
 				{
 					"key": "userId",
 					"value": "581bb41ab3285130ab2c4962",
 					"type": "text",
-					"enabled": true
+					"enabled": true,
+					"warning": ""
+				},
+				{
+					"key": "userStoryId",
+					"value": "58347ddf6786640c1b47049f",
+					"type": "text",
+					"enabled": true,
+					"warning": ""
 				}
 			],
 			"dataMode": "urlencoded",
 			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1480279334365,
+			"time": 1480963508738,
 			"name": "US12 : Créer une tâche",
 			"description": "",
 			"collectionId": "21899109-c743-02aa-a467-dc20545bfef2",

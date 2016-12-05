@@ -4,12 +4,12 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="localhost:8080" />
-<title>US7_UI_createSprint</title>
+<title>US12_UI_createTask</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">US7_UI_createSprint</td></tr>
+<tr><td rowspan="1" colspan="3">US12_UI_createTask</td></tr>
 </thead><tbody>
 <tr>
 	<td>click</td>
@@ -38,12 +38,7 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>css=div.first-links &gt; a &gt; span</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='v-sprint']/div/div/i</td>
+	<td>//div[@id='c-user-story-list']/div[3]/div/div/i</td>
 	<td></td>
 </tr>
 <tr>
@@ -54,7 +49,7 @@
 <tr>
 	<td>sendKeys</td>
 	<td>name=name</td>
-	<td>Ceci est un sprint</td>
+	<td>Lever le poignet</td>
 </tr>
 <tr>
 	<td>sendKeys</td>
@@ -62,25 +57,21 @@
 	<td>${v1}</td>
 </tr>
 <tr>
-	<td>store</td>
-	<td>javascript{Math.floor(Math.random()*899)+100}</td>
-	<td>v2</td>
+	<td>sendKeys</td>
+	<td>name=description</td>
+	<td>Il faut lever le poignet pour manier sa baguette magique.</td>
 </tr>
 <tr>
-	<td>sendKeys</td>
-	<td>name=beginning</td>
-	<td>1${v2}-01-01T00:00:00Z</td>
-</tr>
-<tr>
-	<td>sendKeys</td>
-	<td>name=duration</td>
-	<td>7</td>
+	<td>select</td>
+	<td>css=select.input-select</td>
+	<td>index=2</td>
 </tr>
 <tr>
 	<td>click</td>
 	<td>css=button.confirm-button</td>
 	<td></td>
 </tr>
+
 </tbody></table>
 </body>
 </html>
