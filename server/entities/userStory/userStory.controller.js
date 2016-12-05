@@ -50,6 +50,7 @@ module.exports = function(userStorySchema){
             .find({
                 projectID: new mongoose.Types.ObjectId(params.projectID)
             })
+            .populate('tasks')
             .exec(callback);
     };
 

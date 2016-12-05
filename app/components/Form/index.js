@@ -32,12 +32,40 @@ export default class UserStoryCreation extends Component {
             input = props.inputs[i];
             if (input.type === 'number') {
                 this.state[input.name] = 0;
-            } else if (input.type === 'choices') {
-                this.state[input.name] = input.choices[0].value;
+            } else if (input.type === 'select') {
+                this.state[input.name] = input.options && input.options[0].value;
+            } else if (input.type === 'dateRange') {
+                this.state[input.name] = '';
+                this.state[input.name + 'Duration'] = '0';
             } else {
                 this.state[input.name] = '';
             }
         }
+    }
+
+    componentWillReceiveProps(newProps){
+        let input = null;
+
+        for (let i in newProps.inputs) {
+            input = newProps.inputs[i];
+
+            if (this.state[input.name] !== undefined){
+                continue;
+            }
+
+            if (input.type === 'number') {
+                this.state[input.name] = 0;
+            } else if (input.type === 'select') {
+                this.state[input.name] = input.options && input.options[0].value;
+            } else if (input.type === 'dateRange') {
+                this.state[input.name] = '';
+                this.state[input.name + 'Duration'] = '0';
+            } else {
+                this.state[input.name] = '';
+            }
+        }
+
+        this.props = newProps;
     }
 
     handleChange(e, field) {
@@ -82,6 +110,20 @@ export default class UserStoryCreation extends Component {
         );
     }
 
+    getDateRange(element) {
+        return (
+            <Input
+                name={element.name}
+                type={TYPES.DATE_RANGE}
+                onChange={(e) => this.handleChange(e, element.name)}
+                onDurationChange={(e) => this.handleChange(e, element.name + 'Duration')}
+                value={this.state[element.name]}
+                durationValue={this.state[element.name + 'Duration']}
+                options={element.options}
+            />
+        );
+    }
+
     getFieldFor(element, i) {
         let htmlField = null;
 
@@ -91,6 +133,8 @@ export default class UserStoryCreation extends Component {
             htmlField = this.getTextArea(element);
         } else if (element.type === 'select') {
             htmlField = this.getSelect(element);
+        } else if (element.type === 'dateRange') {
+            htmlField = this.getDateRange(element);
         }
 
         return (

@@ -1,5 +1,7 @@
 import fetch from 'isomorphic-fetch';
 
+import {getCookie, setCookie, removeCookie} from './Cookie';
+import {getLoggedUser} from '../actions/User';
 import {HOST} from '../config/server';
 
 let authorizationToken = undefined;
@@ -12,7 +14,7 @@ export default function fetchData(params) {
             'Content-Type': 'application/json'
         };
 
-        if (authorizationToken){
+        if (authorizationToken) {
             headers.Authorization = 'JWT ' + authorizationToken;
         }
 
@@ -22,8 +24,8 @@ export default function fetchData(params) {
             body: JSON.stringify(params.body)
         })
             .then((response) => {
-                if (response.status === 204){
-                    return {data : {}, success: -43};
+                if (response.status === 204) {
+                    return {data: {}, success: -43};
                 }
 
                 return response.json();
@@ -34,7 +36,7 @@ export default function fetchData(params) {
     };
 }
 
-export function getLoadingFunction(action){
+export function getLoadingFunction(action) {
     return () => {
         return {
             type: action,
@@ -43,7 +45,7 @@ export function getLoadingFunction(action){
     };
 }
 
-export function getLoadedFunction(action){
+export function getLoadedFunction(action) {
     return (res, err) => {
         let dispatchedAction = {
             type: action,
@@ -52,11 +54,11 @@ export function getLoadedFunction(action){
             data: res.data
         };
 
-        if (err){
+        if (err) {
             dispatchedAction.data = null;
         }
 
-        if (res.success < 1){
+        if (res.success < 1) {
             dispatchedAction.error = true;
             dispatchedAction.errorMessage = res.message;
         }
@@ -65,6 +67,20 @@ export function getLoadedFunction(action){
     };
 }
 
-export function setAuthorizationToken(token){
+export function setAuthorizationToken(token) {
     authorizationToken = token;
+    setCookie('PFDToken', token);
+}
+
+export function loadFromCookie() {
+    let token = getCookie('PFDToken');
+
+    if (token) {
+        setAuthorizationToken(token);
+    }
+}
+
+export function deleteToken() {
+    removeCookie('PFDToken');
+    authorizationToken = undefined;
 }
