@@ -30,6 +30,11 @@ import {
     deletedUserStory
 } from './UserStory';
 
+import {
+    createdSprint,
+    loadedSprints
+} from './Sprint';
+
 export default function configureStore(preloadedState) {
     return createStore(
         combineReducers({
@@ -46,6 +51,8 @@ export default function configureStore(preloadedState) {
             loadedUserStories,
             editedUserStory,
             deletedUserStory,
+            createdSprint,
+            loadedSprints,
             routing: routerReducer
         }),
         preloadedState,
