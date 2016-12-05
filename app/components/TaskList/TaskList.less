@@ -3,11 +3,25 @@
   width: ~ "calc(100% - 16px)";
   display: flex;
   justify-content: flex-start;
-  .task-container{
+  .task-container {
     width: auto;
     border-radius: 4px;
     margin: 4px;
     padding: 4px;
+    i {
+      font-size: 1em;
+      line-height: 1em;
+      margin-left: 4px;
+      -webkit-transition: all .25s;
+      -moz-transition: all .25s;
+      -ms-transition: all .25s;
+      -o-transition: all .25s;
+      transition: all .25s;
+      &:hover {
+        color: white;
+        cursor: pointer;
+      }
+    }
   }
   .done {
     background-color: @green;
@@ -17,5 +31,40 @@
   }
   .waiting {
     background-color: @grey;
+  }
+  .task-edit-container {
+    .task-container-edit-button {
+      position: absolute;
+      right: 4px;
+      top: 4px;
+      .edit-button {
+        padding-left: 4px;
+        font-size: 1em;
+        color: black;
+        -webkit-transition: all .25s;
+        -moz-transition: all .25s;
+        -ms-transition: all .25s;
+        -o-transition: all .25s;
+        transition: all .25s;
+        &:hover {
+          color: @primary-color;
+          cursor: pointer;
+        }
+      }
+    }
+    position: relative;
+    width: 100%;
+    .task-input-name {
+      font-size: 1.4em;
+      width: 90%;
+      margin-bottom: 4px;
+      &:focus {
+        border-bottom: solid @primary-color 2px;
+      }
+    }
+    .task-input-description {
+      width: ~ "calc(100% - 8px)";
+      margin-bottom: 4px;
+    }
   }
 }

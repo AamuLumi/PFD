@@ -37,7 +37,8 @@ import {
 } from './Sprint';
 
 import {
-    createdTask
+    createdTask,
+    editedTask
 } from './Task';
 
 export default function configureStore(preloadedState) {
@@ -60,6 +61,7 @@ export default function configureStore(preloadedState) {
             createdSprint,
             loadedSprints,
             createdTask,
+            editedTask,
             routing: routerReducer
         }),
         preloadedState,

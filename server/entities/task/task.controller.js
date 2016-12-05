@@ -39,6 +39,15 @@ module.exports = function (taskSchema) {
         });
     };
 
+    taskSchema.statics.delete = function(params, callback) {
+        mongoose.model('Task').find({_id: params._id}).remove(function(err, removed){
+            if (err)
+                callback(err);
+
+            callback(null, removed);
+        });
+    };
+
     /*
      * Verification methods
      */
@@ -56,6 +65,28 @@ module.exports = function (taskSchema) {
         } else {
             parametersOK = true;
         }
+
+        if (parametersOK) {
+            callback();
+        } else {
+            callback({
+                alreadySent: true
+            });
+        }
+    }
+
+    function checkParametersForDelete(req, res, callback) {
+        let parametersOK = false;
+
+        if (!req.body || !req.body._id) {
+            Response.missing(res, 'id', -11);
+        } else {
+            parametersOK = true;
+        }
+
+        /*
+         * TODO: Check user perms to delete US
+         */
 
         if (parametersOK) {
             callback();
@@ -96,6 +127,21 @@ module.exports = function (taskSchema) {
                 return Response.insertError(res, err);
 
             Response.success(res, 'Task modified !', task);
+        });
+    };
+
+    taskSchema.statics.exDelete = function (req, res) {
+        async.waterfall([
+            (next) => checkParametersForDelete(req, res, next),
+            (next) => mongoose.model('Task').delete(req.body, next)
+        ], (err, task) => {
+            if (err && err.alreadySent)
+                return;
+
+            if (err)
+                return Response.insertError(res, err);
+
+            Response.success(res, 'Task deleted !', task);
         });
     };
 };
