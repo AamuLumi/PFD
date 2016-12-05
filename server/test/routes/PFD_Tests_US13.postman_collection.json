@@ -1,0 +1,49 @@
+{
+	"id": "e9342dab-0bae-2616-aeff-226ba923917a",
+	"name": "PFD_Tests_US13",
+	"requests": [
+		{
+			"id": "5f4787d8-932d-4d3a-22da-ff60b57ea667",
+			"headers": "Content-Type: application/x-www-form-urlencoded\n",
+			"url": "http://localhost:8080/api/task",
+			"pathVariables": {},
+			"preRequestScript": null,
+			"method": "PUT",
+			"collectionId": "e9342dab-0bae-2616-aeff-226ba923917a",
+			"data": [
+				{
+					"key": "_id",
+					"value": "583b42b32530260a959b6ab5",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "name",
+					"value": "Bouger le bras",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "state",
+					"value": "1",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"name": "US13 : Créer la route afin de modifier une tâche",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1480531910150,
+			"version": 2,
+			"responses": [],
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		}
+	],
+	"order": [
+		"5f4787d8-932d-4d3a-22da-ff60b57ea667"
+	],
+	"timestamp": 1480531910150
+}

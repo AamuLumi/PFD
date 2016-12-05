@@ -4,6 +4,8 @@ import {connect} from 'react-redux';
 import {getUserStories, editUserStory, deleteUserStory} from '../../actions/UserStory';
 import {showFloatingMessage, MESSAGE_CLASSES} from '../../actions/LocalActions';
 import Input, {TYPES} from '../../atoms/Input';
+import TaskList from '../TaskList';
+import TaskCreation from '../TaskCreation';
 
 import './UserStoryList.less';
 
@@ -32,7 +34,9 @@ class UserStoryList extends Component {
             name: '',
             description: '',
             priority: 0,
-            effort: -1
+            effort: -1,
+            userStoryForTask: -1,
+            taskCreation: false
         };
 
         if (this.props.projectID) {
@@ -127,6 +131,17 @@ class UserStoryList extends Component {
         });
     }
 
+    showTaskCreation(userStory) {
+        this.setState({
+            userStoryForTask: userStory,
+            taskCreation: true
+        });
+    }
+
+    createTask(e) {
+
+    }
+
     acceptEdit(number) {
         if (!this.state.name || this.state.name.length === 0) {
             this.props.showFloatingMessage({
@@ -168,7 +183,7 @@ class UserStoryList extends Component {
                 </div>
                 <div className="user-story-title">
                     <Input
-                        className="user-story-title input-name"
+                        className="user-story-title user-story-input-name"
                         type={TYPES.TEXT}
                         value={this.state.name}
                         onChange={(e) => this.handleChange(e, 'name')}
@@ -180,7 +195,7 @@ class UserStoryList extends Component {
                     <div className="little-text" style={{width: '100%'}}>
                         <Input
                             type={TYPES.TEXTAREA}
-                            className="input-description"
+                            className="user-story-input-description"
                             rows={4}
                             name="description"
                             value={this.state.description}
@@ -201,7 +216,7 @@ class UserStoryList extends Component {
                                 {name: 'Normal (3)', value: '3'},
                                 {name: 'Hard (5)', value: '5'},
                                 {name: 'Very Hard (8)', value: '8'}
-                            ]} />
+                            ]}/>
                         <span> - Priority : </span>
                         <Input
                             type={TYPES.SELECT}
@@ -212,7 +227,7 @@ class UserStoryList extends Component {
                                 {name: 'Option', value: '1'},
                                 {name: 'Desired', value: '2'},
                                 {name: 'Required', value: '3'}
-                            ]} />
+                            ]}/>
                     </div>
                 </div>
             </div>
@@ -225,6 +240,8 @@ class UserStoryList extends Component {
         if (editButtonVisible) {
             containerEditButton = (
                 <div className="container-edit-button">
+                    <i className="edit-button fa fa-plus fa-2"
+                       onClick={() => this.showTaskCreation(e)}></i>
                     <i className="edit-button fa fa-close fa-2"
                        onClick={() => this.remove(i)}></i>
                     <i className="edit-button fa fa-cog fa-2"
@@ -243,6 +260,7 @@ class UserStoryList extends Component {
                     <div className="little-text">
                         {UserStoryList.getShortDescription(e.description)}
                     </div>
+                    <TaskList tasks={e.tasks}/>
                     <div>
                         US Number : {e.number} -
                         Effort : {UserStoryList.getEffortStringFor(e.effort)} -
@@ -274,12 +292,20 @@ class UserStoryList extends Component {
     }
 
     render() {
-        const {userStories} = this.state;
+        const {userStories, taskCreation} = this.state;
 
         return (
             <div id="c-user-story-list">
                 {userStories.sort((e1, e2) => e1.priority > e2.priority ? -1 : 0)
                     .map((e, i) => this.getViewForUserStory(e, i))}
+                {taskCreation && <TaskCreation
+                    userStoryID={this.state.userStoryForTask._id}
+                    dismiss={() => this.setState({
+                        userStoryForTask: null,
+                        taskCreation: false
+                    }, () => this.props.getUserStories(this.props.projectID))}
+                    />
+                }
             </div>
         );
     }

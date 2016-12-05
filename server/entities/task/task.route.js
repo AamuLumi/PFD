@@ -6,6 +6,8 @@ let passport = require('passport');
 
 let router = express.Router();
 
+router.post('/', Task.exCreate);
+router.put('/', Task.exEdit);
 router.delete('/', Task.exDelete);
 
 module.exports = router;

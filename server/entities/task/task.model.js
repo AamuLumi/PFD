@@ -6,12 +6,10 @@ let Schema = mongoose.Schema;
 let taskSchema = new Schema({
     name: {
         type: String,
-        required: true,
-        unique: true
+        required: true
     },
     description: {
-        type: String,
-        required: true
+        type: String
     },
     state: {
         /*

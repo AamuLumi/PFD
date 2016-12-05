@@ -16,7 +16,8 @@ import {
 
 import {
     createdUser,
-    loggedUser
+    loggedUser,
+    loadedUsers
 } from './User';
 
 import {
@@ -30,6 +31,16 @@ import {
     deletedUserStory
 } from './UserStory';
 
+import {
+    createdSprint,
+    loadedSprints
+} from './Sprint';
+
+import {
+    createdTask,
+    editedTask
+} from './Task';
+
 export default function configureStore(preloadedState) {
     return createStore(
         combineReducers({
@@ -40,12 +51,17 @@ export default function configureStore(preloadedState) {
             loginResult,
             createdUser,
             loggedUser,
+            loadedUsers,
             subscribeResult,
             floatingMessage,
             createdUserStory,
             loadedUserStories,
             editedUserStory,
             deletedUserStory,
+            createdSprint,
+            loadedSprints,
+            createdTask,
+            editedTask,
             routing: routerReducer
         }),
         preloadedState,
