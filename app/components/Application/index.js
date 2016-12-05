@@ -1,17 +1,27 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 
 import Toolbar from '../Toolbar';
 import FloatingMessage from '../FloatingMessage';
+import {loadFromCookie} from '../../tools/Fetch';
+import {getLoggedUser} from '../../actions/User';
 
 import './Application.less';
 
-export default class Application extends Component {
+class Application extends Component {
     static contextTypes = {
         router: React.PropTypes.object.isRequired
     };
 
+    static propTypes = {
+        getLoggedUser: React.PropTypes.func.isRequired
+    };
+
     constructor(props) {
         super(props);
+
+        loadFromCookie();
+        this.props.getLoggedUser();
     }
 
     render() {
@@ -28,3 +38,16 @@ export default class Application extends Component {
         );
     }
 }
+
+function mapStateToProps(state){
+    return {};
+}
+
+function mapDispatchToProps(dispatch){
+    return {
+        getLoggedUser: () => dispatch(getLoggedUser())
+    };
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Application);
