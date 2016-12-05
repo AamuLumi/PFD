@@ -1,0 +1,21 @@
+.c-task-list {
+  margin: 4px 0;
+  width: ~ "calc(100% - 16px)";
+  display: flex;
+  justify-content: flex-start;
+  .task-container{
+    width: auto;
+    border-radius: 4px;
+    margin: 4px;
+    padding: 4px;
+  }
+  .done {
+    background-color: @green;
+  }
+  .doing {
+    background-color: @light-green;
+  }
+  .waiting {
+    background-color: @grey;
+  }
+}

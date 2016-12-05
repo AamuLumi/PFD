@@ -20,7 +20,9 @@ module.exports = function (sprintSchema) {
     /* Controllers methods */
 
     sprintSchema.statics.getAll = function(callback){
-        mongoose.model('Sprint').find(callback);
+        mongoose.model('Sprint')
+            .find({})
+            .exec(callback);
     };
 
     /* Express methods verifications */

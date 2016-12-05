@@ -102,7 +102,7 @@ export default class Input extends Component {
                 value={value}
                 style={style}
             >
-                {options.map((e, i) =>
+                {options && options.map((e, i) =>
                     <option value={e.value} key={i} style={optionStyle}>{e.name}</option>
                 )}
             </select>
