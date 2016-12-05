@@ -183,7 +183,7 @@ class UserStoryList extends Component {
                 </div>
                 <div className="user-story-title">
                     <Input
-                        className="user-story-title input-name"
+                        className="user-story-title user-story-input-name"
                         type={TYPES.TEXT}
                         value={this.state.name}
                         onChange={(e) => this.handleChange(e, 'name')}
@@ -195,7 +195,7 @@ class UserStoryList extends Component {
                     <div className="little-text" style={{width: '100%'}}>
                         <Input
                             type={TYPES.TEXTAREA}
-                            className="input-description"
+                            className="user-story-input-description"
                             rows={4}
                             name="description"
                             value={this.state.description}
