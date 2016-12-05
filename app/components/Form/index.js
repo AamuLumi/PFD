@@ -32,8 +32,8 @@ export default class UserStoryCreation extends Component {
             input = props.inputs[i];
             if (input.type === 'number') {
                 this.state[input.name] = 0;
-            } else if (input.type === 'choices') {
-                this.state[input.name] = input.choices[0].value;
+            } else if (input.type === 'select') {
+                this.state[input.name] = input.options && input.options[0].value;
             } else if (input.type === 'dateRange') {
                 this.state[input.name] = '';
                 this.state[input.name + 'Duration'] = '0';
@@ -41,6 +41,31 @@ export default class UserStoryCreation extends Component {
                 this.state[input.name] = '';
             }
         }
+    }
+
+    componentWillReceiveProps(newProps){
+        let input = null;
+
+        for (let i in newProps.inputs) {
+            input = newProps.inputs[i];
+
+            if (this.state[input.name] !== undefined){
+                continue;
+            }
+
+            if (input.type === 'number') {
+                this.state[input.name] = 0;
+            } else if (input.type === 'select') {
+                this.state[input.name] = input.options && input.options[0].value;
+            } else if (input.type === 'dateRange') {
+                this.state[input.name] = '';
+                this.state[input.name + 'Duration'] = '0';
+            } else {
+                this.state[input.name] = '';
+            }
+        }
+
+        this.props = newProps;
     }
 
     handleChange(e, field) {
