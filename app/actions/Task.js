@@ -2,6 +2,7 @@ import Fetch, {getLoadingFunction, getLoadedFunction} from '../tools/Fetch';
 
 export const CREATE_TASK = 'CREATE_TASK';
 export const EDIT_TASK = 'EDIT_TASK';
+export const DELETE_TASK = 'DELETE_TASK';
 
 export function createTask(task) {
     return Fetch({
@@ -19,6 +20,16 @@ export function editTask(task) {
         loaded: getLoadedFunction(EDIT_TASK),
         url: 'api/task/',
         method: 'PUT',
+        body: task
+    });
+}
+
+export function deleteTask(task) {
+    return Fetch({
+        loading: getLoadingFunction(DELETE_TASK),
+        loaded: getLoadedFunction(DELETE_TASK),
+        url: 'api/task/',
+        method: 'DELETE',
         body: task
     });
 }
