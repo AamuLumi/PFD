@@ -9,5 +9,6 @@ let router = express.Router();
 router.post('/', Task.exCreate);
 router.put('/', Task.exEdit);
 router.delete('/', Task.exDelete);
+router.put('/assignTo', Task.exAssignTo);
 
 module.exports = router;

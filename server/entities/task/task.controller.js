@@ -48,6 +48,17 @@ module.exports = function (taskSchema) {
         });
     };
 
+    taskSchema.statics.assignTo = function(params, callback) {
+        mongoose.model('Task').findById(params._id, (err, task) => {
+            if (err)
+                return callback(err);
+
+            task.user = params.userID;
+
+            task.save(callback);
+        });
+    };
+
     /*
      * Verification methods
      */
@@ -82,6 +93,26 @@ module.exports = function (taskSchema) {
             Response.missing(res, '_id', -11);
         } else if (!req.body.userStoryId) {
             Response.missing(res, 'userStoryId');
+        } else {
+            parametersOK = true;
+        }
+
+        if (parametersOK) {
+            callback();
+        } else {
+            callback({
+                alreadySent: true
+            });
+        }
+    }
+
+    function checkParametersForAssignTo(req, res, callback) {
+        let parametersOK = false;
+
+        if (!req.body || !req.body._id) {
+            Response.missing(res, 'Task id (_id)', -11);
+        } else if (!req.body.userID) {
+            Response.missing(res, 'User id (userID)', -12);
         } else {
             parametersOK = true;
         }
@@ -146,6 +177,21 @@ module.exports = function (taskSchema) {
             }
 
             Response.success(res, 'Task deleted !');
+        });
+    };
+
+    taskSchema.statics.exAssignTo = function (req, res) {
+        async.waterfall([
+            (next) => checkParametersForAssignTo(req, res, next),
+            (next) => mongoose.model('Task').assignTo(req.body, next)
+        ], (err, task) => {
+            if (err && err.alreadySent)
+                return;
+
+            if (err)
+                return Response.insertError(res, err);
+
+            Response.success(res, 'User assigned !', task);
         });
     };
 };
