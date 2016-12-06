@@ -42,6 +42,10 @@ import {
     deletedTask
 } from './Task';
 
+import {
+    addedUserStoryToSprint
+} from './Sprint';
+
 export default function configureStore(preloadedState) {
     return createStore(
         combineReducers({
@@ -64,6 +68,7 @@ export default function configureStore(preloadedState) {
             createdTask,
             editedTask,
             deletedTask,
+            addedUserStoryToSprint,
             routing: routerReducer
         }),
         preloadedState,

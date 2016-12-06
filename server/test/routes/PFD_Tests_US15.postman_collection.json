@@ -1,0 +1,43 @@
+{
+	"id": "ae664d9c-1ba5-e232-b749-a792996c8f76",
+	"name": "PFD_Tests_US15",
+	"requests": [
+		{
+			"id": "d0eb9894-4c37-1bf6-80f7-3ef248acd5d8",
+			"headers": "Content-Type: application/x-www-form-urlencoded\n",
+			"url": "http://localhost:8080/api/task/setState",
+			"pathVariables": {},
+			"preRequestScript": null,
+			"method": "PUT",
+			"collectionId": "ae664d9c-1ba5-e232-b749-a792996c8f76",
+			"data": [
+				{
+					"key": "_id",
+					"value": "584035f8f1349312a3d80e90",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "state",
+					"value": "2",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"name": "US15 : Créer la route afin de modifier une tâche sur le Kanban",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1480603898910,
+			"version": 2,
+			"responses": [],
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		}
+	],
+	"order": [
+		"d0eb9894-4c37-1bf6-80f7-3ef248acd5d8"
+	],
+	"timestamp": 1480603898910
+}

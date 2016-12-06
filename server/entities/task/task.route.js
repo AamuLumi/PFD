@@ -10,5 +10,6 @@ router.post('/', Task.exCreate);
 router.put('/', Task.exEdit);
 router.delete('/', Task.exDelete);
 router.put('/assignTo', Task.exAssignTo);
+router.put('/setState', Task.exSetState);
 
 module.exports = router;
