@@ -3,6 +3,8 @@ import Fetch, {getLoadingFunction, getLoadedFunction} from '../tools/Fetch';
 export const CREATE_TASK = 'CREATE_TASK';
 export const EDIT_TASK = 'EDIT_TASK';
 export const DELETE_TASK = 'DELETE_TASK';
+export const GET_TASKS_FOR_USER = 'GET_TASKS_FOR_USER';
+export const SET_TASK_STATE = 'SET_TASK_STATE';
 
 export function createTask(task) {
     return Fetch({
@@ -31,5 +33,24 @@ export function deleteTask(task) {
         url: 'api/task/',
         method: 'DELETE',
         body: task
+    });
+}
+
+export function getTasksForUser(userId){
+    return Fetch({
+        loading: getLoadingFunction(GET_TASKS_FOR_USER),
+        loaded: getLoadedFunction(GET_TASKS_FOR_USER),
+        url: 'api/task/forUser/' + userId,
+        method: 'GET'
+    });
+}
+
+export function setTaskState(params){
+    return Fetch({
+        loading: getLoadingFunction(SET_TASK_STATE),
+        loaded: getLoadedFunction(SET_TASK_STATE),
+        url: 'api/task/setState',
+        method: 'PUT',
+        body: params
     });
 }

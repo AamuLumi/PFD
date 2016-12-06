@@ -142,7 +142,7 @@ module.exports = function (taskSchema) {
 
         if (!req.body || !req.body._id) {
             Response.missing(res, 'Task id (_id)', -11);
-        } else if (!req.body.state) {
+        } else if (req.body.state === undefined) {
             Response.missing(res, 'State', -12);
         } else {
             parametersOK = true;
@@ -238,6 +238,24 @@ module.exports = function (taskSchema) {
                 return Response.insertError(res, err);
 
             Response.success(res, 'User assigned !', task);
+        });
+    };
+
+    taskSchema.statics.exGetForUser = function(req, res){
+        async.waterfall([
+            (next) => mongoose.model('Sprint').getCurrentSprint(next),
+            (sprint, next) => mongoose.model('Sprint').findById(sprint._id)
+                .populate('tasks')
+                .exec(next),
+            (sprint, next) => mongoose.model('Task').find({
+                _id: {$in : sprint.tasks.map((e) => e._id)}
+            }, next)
+        ], (err, tasks) => {
+            if (err){
+                return Response.selectError(res, err);
+            }
+
+            Response.success(res, 'Tasks found', tasks);
         });
     };
 };

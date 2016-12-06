@@ -69,14 +69,17 @@ class Toolbar extends Component {
                         </Link>
                     </div>
                     <div className="first-links" style={{display: 'inline-block'}}>
+                        {logged && <Link to="/kanban">
+                            <span>Kanban</span>
+                        </Link>}
                         <Link to="/sprint">
-                            <span>Sprints</span>
+                            <span style={{paddingLeft: '16px'}}>Sprints</span>
                         </Link>
                         <Link to="/project">
-                            <span style={{paddingLeft: '8px'}}>Projets</span>
+                            <span style={{paddingLeft: '16px'}}>Projets</span>
                         </Link>
                         <Link to="/project/create">
-                            <span style={{paddingLeft: '8px'}}>+</span>
+                            <span style={{paddingLeft: '16px'}}>+</span>
                         </Link>
                     </div>
                     <div className="second-links" style={{display: 'inline-block'}}>
@@ -95,7 +98,7 @@ function mapStateToProps(state) {
     };
 }
 
-function mapDispatchToProps(dispatch){
+function mapDispatchToProps(dispatch) {
     return {
         logout: () =>
             dispatch(logout())
