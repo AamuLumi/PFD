@@ -16,6 +16,8 @@ import ProjectCreate from './views/ProjectCreate';
 import ProjectEdit from './views/ProjectEdit';
 import ProjectList from './views/ProjectList';
 import UserCreate from './views/UserCreate';
+import Sprint from './views/Sprint';
+import Kanban from './views/Kanban';
 
 const store = configureStore();
 const history = syncHistoryWithStore(browserHistory, store);
@@ -33,6 +35,8 @@ const routes = <Route path="/">
         <Route path="user">
             <Route path="create" component={UserCreate}/>
         </Route>
+        <Route path="sprint" component={Sprint}/>
+        <Route path="kanban" component={Kanban}/>
     </Route>
 </Route>;
 

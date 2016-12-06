@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="localhost:8080" />
+<title>US12_UI_createTask</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">US12_UI_createTask</td></tr>
+</thead><tbody>
+<tr>
+	<td>click</td>
+	<td>css=i.fa.fa-user-circle</td>
+	<td></td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>css=input[type=&quot;text&quot;]</td>
+	<td>abracadabra@poudlard.hp</td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>css=input[type=&quot;password&quot;]</td>
+	<td>Alohomora</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=button.login-button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='v-projectlist']/div[2]/a[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='c-user-story-list']/div[3]/div/div/i</td>
+	<td></td>
+</tr>
+<tr>
+	<td>store</td>
+	<td>javascript{Math.floor(Math.random()*300)}</td>
+	<td>v1</td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>name=name</td>
+	<td>Lever le poignet</td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>name=name</td>
+	<td>${v1}</td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>name=description</td>
+	<td>Il faut lever le poignet pour manier sa baguette magique.</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>css=select.input-select</td>
+	<td>index=2</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=button.confirm-button</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

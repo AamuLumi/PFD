@@ -1,0 +1,37 @@
+{
+	"id": "0569a5ae-6794-9a6c-0e78-d2a22d972f29",
+	"name": "PFD_Tests_US14",
+	"requests": [
+		{
+			"id": "c10c567c-5033-6f2e-279c-ef6bd03ab066",
+			"headers": "Content-Type: application/x-www-form-urlencoded\n",
+			"url": "http://localhost:8080/api/task",
+			"pathVariables": {},
+			"preRequestScript": null,
+			"method": "DELETE",
+			"collectionId": "0569a5ae-6794-9a6c-0e78-d2a22d972f29",
+			"data": [
+				{
+					"key": "id",
+					"value": "583b451fc8bd2d0f747cea83",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"name": "US14 : Créer la route afin de supprimer une tâche",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1480532256405,
+			"version": 2,
+			"responses": [],
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		}
+	],
+	"order": [
+		"c10c567c-5033-6f2e-279c-ef6bd03ab066"
+	],
+	"timestamp": 1480532256405
+}
