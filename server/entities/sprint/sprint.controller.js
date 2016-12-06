@@ -7,6 +7,9 @@ let async = require('async');
 module.exports = function (sprintSchema) {
 
     /* Tool methods */
+
+    /* Controllers methods */
+
     sprintSchema.statics.create = function(params, callback) {
         let Self = this;
 
@@ -46,12 +49,19 @@ module.exports = function (sprintSchema) {
         });
     };
 
-    /* Controllers methods */
-
     sprintSchema.statics.getAll = function(callback){
         mongoose.model('Sprint')
             .find({})
             .exec(callback);
+    };
+
+    sprintSchema.statics.getCurrentSprint = function (callback){
+        mongoose.model('Sprint').find({
+            beginning : {$lt : new Date()}
+        })
+            .sort({beginning : -1})
+            .limit(1)
+            .exec((err, sprints) => callback(err, sprints && sprints[0]));
     };
 
     /* Express methods verifications */
@@ -135,6 +145,16 @@ module.exports = function (sprintSchema) {
                 return Response.insertError(res, err);
 
             Response.success(res, 'User story added !', sprint);
+        });
+    };
+
+    sprintSchema.statics.exGetCurrentSprint = function (req, res) {
+        mongoose.model('Sprint').getCurrentSprint((err, sprint) => {
+            if (err){
+                return Response.selectError(res, err);
+            }
+
+            Response.success(res, 'Current sprint', sprint);
         });
     };
 };

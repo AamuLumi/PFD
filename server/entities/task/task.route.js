@@ -9,6 +9,7 @@ let router = express.Router();
 router.post('/', Task.exCreate);
 router.put('/', Task.exEdit);
 router.delete('/', Task.exDelete);
+router.get('/forUser/:userId', Task.exGetForUser);
 router.put('/assignTo', Task.exAssignTo);
 router.put('/setState', Task.exSetState);
 
