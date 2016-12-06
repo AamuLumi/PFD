@@ -1,0 +1,64 @@
+{
+	"id": "21899109-c743-02aa-a467-dc20545bfef2",
+	"name": "PFD_Tests_US12",
+	"requests": [
+		{
+			"id": "424dcd9b-fe01-479f-7737-9d0528e6072d",
+			"headers": "Content-Type: application/x-www-form-urlencoded\n",
+			"url": "http://localhost:8080/api/task/",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "name",
+					"value": "Tester toujours l'US tâches ",
+					"type": "text",
+					"enabled": true,
+					"warning": ""
+				},
+				{
+					"key": "description",
+					"value": "test",
+					"type": "text",
+					"enabled": true,
+					"warning": ""
+				},
+				{
+					"key": "state",
+					"value": "0",
+					"type": "text",
+					"enabled": true,
+					"warning": ""
+				},
+				{
+					"key": "userId",
+					"value": "581bb41ab3285130ab2c4962",
+					"type": "text",
+					"enabled": true,
+					"warning": ""
+				},
+				{
+					"key": "userStoryId",
+					"value": "58347ddf6786640c1b47049f",
+					"type": "text",
+					"enabled": true,
+					"warning": ""
+				}
+			],
+			"dataMode": "urlencoded",
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1480963508738,
+			"name": "US12 : Créer une tâche",
+			"description": "",
+			"collectionId": "21899109-c743-02aa-a467-dc20545bfef2",
+			"responses": []
+		}
+	],
+	"order": [
+		"424dcd9b-fe01-479f-7737-9d0528e6072d"
+	],
+	"timestamp": 1480279162173
+}

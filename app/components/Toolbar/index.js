@@ -11,7 +11,7 @@ class Toolbar extends Component {
     };
 
     static propTypes = {
-        loginResult: React.PropTypes.object.isRequired,
+        loggedUser: React.PropTypes.object.isRequired,
         logout: React.PropTypes.func.isRequired
     };
 
@@ -24,9 +24,10 @@ class Toolbar extends Component {
     }
 
     componentWillReceiveProps(newProps) {
-        let {loginResult} = newProps;
+        let {loggedUser} = newProps;
 
-        if (loginResult.loaded && loginResult.data && !loginResult.error) {
+        if (loggedUser.loaded && loggedUser.data &&
+            loggedUser.data.email && !loggedUser.error) {
             this.setState({
                 logged: true
             });
@@ -68,8 +69,11 @@ class Toolbar extends Component {
                         </Link>
                     </div>
                     <div className="first-links" style={{display: 'inline-block'}}>
+                        <Link to="/sprint">
+                            <span>Sprints</span>
+                        </Link>
                         <Link to="/project">
-                            <span>Projets</span>
+                            <span style={{paddingLeft: '8px'}}>Projets</span>
                         </Link>
                         <Link to="/project/create">
                             <span style={{paddingLeft: '8px'}}>+</span>
@@ -87,7 +91,7 @@ class Toolbar extends Component {
 
 function mapStateToProps(state) {
     return {
-        loginResult: state.loginResult
+        loggedUser: state.loggedUser
     };
 }
 

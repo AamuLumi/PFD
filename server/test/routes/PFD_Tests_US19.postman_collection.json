@@ -1,0 +1,43 @@
+{
+	"id": "9214bb6e-24f1-5169-355a-5dcc1c508512",
+	"name": "PFD_Tests_US19",
+	"requests": [
+		{
+			"id": "ab20bb41-a17d-20a6-7632-cabb416eab17",
+			"headers": "Content-Type: application/x-www-form-urlencoded\n",
+			"url": "http://localhost:8080/api/task/assignTo",
+			"pathVariables": {},
+			"preRequestScript": null,
+			"method": "PUT",
+			"collectionId": "9214bb6e-24f1-5169-355a-5dcc1c508512",
+			"data": [
+				{
+					"key": "_id",
+					"value": "583b42b32530260a959b6ab5",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "userID",
+					"value": "581bb41ab3285130ab2c4962",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"name": "US19 : Créer la route afin d'assigner un utilisateur à une tâche",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1480610489464,
+			"version": 2,
+			"responses": [],
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		}
+	],
+	"order": [
+		"ab20bb41-a17d-20a6-7632-cabb416eab17"
+	],
+	"timestamp": 1480610489464
+}
