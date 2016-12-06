@@ -83,6 +83,9 @@ class Toolbar extends Component {
                         </Link>
                     </div>
                     <div className="second-links" style={{display: 'inline-block'}}>
+                        {logged && <Link to="/user/create" style={{paddingRight: '16px'}}>
+                            <i className="fa fa-user-plus"></i>
+                        </Link>}
                         {connectIcon}
                     </div>
                 </div>
